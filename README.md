@@ -30,7 +30,7 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 
 ---
 
-## Posibles innovaciones:
+## Posibles innovaciones
 
 - **Columna "imagen" en la tabla "incidencia"**: Añadir una columna para permitir adjuntar imágenes junto con la descripción de la incidencia. Esto facilitaría la comprensión y resolución de las incidencias, ya que las imágenes pueden proporcionar un contexto visual útil para los técnicos y operarios.
 
