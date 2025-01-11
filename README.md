@@ -16,12 +16,23 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 
 ---
 
-## Funcionalidades
-- Reporte de incidencias por parte de los operarios.
-- Sistema de asignación manual y personalizada de técnicos para resolver incidencias.
-- Gestión del estado de las incidencias: abiertas, resueltas.
-- Creación y gestión de mantenimientos preventivos periódicos.
-- Panel de administración para gestionar usuarios, incidencias, máquinas, secciones y demás.
+## Funcionalidades principales
+
+- **Reporte de incidencias**: Los operarios deben poder reportar incidencias de forma sencilla a través de la aplicación.
+- **Sistema de asignación manual**: Permite a los técnicos elegir las incidencias que desean resolver.
+- **Gestión del estado de las incidencias**: Las incidencias deben poder gestionarse en estados como "abiertas" y "resueltas".
+- **Registro del histórico de incidencias**: Cada incidencia debe contar con un historial detallado, que incluya:
+    - Fecha y hora de reporte.
+    - Listado de técnicos que participaron en la resolución de la incidencia.
+    - Tiempos asociados a cada etapa en la que ha participado cada técnico.
+- **Creación y gestión de mantenimientos preventivos periódicos**: Posibilidad de programar y administrar mantenimientos preventivos de manera periódica.
+- **Panel de administración**: Herramienta centralizada para gestionar usuarios, incidencias, máquinas, secciones, entre otros.
+
+---
+
+## Posibles innovaciones:
+
+- **Columna "imagen" en la tabla "incidencia"**: Añadir una columna para permitir adjuntar imágenes junto con la descripción de la incidencia. Esto facilitaría la comprensión y resolución de las incidencias, ya que las imágenes pueden proporcionar un contexto visual útil para los técnicos y operarios.
 
 ---
 
