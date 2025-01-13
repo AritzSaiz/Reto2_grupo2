@@ -6,7 +6,7 @@
 
 <template>
 
-  <IniciarSesion />
+  <Incidencias />
 
   <!--
   <Incidencias />
