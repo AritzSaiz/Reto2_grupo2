@@ -13,39 +13,55 @@
 
   <body id="login">
 
-  <div class="container">
-    <div class="login-form">
+    <div class="container">
+        <div class="login-form">
 
-      <h1>Iniciar Sesión</h1>
-
-      <form>
-        <div class="form-group">
-          <label for="usuario">Usuario</label>
-          <input type="text" id="usuario" name="usuario">
+            <h1>Iniciar Sesión</h1>
+            
+            <form>
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                
+                <div class="button-container">
+                    <button @click="iniciarSesion" type="button">Acceder</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <input type="password" id="usuario" name="usuario">
-        </div>
-
-        <div class="button-container">
-          <button type="submit">Acceder</button>
-        </div>
-      </form>
     </div>
-  </div>
 
   </body>
 
 </template>
 
 <!-- Con "scoped" se especifica que solo se utilicen los estilos en esta ventana. -->
-<style scoped>
+<style>
 
 /*
 Los estilos estarán en el archivo "/src/assets/main.css".
 */
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        background-color: #E6D7E6; /* Ajusta el fondo */
+    }
 
     body {
         font-family: Arial, sans-serif;
