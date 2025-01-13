@@ -6,8 +6,4 @@
   <main>
     <IniciarSesion />
   </main>
-  <nav>
-    <RouterLink to="/">Home </RouterLink>
-    <RouterLink to="/operario">VentanaOperarios</RouterLink>
-  </nav>
 </template>

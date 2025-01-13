@@ -33,9 +33,9 @@
             <form class="crear" v-show="mostrarCrear">
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <input type="textarea" id="descripcion" name="descripcion">
+                  <textarea id="descripcion" name="descripcion"></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="categoria">Categoría</label>
                     <select name="categoria">
