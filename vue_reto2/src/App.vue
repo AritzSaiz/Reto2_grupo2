@@ -4,8 +4,9 @@
 </script>
 
 <template>
-  <IniciarSesion />
+  <RouterView />
 </template>
 
 <style scoped>
+
 </style>

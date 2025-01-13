@@ -1,9 +1,13 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+  import IniciarSesion from '../components/IniciarSesion.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <IniciarSesion />
   </main>
+  <nav>
+    <RouterLink to="/">Home </RouterLink>
+    <RouterLink to="/operario">VentanaOperarios</RouterLink>
+  </nav>
 </template>

@@ -1,5 +1,12 @@
 <script setup>
     import {isVNode, ref} from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+
+    function iniciarSesion(){
+        router.push('/operario');
+    }
 </script>
 
 <template>
@@ -20,7 +27,7 @@
                 </div>
                 
                 <div class="button-container">
-                    <button type="submit">Acceder</button>
+                    <button @click="iniciarSesion" type="button">Acceder</button>
                 </div>
             </form>
         </div>
@@ -52,7 +59,7 @@
     .container {
         min-height: 100vh;
         min-width: unset;
-        width: 100%;
+        width: 100vh;
         height: 100vh;
         display: flex;
         align-items: center;
