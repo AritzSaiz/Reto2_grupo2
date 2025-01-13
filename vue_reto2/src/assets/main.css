@@ -7,6 +7,10 @@
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+body {
+    background-color: #E6D7E6;
+}
+
 /* Estilos para la ventana del login. */
 
 #login {
@@ -16,7 +20,6 @@
     display: flex;
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
-    background-color: #E6D7E6; /* Ajusta el fondo */
 }
 
 .container {
@@ -61,7 +64,7 @@ label {
     color: #333;
 }
 
-input {
+input, #descripcion {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -102,7 +105,6 @@ form {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF;
 }
 
 .header {

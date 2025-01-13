@@ -5,14 +5,9 @@
 </script>
 
 <template>
-
-  <Incidencias />
-
-  <!--
-  <Incidencias />
-  -->
-
+  <RouterView />
 </template>
 
 <style scoped>
+
 </style>

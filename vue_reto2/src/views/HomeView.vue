@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+  import IniciarSesion from '../components/IniciarSesion.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <IniciarSesion />
   </main>
 </template>
