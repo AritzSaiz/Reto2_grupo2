@@ -90,7 +90,7 @@ button {
     transition: background-color 0.2s;
 }
 
-button:hover {
+button:hover, select:hover{
     background-color: #FFC300;
 }
 
@@ -248,4 +248,72 @@ form {
 .status-medium {
     background-color: #AAB0B6;
     color: #0A3D62;
+}
+
+.volver{
+    margin-bottom: 1.5em;
+}
+
+button.active {
+    background-color: #FF5733;
+    border-color: #AAB0B6;
+}
+
+.crear-form, .incidencia-form{
+    width: 90vh;
+}
+
+button, select {
+    padding: 8px 24px;
+    background-color: white;
+    border: 1px solid #AAB0B6;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-group {
+    display: flex;
+    gap: 1.5em;
+    margin-bottom: 4em;
+}
+
+select {
+    width: 15vh;
+    text-align: center;
+    text-align-last: center;
+    padding: 1px;
+}
+
+select option{
+    text-align: center;
+    background-color: white;
+}
+
+#descripcion{
+    height: 10vh;
+}
+
+.incidencia{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.3em;
+    border-radius: 0.5em;
+    margin-top: 1em;
+}
+
+.incidencia p{
+    display: flex;
+    align-self: center;
+}
+
+.titulo{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.crear .form-group label, .crear-form h1, .verIncidencia .form-group label, .incidencia-form h1, .cantIncidencias{
+    color: #AAB0B6;
 }
