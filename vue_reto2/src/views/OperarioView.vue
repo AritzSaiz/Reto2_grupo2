@@ -44,7 +44,7 @@
             <form class="crear" v-show="mostrarCrear">
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                  <textarea id="descripcion" name="descripcion"></textarea>
+                    <textarea id="descripcion" name="descripcion"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -77,7 +77,7 @@
             </form>
 
             <form class="ver" v-show="!mostrarCrear">
-                <p>Se han encontrado 32 incidencias</p>
+                <p class="cantIncidencias">Se han encontrado 32 incidencias</p>
 
                 <div class="listaIncidencias">
                     <div class="incidencia">
@@ -114,9 +114,8 @@
     }
 
     button.active {
-        background-color: #0E273C;
-        color: white;
-        border-color: #ccc;
+        background-color: #FF5733;
+        border-color: #AAB0B6;
     }
 
     .crear-form{
@@ -132,7 +131,7 @@
     button, select {
         padding: 8px 24px;
         background-color: white;
-        border: 1px solid #ccc;
+        border: 1px solid #AAB0B6;
         border-radius: 4px;
         font-size: 16px;
         cursor: pointer;
@@ -140,7 +139,7 @@
     }
 
     button:hover, select:hover {
-        background-color: #f5f5f5;
+        background-color: #FFC300;
     }
 
     .button-group {
@@ -158,6 +157,7 @@
 
     select option{
         text-align: center;
+        background-color: white;
     }
 
     #descripcion{
@@ -181,6 +181,10 @@
     .titulo{
         font-size: 3rem;
         font-weight: bold;
+    }
+
+    .crear .form-group label, .crear-form h1, .cantIncidencias{
+        color: #AAB0B6;
     }
 
 </style>

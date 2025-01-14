@@ -67,12 +67,11 @@
     }
 
     button.active {
-        background-color: #0E273C;
-        color: white;
-        border-color: #ccc;
+        background-color: #FF5733;
+        border-color: #AAB0B6;
     }
 
-    .crear-form, .incidencia-form{
+    .incidencia-form{
         width: 90vh;
     }
 
@@ -85,7 +84,7 @@
     button, select {
         padding: 8px 24px;
         background-color: white;
-        border: 1px solid #ccc;
+        border: 1px solid #AAB0B6;
         border-radius: 4px;
         font-size: 16px;
         cursor: pointer;
@@ -93,7 +92,7 @@
     }
 
     button:hover, select:hover {
-        background-color: #f5f5f5;
+        background-color: #FFC300;
     }
 
     .button-group {
@@ -134,6 +133,10 @@
     .titulo{
         font-size: 3rem;
         font-weight: bold;
+    }
+
+    .verIncidencia .form-group label, .incidencia-form h1, .cantIncidencias{
+        color: #AAB0B6;
     }
 
 </style>
