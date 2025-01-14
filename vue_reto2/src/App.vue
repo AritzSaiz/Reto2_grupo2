@@ -1,7 +1,6 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router'
-  import IniciarSesion from './components/IniciarSesion.vue'
-  import Incidencias from './components/Incidencias.vue'
+  import Header from './components/Header.vue';
 </script>
 
 <template>

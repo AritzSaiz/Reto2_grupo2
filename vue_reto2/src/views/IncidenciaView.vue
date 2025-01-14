@@ -2,6 +2,7 @@
     import IniciarSesion from '@/components/IniciarSesion.vue';
     import {isVNode, ref} from 'vue';
     import { useRouter } from 'vue-router';
+    import Header from '../components/Header.vue';
 
     const router = useRouter();
 
@@ -11,6 +12,7 @@
 </script>
 
 <template>
+    <Header />
     <div class="container">
         <div class="incidencia-form">
 

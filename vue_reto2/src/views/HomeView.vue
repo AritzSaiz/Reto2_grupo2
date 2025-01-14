@@ -1,5 +1,5 @@
 <script setup>
-  import IniciarSesion from '../components/IniciarSesion.vue'
+  import IniciarSesion from '../components/IniciarSesionLaravel.vue'
 </script>
 
 <template>

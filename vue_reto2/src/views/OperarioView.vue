@@ -2,6 +2,7 @@
     import IniciarSesion from '@/components/IniciarSesion.vue';
     import {isVNode, ref} from 'vue';
     import { useRouter } from 'vue-router';
+    import Header from '../components/Header.vue';
 
     const router = useRouter();
 
@@ -17,10 +18,13 @@
 </script>
 
 <template>
+    <Header />
     <div class="container">
+        
         <div class="crear-form">
 
-            <h1 class="titulo">Lista de incidencias</h1>
+            <h1 class="titulo" v-show="mostrarCrear">Creación de incidencias</h1>
+            <h1 class="titulo" v-show="!mostrarCrear">Lista de incidencias</h1>
 
             <div class="volver">
                 <button @click="volver" type="button">Volver</button>
