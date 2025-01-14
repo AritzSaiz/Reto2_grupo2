@@ -10,14 +10,20 @@
     function volver(){
         router.push('/');
     }
+
+    function detalle(){
+        router.push('/incidencia');
+    }
 </script>
 
 <template>
     <div class="container">
         <div class="crear-form">
 
+            <h1 class="titulo">Lista de incidencias</h1>
+
             <div class="volver">
-                <button @click="volver" type="button">Atrás</button>
+                <button @click="volver" type="button">Volver</button>
             </div>
 
             <div class="button-group">
@@ -76,17 +82,17 @@
                 <div class="listaIncidencias">
                     <div class="incidencia">
                         <p>Incidencia 1</p>
-                        <button>Detalle</button>
+                        <button @click="detalle" type="button">Detalle</button>
                         <button>Resolver</button>
                     </div>
                     <div class="incidencia">
                         <p>Incidencia 2</p>
-                        <button>Detalle</button>
+                        <button @click="detalle" type="button">Detalle</button>
                         <button>Resolver</button>
                     </div>
                     <div class="incidencia">
                         <p>Incidencia 3</p>
-                        <button>Detalle</button>
+                        <button @click="detalle" type="button">Detalle</button>
                         <button>Resolver</button>
                     </div>
                 </div>
@@ -170,6 +176,11 @@
     .incidencia p{
         display: flex;
         align-self: center;
+    }
+
+    .titulo{
+        font-size: 3rem;
+        font-weight: bold;
     }
 
 </style>
