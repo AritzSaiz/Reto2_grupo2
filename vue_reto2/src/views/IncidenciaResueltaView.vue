@@ -23,7 +23,7 @@
             </div>
             
             <form class="verIncidencia">
-                <div class="form-group">
+                <div class="form-group-resuelta">
                     <div class="descripcion">
                         <label for="descripcion">Descripción</label>
                         <textarea id="descripcion" name="descripcion" readonly></textarea>
@@ -44,6 +44,21 @@
                             <label for="máquina">Máquina</label>
                             <input id="máquina" name="máquina" readonly>
                         </div>
+
+                        <div class="fechaEntrada">
+                            <label for="fechaEntrada">Fecha de Entrada</label>
+                            <input id="fechaEntrada" name="fechaEntrada" readonly>
+                        </div>
+
+                        <div class="fechaSalida">
+                            <label for="fechaSalida">Fecha de Salida</label>
+                            <input id="fechaSalida" name="fechaSalida" readonly>
+                        </div>
+                    </div>
+
+                    <div class="tecnicos">
+                        <label for="tecnicos">Lista de técnicos que han participado en esta incidencia</label>
+                        <textarea id="tecnicos" name="tecnicos" readonly></textarea>
                     </div>
                 </div>
             </form>

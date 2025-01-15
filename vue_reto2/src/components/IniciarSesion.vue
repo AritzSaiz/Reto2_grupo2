@@ -26,31 +26,30 @@
 
 <template>
 
-  <body id="login">
+    <body id="login">
 
-    <div class="container">
-        <div class="login-form">
+        <div class="container">
+            <div class="login-form">
+                
+                <h1>Iniciar Sesión</h1>
+                
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" v-model="username" ref="usernameInput" autofocus>
+                    </div>
 
-            <h1>Iniciar Sesión</h1>
-            
-            <form>
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" id="username" v-model="username" ref="usernameInput" autofocus>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" v-model="password" ref="passwordInput">
-                </div>
-                
-                <div class="button-container">
-                    <button @click="iniciarSesion" type="button">Acceder</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" v-model="password" ref="passwordInput">
+                    </div>
+
+                    <div class="button-container">
+                        <button @click="iniciarSesion" type="button" class="btn">Acceder</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-  </body>
-
+    </body>
 </template>
