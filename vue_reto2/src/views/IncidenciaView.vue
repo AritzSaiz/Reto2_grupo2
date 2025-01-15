@@ -24,32 +24,27 @@
             
             <form class="verIncidencia">
                 <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion" readonly></textarea>
-                </div>
+                    <div class="descripcion">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" readonly></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="categoria">Categoría</label>
-                    <select name="categoria" disabled>
-                        <option value="1">Valor 1</option>
-                        <option value="2">Valor 2</option>
-                        <option value="3">Valor 3</option>
-                    </select>
-                </div>
+                    <div class="datos">
+                        <div class="categoria">
+                            <label for="categoria">Categoría</label>
+                            <input id="categoria" name="categoria" readonly>
+                        </div>
 
-                <div class="form-group">
-                    <label for="gravedad">Gravedad</label>
-                    <select name="gravedad" disabled>
-                        <option value="1">No funciona</option>
-                        <option value="2">Si funciona</option>
-                        <option value="3">Avería</option>
-                        <option value="4">Mantenimiento preventivo</option>
-                    </select>
-                </div>
+                        <div class="gravedad">
+                            <label for="gravedad">Gravedad</label>
+                            <input id="gravedad" name="gravedad" readonly>
+                        </div>
 
-                <div class="form-group">
-                    <label for="máquina">Máquina</label>
-                    <input id="máquina" name="máquina" readonly>
+                        <div class="maquina">
+                            <label for="máquina">Máquina</label>
+                            <input id="máquina" name="máquina" readonly>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

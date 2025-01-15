@@ -47,37 +47,41 @@
 
             <form class="crear" v-show="mostrarCrear">
                 <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion"></textarea>
-                </div>
+                    <div class="descripcion">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion"></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="categoria">Categoría</label>
-                    <select name="categoria">
-                        <option value="1">Valor 1</option>
-                        <option value="2">Valor 2</option>
-                        <option value="3">Valor 3</option>
-                    </select>
-                </div>
+                    <div class="datos">
+                        <div class="categoria">
+                            <label for="categoria">Categoría</label>
+                            <select name="categoria">
+                                <option value="1">Valor 1</option>
+                                <option value="2">Valor 2</option>
+                                <option value="3">Valor 3</option>
+                            </select>
+                        </div>
 
-                <div class="form-group">
-                    <label for="gravedad">Gravedad</label>
-                    <select name="gravedad">
-                        <option value="1">No funciona</option>
-                        <option value="2">Si funciona</option>
-                        <option value="3">Avería</option>
-                        <option value="4">Mantenimiento preventivo</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="máquina">Máquina</label>
-                    <select name="máquina">
-                        <option value="1">Máquina 1</option>
-                        <option value="2">Máquina 2</option>
-                        <option value="3">Máquina 3</option>
-                        <option value="4">Máquina 4</option>
-                    </select>
+                        <div class="gravedad">
+                            <label for="gravedad">Gravedad</label>
+                            <select name="gravedad">
+                                <option value="1">No funciona</option>
+                                <option value="2">Si funciona</option>
+                                <option value="3">Avería</option>
+                                <option value="4">Mantenimiento preventivo</option>
+                            </select>
+                        </div>
+
+                        <div class="maquina">
+                            <label for="máquina">Máquina</label>
+                            <select name="máquina">
+                                <option value="1">Máquina 1</option>
+                                <option value="2">Máquina 2</option>
+                                <option value="3">Máquina 3</option>
+                                <option value="4">Máquina 4</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
