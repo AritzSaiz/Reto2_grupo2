@@ -1,0 +1,139 @@
+#incidencias {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    color: #FFFFFF;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.user-icon {
+    background-color: #AAB0B6;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #EAEDED;
+}
+
+.frame-title {
+    color: #0A3D62;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-create {
+    background-color: #FFC300;
+    color: black;
+}
+
+.btn-view {
+    background-color: #AAB0B6;
+    color: #0A3D62;
+}
+
+.btn-filter {
+    background-color: #ffe48c;
+    color: #0A3D62;
+}
+
+.incidents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.incident {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #0A3D62;
+}
+
+.detail-btn {
+    background-color: #0A3D62;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.detail-btn:hover {
+    background-color: #FF5733;
+}
+
+.footer {
+    background-color: #0A3D62;
+    height: 20px;
+}
+
+.status-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.status-btn {
+    padding: 6px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.status-btn:hover {
+    opacity: 0.9;
+}
+
+.status-pending {
+    background-color: #FFC300;
+    color: #0A3D62;
+}
+
+.status-in-progress {
+    background-color: #FF5733;
+}
+
+.status-critical {
+    background-color: #C0392B;
+}
+
+.status-low {
+    background-color: #28A745;
+}
+
+.status-medium {
+    background-color: #AAB0B6;
+    color: #0A3D62;
+}

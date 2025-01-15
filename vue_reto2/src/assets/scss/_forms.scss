@@ -1,0 +1,29 @@
+input, #descripcion, select, #tecnicos {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+select {
+    width: 15vh;
+    text-align: center;
+    padding: 1px;
+}
+
+#descripcion, #tecnicos {
+    height: 10vh;
+}

@@ -1,0 +1,27 @@
+.btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-create {
+    background-color: #FFC300;
+    color: black;
+}
+
+.btn-view {
+    background-color: #AAB0B6;
+    color: #0A3D62;
+}
+
+.btn-filter {
+    background-color: #ffe48c;
+    color: #0A3D62;
+}
+
+button.active {
+    background-color: #FF5733;
+    border-color: #AAB0B6;
+}

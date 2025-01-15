@@ -1,0 +1,75 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    width: 6em;
+    margin-left: 2em;
+}
+
+.perfil {
+    width: 4em;
+    margin-right: 7em;
+}
+
+img.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.perfil {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menuDesplegable {
+    display: block;
+    position: absolute;
+    top: 95px;
+    right: 0;
+    background-color: #fff;
+    border: .1em solid gainsboro;
+    box-shadow: 0 7px 30px #667292;
+    border-radius: .8em;
+    z-index: 3;
+    min-width: 10em;
+    width: auto;
+    max-width: 100%;
+    margin-right: 4em;
+}
+
+.menuDesplegable ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuDesplegable ul li {
+    border-bottom: 1px solid darkgrey;
+    text-align: center;
+    margin: 0.6em;
+}
+
+.menuDesplegable ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+.menuDesplegable ul li:hover {
+    background-color: #f0f0f0;
+}
+
+.menuDesplegable ul li:last-child {
+    border-bottom: none;
+}

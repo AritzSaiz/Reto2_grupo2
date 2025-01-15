@@ -14,8 +14,6 @@ body {
 /* Estilos para la ventana del login. */
 
 #login {
-    margin: 0;
-    padding: 0;
     height: 100%;
     display: flex;
     justify-content: center; /* Centra horizontalmente */
