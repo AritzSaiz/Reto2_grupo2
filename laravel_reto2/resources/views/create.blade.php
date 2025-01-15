@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Formularios Dinámicos</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+@extends('layouts.plublic')
+@section('content')
     <style>
         .btn-create {
             background-color: #FFC300;
@@ -37,8 +26,7 @@
             height: calc(2.5rem + 2px);
         }
     </style>
-</head>
-<body>
+
 <div class="container">
     <div class="row justify-content-center">
         <h1 class="text-center my-4 frame-title">Crear</h1>
@@ -101,19 +89,21 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Tipo:</label>
                 <div class="col-sm-6">
-                    <input type="radio" name="tipo" value="Operario"> Operario
-                    <input type="radio" name="tipo" value="Tecnico" class="ms-5"> Técnico
+                    <input type="radio" name="tipo" value="Operario" id="tipoOperario"> Operario
+                    <input type="radio" name="tipo" value="Tecnico" id="tipoTecnico" class="ms-5"> Técnico
                 </div>
             </div>
 
-            <div class="mb-3 row">
+            <!-- Especialidad -->
+            <div class="mb-3 row" id="especialidadDiv" style="display: none;">
                 <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="especialidad" name="especialidad" required>
                 </div>
             </div>
 
-            <div class="mb-3 row">
+            <!-- Admin -->
+            <div class="mb-3 row" id="adminDiv" style="display: none;">
                 <label class="col-sm-3 col-form-label">Admin:</label>
                 <div class="col-sm-6">
                     <input type="radio" name="admin" value="si"> Sí
@@ -182,7 +172,7 @@
 
     <!-- Formulario de Sección -->
     <div class="form-section" id="form-seccion">
-        <form action="" method="post">
+        <form action="{{route('seccion.save')}}" method="post">
             <div class="mb-3 row">
                 <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
                 <div class="col-sm-6">
@@ -211,20 +201,47 @@
         </form>
     </div>
 </div>
-
 <script>
-    // Función para mostrar el formulario correspondiente
-    document.getElementById('combo').addEventListener('change', function () {
-        // Ocultar todos los formularios
-        const forms = document.querySelectorAll('.form-section');
-        forms.forEach(form => form.style.display = 'none');
+      // Función para mostrar el formulario correspondiente
+      document.getElementById('combo').addEventListener('change', function () {
+          // Ocultar todos los formularios
+          const forms = document.querySelectorAll('.form-section');
+          forms.forEach(form => form.style.display = 'none');
+          // Mostrar el formulario seleccionado
+          const selectedValue = this.value;
+          if (selectedValue) {
+              document.getElementById(`form-${selectedValue}`).style.display = 'block';
+          }
+      });
 
-        // Mostrar el formulario seleccionado
-        const selectedValue = this.value;
-        if (selectedValue) {
-            document.getElementById(`form-${selectedValue}`).style.display = 'block';
-        }
-    });
+
+      document.addEventListener('DOMContentLoaded', function() {
+          // Seleccionamos los elementos
+          const tipoOperario = document.getElementById('tipoOperario');
+          const tipoTecnico = document.getElementById('tipoTecnico');
+          const especialidadDiv = document.getElementById('especialidadDiv');
+          const adminDiv = document.getElementById('adminDiv');
+
+          // Función para manejar el cambio de tipo
+          function toggleEspecialidadAdmin() {
+              if (tipoTecnico.checked) {
+                  especialidadDiv.style.display = 'flex';
+                  adminDiv.style.display = 'flex';
+              } else {
+                  especialidadDiv.style.display = 'none';
+                  adminDiv.style.display = 'none';
+              }
+          }
+
+          // Añadimos los event listeners para los radio buttons
+          tipoOperario.addEventListener('change', toggleEspecialidadAdmin);
+          tipoTecnico.addEventListener('change', toggleEspecialidadAdmin);
+
+          // Llamamos a la función al cargar la página para manejar el estado inicial
+          toggleEspecialidadAdmin();
+      });
 </script>
-</body>
-</html>
+
+@endsection
+
+
