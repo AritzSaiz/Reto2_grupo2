@@ -55,6 +55,11 @@
                             <input id="fechaSalida" name="fechaSalida" readonly>
                         </div>
                     </div>
+
+                    <div class="tecnicos">
+                        <label for="tecnicos">Lista de técnicos que han participado en esta incidencia</label>
+                        <textarea id="tecnicos" name="tecnicos" readonly></textarea>
+                    </div>
                 </div>
             </form>
         </div>

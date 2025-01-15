@@ -294,7 +294,7 @@ select option{
     background-color: white;
 }
 
-#descripcion{
+#descripcion, #tecnicos{
     height: 10vh;
 }
 
@@ -420,9 +420,21 @@ img.logo{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 1.5em;
 }
 
 .categoria, .gravedad, .maquina, .fechaEntrada{
     margin-right: 2em;
+}
+
+.tecnicos, .datos{
+    margin-top: 1.5em;
+}
+
+#tecnicos {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
 }
