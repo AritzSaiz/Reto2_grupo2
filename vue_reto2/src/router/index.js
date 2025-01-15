@@ -25,6 +25,30 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/IncidenciaView.vue'),
     },
+    {
+      path: '/incidenciasResueltas',
+      name: 'Ventana incidencias resueltas',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/IncidenciaResuelta.vue'),
+    },
+    {
+      path: '/incidenciasParticipa',
+      name: 'Ventana incidencias participadas',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/IncidenciaParticipa.vue'),
+    },
+    {
+      path: '/incidenciaResueltaView',
+      name: 'Ventana detalles incidencias resueltas',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/IncidenciaResueltaView.vue'),
+    },
   ],
 })
 

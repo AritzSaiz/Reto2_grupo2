@@ -38,10 +38,10 @@
                         <a href="/operario">Ver perfil</a>
                     </li>
                     <li class="l_botonResueltas">
-                        <a href="#">Incidencias Resueltas</a>
+                        <a href="/incidenciasResueltas">Incidencias Resueltas</a>
                     </li>
                     <li class="l_botonSinResolver">
-                        <a href="#">Incidencias NO Resueltas</a>
+                        <a href="/incidenciasParticipa">Incidencias NO Resueltas</a>
                     </li>
                     <li>
                         <a href="/">Cerrar sesión</a>

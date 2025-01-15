@@ -46,10 +46,10 @@
                         <option value="4">Mantenimiento preventivo</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="otrodato">Otros Datos</label>
-                    <input type="text" id="otrodato" name="otrodato" readonly>
+                    <label for="máquina">Máquina</label>
+                    <input id="máquina" name="máquina" readonly>
                 </div>
             </form>
         </div>

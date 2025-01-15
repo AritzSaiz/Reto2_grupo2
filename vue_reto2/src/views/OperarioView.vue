@@ -71,8 +71,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="otrodato">Otro Dato</label>
-                    <input type="text" id="otrodato" name="otrodato">
+                    <label for="máquina">Máquina</label>
+                    <select name="máquina">
+                        <option value="1">Máquina 1</option>
+                        <option value="2">Máquina 2</option>
+                        <option value="3">Máquina 3</option>
+                        <option value="4">Máquina 4</option>
+                    </select>
                 </div>
 
                 <div>

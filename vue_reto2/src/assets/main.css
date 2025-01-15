@@ -317,7 +317,7 @@ select option{
     font-weight: bold;
 }
 
-.crear .form-group label, .crear-form h1, .verIncidencia .form-group label, .incidencia-form h1, .cantIncidencias{
+.crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias{
     color: #AAB0B6;
 }
 
@@ -397,4 +397,32 @@ img.logo{
 
 .menuDesplegable ul li:last-child{
     border-bottom: none;
+}
+
+/* Estilos para la lista de incidencias que el técnico solucionó y/o donde él participó */
+.incidenciaResuelta{
+    display: flex;
+    justify-content: space-between;
+    gap: 15em;
+    background-color: white;
+    padding: 0.3em;
+    border-radius: 0.5em;
+    margin-top: 1em;
+}
+
+.incidenciaResuelta p{
+    display: flex;
+    align-self: center;
+}
+
+/* Estilos para los detalles de cualquier incidencia resuelta */
+.datos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1.5em;
+}
+
+.categoria, .gravedad, .maquina, .fechaEntrada{
+    margin-right: 2em;
 }
