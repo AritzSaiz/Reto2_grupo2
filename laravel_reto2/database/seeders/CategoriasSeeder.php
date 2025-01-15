@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CategoriasSeeder extends Seeder
 {
@@ -12,6 +13,24 @@ class CategoriasSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+
+        $categorias = [
+            'Mecánica',
+            'Eléctrica',
+            'Neumática',
+            'Hidráulica',
+            'Informática',
+            'Instalaciones generales',
+            'Otros'
+        ];
+
+        foreach ($categorias as $categoria) {
+            DB::table('categorias')->insert([
+                'nombre' => $categoria,
+                'created_at' => Carbon::now(), // 'Carbon::now()' devuelve la fecha y hora actuales con buen formato.
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
     }
 }
