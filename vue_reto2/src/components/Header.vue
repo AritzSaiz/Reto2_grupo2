@@ -35,7 +35,7 @@
             <div id="menuPerfil" class="menuDesplegable" v-show="isMenuVisible" ref="menuPerfil">
                 <ul>
                     <li class="l_botonPerfil">
-                        <a href="#">Ver perfil</a>
+                        <a href="/operario">Ver perfil</a>
                     </li>
                     <li class="l_botonResueltas">
                         <a href="#">Incidencias Resueltas</a>
@@ -44,7 +44,7 @@
                         <a href="#">Incidencias NO Resueltas</a>
                     </li>
                     <li>
-                        <a href="#">Cerrar sesión</a>
+                        <a href="/">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
