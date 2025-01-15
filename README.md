@@ -49,7 +49,7 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 - 🗄️ **Base de datos**: MySQL
 - 🎨 **Estilo y diseño**: Bootstrap CSS
 - 🧪 **Pruebas**: LocalHost
-- 🚀 **Despliegue**: *(falta por hacer)*
+- 🚀 **Despliegue**: OpenNebula
 
 ---
 
