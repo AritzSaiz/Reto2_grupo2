@@ -36,14 +36,15 @@ body {
 .login-form {
     background-color: #EAEDED;
     border: 2px solid #AAB0B6;
-    border-radius: 24px;
-    padding: 32px;
+    border-radius: 8px;
+    padding: 20px;
     width: 100%;
-    max-width: 320px;
+    max-width: 400px;
     margin: 0 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -324,6 +325,7 @@ select option{
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #333;
     color: white;
     padding: 1rem;
@@ -335,11 +337,64 @@ select option{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo, .perfil{
-    width: 12%;
+.logo{
+    width: 6em;
+    margin-left: 2em;
+}
+
+.perfil{
+    width: 4em;
+    margin-right: 7em;
+}
+
+img.logo{
+    display: flex;
+    justify-content: center;
 }
 
 .perfil {
     display: flex;
     justify-content: flex-end;
+}
+
+.menuDesplegable{
+    display: block; /* El menú está oculto por defecto. */
+    position: absolute;
+    top: 95px; /* Debajo del botón de perfil. */
+    right: 0;
+    background-color: #fff;
+    border: .1em solid gainsboro;
+    box-shadow: 0 7px 30px #667292;
+    border-radius: .8em;
+    z-index: 3;
+    /* TODO : Poner que tanga un mínimo de 5em de width y que si se agranda la ventana el menú tambn. */
+    min-width: 10em; /* Ancho mínimo de 10em .*/
+    width: auto; /* Ajuste automático de ancho. */
+    max-width: 100%; /* Máximo ancho permitido al tamaño de la ventana. */
+    margin-right: 4em;
+}
+
+.menuDesplegable ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuDesplegable ul li{
+    border-bottom: 1px solid darkgrey;
+    text-align: center;
+    margin: 0.6em;
+}
+
+.menuDesplegable ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.menuDesplegable ul li:hover{
+    background-color: #f0f0f0;
+}
+
+.menuDesplegable ul li:last-child{
+    border-bottom: none;
 }
