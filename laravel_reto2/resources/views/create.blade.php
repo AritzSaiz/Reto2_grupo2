@@ -201,21 +201,25 @@
 
             <div class="mb-3 row">
                 <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
-                <!--
-                 <div class="col-sm-6">
+
+                <div class="col-sm-6">
                     <select id="campus" class="form-select" name="campus">
-                        <option value="campus1">Arriga</option>
-                        <option value="campus2">Jesús Obrero</option>
-                        <option value="campus3">Molinuevo</option>
-                        <option value="campus4">Nieves Cano</option>
-                        <option value="campus5">Mendizorroza</option>
+                        <option value="Arriaga">Arriaga</option>
+                        <option value="Jesús Obrero">Jesús Obrero</option>
+                        <option value="Molinuevo">Molinuevo</option>
+                        <option value="Nieves Cano">Nieves Cano</option>
+                        <option value="Mendizorroza">Mendizorroza</option>
                     </select>
                 </div>
-                -->
 
+
+                <!--
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="campus" name="campus" required>
                 </div>
+                -->
+
+
             </div>
 
             <div class="row">

@@ -8,33 +8,37 @@ use Illuminate\Http\Request;
 
 class SeccionController extends Controller{
 
-    public function save(Request $request){
+    public function save(Request $request)
+    {
+        // Validación
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
-            'campus' => 'required',
-
+            'campus' => 'required|in:Arriaga,Jesús Obrero,Molinuevo,Nieves Cano,Mendizorroza'
         ]);
 
+
         if ($validator->fails()) {
-            return back()->withError("Error validando de la seccion")->withInput();
+            return back()->withErrors($validator)->withInput();
         }
+
         $input = $request->all();
 
-        try{
-            $user= Auth::user();
-            $seccion = new Seccion($input);
+        try {
+            $user = Auth::user(); // Obtenemos el usuario autenticado (opcional si no se utiliza)
+            $seccion = new Seccion();
+
+            // Asignamos valores a la entidad Seccion
             $seccion->codigo = $input['codigo'];
             $seccion->campus = $input['campus'];
 
-
-            // Guardar la máquina en la base de datos
+            // Guardar en la base de datos
             $seccion->save();
-            return back()->with('success', 'Seccion guardada con éxito.');
 
-        }
-        catch (\Exception $exception) {
-            return back()->withError($exception->getMessage())->withInput();
+            return back()->with('success', 'Sección guardada con éxito.');
+        } catch (\Exception $exception) {
+            return back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
     }
+
 
 }
