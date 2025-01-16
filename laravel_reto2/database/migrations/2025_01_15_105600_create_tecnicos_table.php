@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('tecnicos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('operario_id')->nullable(false); // FK a la tabla operarios para obtener los demás datos del técnico.
             $table->boolean('disponible')->default(true)->nullable(false);
             $table->string('especialidad', 50)->nullable(false);
             $table->boolean('administrador')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('operario_id')->references('id')->on('operarios');
         });
     }
 
