@@ -15,18 +15,16 @@
 
 <template>
     <Header />
-    <div class="container">
-        
-        <div class="crear-form">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="crear-form p-4">
+            <h1 class="titulo text-center mb-4">Incidencias en las que ha participado</h1>
 
-            <h1 class="titulo">Incidencias en las que ha participado</h1>
-
-            <div class="volver">
-                <button @click="volver" type="button">Volver</button>
+            <div class="mb-4">
+                <button @click="volver" type="button" class="btn btn-warning">Volver</button>
             </div>
 
-            <div class="button-group">
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroFecha" v-show="!mostrarCrear">
+            <div class="mb-4">
+                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroFecha" v-show="!mostrarCrear" class="form-select d-inline-block w-auto">
                     <option value="1">Elegir orden</option>
                     <option value="2">Más antiguas</option>
                     <option value="3">Más recientes</option>
@@ -34,20 +32,20 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias">Se han encontrado 32 incidencias</p>
+                <p class="cantIncidencias mb-4">Se han encontrado 32 incidencias</p>
 
                 <div class="listaIncidencias">
-                    <div class="incidenciaResuelta">
-                        <p>Incidencia 1</p>
-                        <button @click="detalle" type="button">Detalle</button>
+                    <div class="incidenciaResuelta mb-3">
+                        <p class="mb-0">Incidencia 1</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
                     </div>
-                    <div class="incidenciaResuelta">
-                        <p>Incidencia 2</p>
-                        <button @click="detalle" type="button">Detalle</button>
+                    <div class="incidenciaResuelta mb-3">
+                        <p class="mb-0">Incidencia 2</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
                     </div>
-                    <div class="incidenciaResuelta">
-                        <p>Incidencia 3</p>
-                        <button @click="detalle" type="button">Detalle</button>
+                    <div class="incidenciaResuelta mb-3">
+                        <p class="mb-0">Incidencia 3</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
                     </div>
                 </div>
             </form>

@@ -19,43 +19,64 @@
 
 <template>
     <Header />
-    <div class="container">
-        
-        <div class="crear-form">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="crear-form p-4">
+            <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
+            <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
-            <h1 class="titulo" v-show="mostrarCrear">Creación de incidencias</h1>
-            <h1 class="titulo" v-show="!mostrarCrear">Lista de incidencias</h1>
-
-            <div class="volver">
-                <button @click="volver" type="button">Volver</button>
+            <div class="mb-4">
+                <button @click="volver" type="button" class="btn btn-warning">Volver</button>
             </div>
 
-            <div class="button-group">
-                <button :class="{ active: mostrarCrear }" @click="mostrarCrear = true">Crear</button>
-                <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false">Ver</button>
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroEstado" v-show="!mostrarCrear">
+            <div class="button-group mb-4 text-center">
+                <button :class="{ active: mostrarCrear }" @click="mostrarCrear = true" class="btn btn-warning me-2">Ver</button>
+                <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" class="btn btn-warning me-2">Crear</button>
+
+                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = true" name="filtroEstado" v-show="mostrarCrear" class="form-select d-inline-block w-auto">
                     <option value="1">Todas</option>
                     <option value="2">Pendientes</option>
                     <option value="3">Solucionadas</option>
                 </select>
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroFecha" v-show="!mostrarCrear">
+                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = true" name="filtroFecha" v-show="mostrarCrear" class="form-select d-inline-block w-auto">
                     <option value="1">Elegir orden</option>
                     <option value="2">Más antiguas</option>
                     <option value="3">Más recientes</option>
                 </select>
             </div>
 
-            <form class="crear" v-show="mostrarCrear">
-                <div class="form-group">
+            <form class="ver" v-show="mostrarCrear">
+                <p class="cantIncidencias mb-0">Se han encontrado 32 incidencias</p>
+
+                <div class="listaIncidencias">
+                    <div class="incidencia mb-3">
+                        <p class="mb-0">Incidencia 1</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
+                        <button class="btn btn-resolver">Resolver</button>
+                    </div>
+                    <div class="incidencia mb-3">
+                        <p class="mb-0">Incidencia 2</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
+                        <button class="btn btn-resolver">Resolver</button>
+                    </div>
+                    <div class="incidencia mb-3">
+                        <p class="mb-0">Incidencia 3</p>
+                        <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
+                        <button class="btn btn-resolver">Resolver</button>
+                    </div>
+                </div>
+            </form>
+
+            <form class="crear" v-show="!mostrarCrear">
+                <div class="form-group mb-3">
                     <div class="descripcion">
-                        <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion"></textarea>
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
                     </div>
 
-                    <div class="datos">
-                        <div class="categoria">
-                            <label for="categoria">Categoría</label>
-                            <select name="categoria">
+                    <div class="datos mt-3">
+                        <div class="categoria mb-3">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select name="categoria" class="form-select">
                                 <option value="0">-- Selecciona una categoría --</option>
                                 <option value="mecanica">Mecánica</option>
                                 <option value="electrica">Eléctrica</option>
@@ -67,9 +88,9 @@
                             </select>
                         </div>
 
-                        <div class="gravedad">
-                            <label for="gravedad">Gravedad</label>
-                            <select name="gravedad">
+                        <div class="gravedad mb-3">
+                            <label for="gravedad" class="form-label">Gravedad</label>
+                            <select name="gravedad" class="form-select">
                                 <option value="0">-- Selecciona la gravedad --</option>
                                 <option value="no">No funciona</option>
                                 <option value="si">Si funciona</option>
@@ -78,9 +99,9 @@
                             </select>
                         </div>
 
-                        <div class="maquina">
-                            <label for="máquina">Máquina</label>
-                            <select name="máquina">
+                        <div class="maquina mb-3">
+                            <label for="máquina" class="form-label">Máquina</label>
+                            <select name="máquina" class="form-select">
                                 <option value="0">-- Selecciona la máquina --</option>
                                 <option value="id1">Máquina 1</option>
                                 <option value="id2">Máquina 2</option>
@@ -92,29 +113,7 @@
                 </div>
 
                 <div>
-                    <button id="crearIncidencia">Crear incidencia</button>
-                </div>
-            </form>
-
-            <form class="ver" v-show="!mostrarCrear">
-                <p class="cantIncidencias">Se han encontrado 32 incidencias pendientes de resolver</p>
-
-                <div class="listaIncidencias">
-                    <div class="incidencia">
-                        <p>Incidencia 1</p>
-                        <button @click="detalle" type="button">Detalle</button>
-                        <button>Resolver</button>
-                    </div>
-                    <div class="incidencia">
-                        <p>Incidencia 2</p>
-                        <button @click="detalle" type="button">Detalle</button>
-                        <button>Resolver</button>
-                    </div>
-                    <div class="incidencia">
-                        <p>Incidencia 3</p>
-                        <button @click="detalle" type="button">Detalle</button>
-                        <button>Resolver</button>
-                    </div>
+                    <button id="crearIncidencia" class="btn btn-success">Crear incidencia</button>
                 </div>
             </form>
         </div>

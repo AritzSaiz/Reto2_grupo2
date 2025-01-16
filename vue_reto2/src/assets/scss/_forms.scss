@@ -27,12 +27,11 @@ label {
     display: block;
     margin-bottom: 8px;
     font-size: 16px;
-    color: $color-dark;
+    color: $color-white;
 }
 
 select {
     padding: 1px;
-    background-color: $color-white;
     border: 1px solid $color-tertiary;
     border-radius: 4px;
     font-size: 16px;
@@ -48,12 +47,10 @@ select {
     height: 10vh;
 }
 
-select:hover{
-    background-color: $color-accent;
-}
-
 .crear-form, .incidencia-form{
-    width: 90vh;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 select option{
@@ -67,5 +64,9 @@ select option{
 }
 
 .crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias{
-    color: $color-tertiary;
+    color: $color-primary;
+}
+
+select[name="filtroEstado"], select[name="filtroFecha"]{
+    background-color: $color-btn-filter;
 }

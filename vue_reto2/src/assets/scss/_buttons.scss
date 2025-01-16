@@ -2,11 +2,12 @@
 @use "variables" as *;
 
 .btn {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+    padding: 8px 24px !important;
+    background-color: $color-accent !important;
+}
+
+.btn:hover{
+    background-color: $color-btn-filter !important;
 }
 
 .btn-create {
@@ -24,9 +25,22 @@
     color: $color-primary;
 }
 
-button.active {
-    background-color: $color-warning;
-    border-color: $color-tertiary;
+.btn.active{
+    background-color: $color-tertiary !important;
+    border-color: $color-tertiary !important;
+}
+
+.btn.active:hover{
+    background-color: $color-accent;
+}
+
+.btn-detalle, .btn-resolver{
+    background-color: $color-primary !important;
+    color: $color-white !important;
+}
+
+.btn-detalle:hover, .btn-resolver:hover{
+    background-color: $color-warning !important;
 }
 
 .detail-btn {
@@ -42,32 +56,8 @@ button.active {
     background-color: $color-warning;
 }
 
-.volver{
-    margin-bottom: 1.5em;
-}
-
 .button-container {
     display: flex;
     justify-content: center;
     margin-top: 24px;
-}
-
-button {
-    padding: 8px 24px;
-    background-color: $color-white;
-    border: 1px solid $color-border;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-button:hover {
-    background-color: $color-accent;
-}
-
-.button-group {
-    display: flex;
-    gap: 1.5em;
-    margin-bottom: 4em;
 }

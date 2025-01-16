@@ -51,11 +51,12 @@
     justify-content: space-between;
     background-color: $color-white;
     padding: 0.3em;
-    border-radius: 0.5em;
+    border-radius: 4px;
     margin-top: 1em;
+    border-left: 4px solid $color-primary;
 }
 
-.incidencia p{
+.incidencia p, .incidenciaResuelta p{
     display: flex;
     align-self: center;
 }
@@ -68,11 +69,6 @@
     padding: 0.3em;
     border-radius: 0.5em;
     margin-top: 1em;
-}
-
-.incidenciaResuelta p{
-    display: flex;
-    align-self: center;
 }
 
 .datos{

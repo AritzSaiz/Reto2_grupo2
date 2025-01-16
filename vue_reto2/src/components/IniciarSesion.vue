@@ -26,30 +26,28 @@
 
 <template>
 
-    <body id="login">
+<body id="login">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="login-form p-4 border rounded shadow-sm" style="max-width: 400px;">
+            
+            <h1 class="text-center text-white mb-4">Iniciar Sesión</h1>
+            
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" id="username" v-model="username" ref="usernameInput" autofocus class="form-control" required>
+                </div>
 
-        <div class="container">
-            <div class="login-form">
-                
-                <h1>Iniciar Sesión</h1>
-                
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="username">Usuario</label>
-                        <input type="text" id="username" v-model="username" ref="usernameInput" autofocus>
-                    </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" id="password" v-model="password" ref="passwordInput" class="form-control" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" v-model="password" ref="passwordInput">
-                    </div>
-
-                    <div class="button-container">
-                        <button @click="iniciarSesion" type="button" class="btn">Acceder</button>
-                    </div>
-                </form>
-            </div>
+                <div class="d-grid">
+                    <button @click="iniciarSesion" type="button" class="btn fw-bold">Acceder</button>
+                </div>
+            </form>
         </div>
-
-    </body>
+    </div>
+</body>
 </template>
