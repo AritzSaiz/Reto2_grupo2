@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\SeccionController;
 
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,5 @@ Route::post('maquina/save', [MaquinaController::class, 'save'])->name('maquina.s
 
 Route::post('seccion/save', [SeccionController::class, 'save'])->name('seccion.save');
 
-Route::post('admin/save', [AdminController::class, 'save'])->name('admin.save');
+Route::post('operario/save', [OperarioController::class, 'save'])->name('operario.save');
 

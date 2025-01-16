@@ -38,6 +38,7 @@
                     <select id="combo" class="form-select" name="opcion">
                         <option value="">Seleccione una opción</option>
                         <option value="usuario">Usuario</option>
+                        <option value="tecnico">Tecnico</option>
                         <option value="maquina">Máquina</option>
                         <option value="seccion">Sección</option>
                         <option value="mantenimiento">Mantenimiento Preventivo</option>
@@ -61,9 +62,10 @@
 
     <!-- Usuarios -->
     <div class="form-section" id="form-usuario">
-        <form action="{{route('admin.save')}}" method="post">
+        <form action="{{ route('operario.save') }}" method="post">
             @csrf
 
+            <!-- Nombre -->
             <div class="mb-3 row">
                 <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
                 <div class="col-sm-6">
@@ -71,6 +73,7 @@
                 </div>
             </div>
 
+            <!-- Apellidos -->
             <div class="mb-3 row">
                 <label for="apellidos" class="col-sm-3 col-form-label">Apellidos:</label>
                 <div class="col-sm-6">
@@ -78,6 +81,7 @@
                 </div>
             </div>
 
+            <!-- Email -->
             <div class="mb-3 row">
                 <label for="email" class="col-sm-3 col-form-label">Email:</label>
                 <div class="col-sm-6">
@@ -85,6 +89,7 @@
                 </div>
             </div>
 
+            <!-- Usuario -->
             <div class="mb-3 row">
                 <label for="usuario" class="col-sm-3 col-form-label">Usuario:</label>
                 <div class="col-sm-6">
@@ -92,15 +97,18 @@
                 </div>
             </div>
 
+            <!-- Contraseña -->
             <div class="mb-3 row">
                 <label for="contrasena" class="col-sm-3 col-form-label">Contraseña:</label>
                 <div class="col-sm-6">
-                    <!--<input type="password" class="form-control" id="contrasena" name="contrasena" required>-->
-                    <input type="text" class="form-control" id="contrasena" name="contrasena" required>
-
+                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
                 </div>
             </div>
 
+
+
+            <!--
+            Tipo de usuario
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Tipo:</label>
                 <div class="col-sm-6">
@@ -109,23 +117,24 @@
                 </div>
             </div>
 
-            <!-- Tecnico -->
-            <div class="mb-3 row" id="especialidad" >
+            Especialidad (solo para técnicos)
+            <div class="mb-3 row" id="div-especialidad" style="display:none;">
                 <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                    <input type="text" class="form-control" id="especialidad" name="especialidad">
                 </div>
             </div>
 
-
-            <div class="mb-3 row" id="admin" >
+             Admin (solo para técnicos)
+            <div class="mb-3 row" id="div-admin" style="display:none;">
                 <label class="col-sm-3 col-form-label">Admin:</label>
                 <div class="col-sm-6">
                     <input type="radio" name="admin" value="si"> Sí
                     <input type="radio" name="admin" value="no" class="ms-5" checked> No
                 </div>
-            </div>
+            </div> -->
 
+            <!-- Botón enviar -->
             <div class="row">
                 <div class="col-12 text-center">
                     <button type="submit" class="btn btn-create">Enviar</button>
@@ -134,6 +143,35 @@
         </form>
     </div>
 
+    <!-- Tecnico -->
+    <div class="form-section" id="form-usuario">
+        <form action="" method="post">
+            @csrf
+
+
+            <div class="mb-3 row" id="div-especialidad" style="display:none;">
+                <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="especialidad" name="especialidad">
+                </div>
+            </div>
+
+            <div class="mb-3 row" id="div-admin" style="display:none;">
+                <label class="col-sm-3 col-form-label">Admin:</label>
+                <div class="col-sm-6">
+                    <input type="radio" name="admin" value="si"> Sí
+                    <input type="radio" name="admin" value="no" class="ms-5" checked> No
+                </div>
+            </div>
+
+            <!-- Botón enviar -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-create">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <!-- Formulario de Máquina -->
     <div class="form-section" id="form-maquina">
         <form action="{{route('maquina.save')}}" method="post">
