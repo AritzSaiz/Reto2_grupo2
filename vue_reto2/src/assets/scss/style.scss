@@ -1,7 +1,8 @@
-@import 'base';
-@import 'variables';
-@import 'login';
-@import 'incidencias';
-@import 'header';
-@import 'buttons';
-@import 'forms';
+@use '_base.scss';
+@use '_variables.scss';
+@use '_login.scss';
+@use '_incidencias.scss';
+@use '_header.scss';
+@use '_buttons.scss';
+@use '_forms.scss';
+@use '_status.scss';

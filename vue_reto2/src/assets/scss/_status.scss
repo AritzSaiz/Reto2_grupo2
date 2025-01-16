@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "variables" as *;
+
+.status-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.status-btn {
+    padding: 6px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: $color-white;
+    transition: opacity 0.2s;
+}
+
+.status-btn:hover {
+    opacity: 0.9;
+}
+
+.status-pending {
+    background-color: $color-accent;
+    color: $color-primary;
+}
+
+.status-in-progress {
+    background-color: $color-warning;
+}
+
+.status-critical {
+    background-color: $color-danger;
+}
+
+.status-low {
+    background-color: $color-success;
+}
+
+.status-medium {
+    background-color: $color-tertiary;
+    color: $color-primary;
+}

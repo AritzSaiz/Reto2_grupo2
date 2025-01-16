@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "variables" as *;
+
 .btn {
     padding: 8px 20px;
     border: none;
@@ -7,21 +10,64 @@
 }
 
 .btn-create {
-    background-color: #FFC300;
+    background-color: $color-accent;
     color: black;
 }
 
 .btn-view {
-    background-color: #AAB0B6;
-    color: #0A3D62;
+    background-color: $color-tertiary;
+    color: $color-primary;
 }
 
 .btn-filter {
-    background-color: #ffe48c;
-    color: #0A3D62;
+    background-color: $color-btn-filter;
+    color: $color-primary;
 }
 
 button.active {
-    background-color: #FF5733;
-    border-color: #AAB0B6;
+    background-color: $color-warning;
+    border-color: $color-tertiary;
+}
+
+.detail-btn {
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.detail-btn:hover {
+    background-color: $color-warning;
+}
+
+.volver{
+    margin-bottom: 1.5em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+button {
+    padding: 8px 24px;
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: $color-accent;
+}
+
+.button-group {
+    display: flex;
+    gap: 1.5em;
+    margin-bottom: 4em;
 }

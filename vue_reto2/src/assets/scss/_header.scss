@@ -1,9 +1,12 @@
+@use "sass:map";
+@use "variables" as *;
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
-    color: white;
+    background-color: $color-dark;
+    color: $color-white;
     padding: 1rem;
     position: fixed;
     top: 0;
@@ -38,9 +41,9 @@ img.logo {
     position: absolute;
     top: 95px;
     right: 0;
-    background-color: #fff;
-    border: .1em solid gainsboro;
-    box-shadow: 0 7px 30px #667292;
+    background-color: $color-white;
+    border: .1em solid $color-gainsboro;
+    box-shadow: 0 7px 30px $color-shadow;
     border-radius: .8em;
     z-index: 3;
     min-width: 10em;
@@ -56,18 +59,18 @@ img.logo {
 }
 
 .menuDesplegable ul li {
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px solid $color-darkgrey;
     text-align: center;
     margin: 0.6em;
 }
 
 .menuDesplegable ul li a {
     text-decoration: none;
-    color: black;
+    color: $color-black;
 }
 
 .menuDesplegable ul li:hover {
-    background-color: #f0f0f0;
+    background-color: $color-li-hover;
 }
 
 .menuDesplegable ul li:last-child {
