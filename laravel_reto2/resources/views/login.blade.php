@@ -19,13 +19,13 @@
         }
 
         #login {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
-        }
+             margin: 0;
+             padding: 0;
+             height: 100%;
+             display: flex;
+             justify-content: center; /* Centra horizontalmente */
+             align-items: center; /* Centra verticalmente */
+         }
 
         .container {
             min-height: 100vh;
@@ -72,7 +72,7 @@
             margin-top: 24px;
         }
 
-        button{
+        button {
             padding: 8px 24px;
             background-color: white;
             border: 1px solid #ccc;
@@ -101,32 +101,22 @@
             <h1>Iniciar Sesión</h1>
         </div>
 
-        <form action="" method="post">
+        <form action="{{route('list.index')}}">
             <div class="mb-3 row">
                 <label for="username" class="form-label">Usuario</label>
-            </div>
-
-            <div class="mb-3 row">
-                <div class="col-12">
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
 
             <div class="mb-3 row">
                 <div class="col-12">
                     <label for="password" class="form-label">Contraseña</label>
-                </div>
-            </div>
-
-            <div class="mb-4 row">
-                <div class="col-12">
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
             </div>
 
             <div class="row button-container text-center">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Acceder</button>
+                    <button type="submit" class="btn  w-100">Acceder</button>
                 </div>
             </div>
         </form>
