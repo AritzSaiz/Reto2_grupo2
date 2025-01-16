@@ -34,7 +34,7 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias">Se han encontrado 32 incidencias</p>
+                <p class="cantIncidencias">Se han encontrado 32 incidencias resueltas</p>
 
                 <div class="listaIncidencias">
                     <div class="incidenciaResuelta">
