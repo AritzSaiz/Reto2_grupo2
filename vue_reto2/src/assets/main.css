@@ -1,438 +1,424 @@
-/* Estilos generales. */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 body {
-    background-color: #0A3D62;
+  background-color: #0A3D62;
 }
 
-/* Estilos para la ventana del login. */
-
 #login {
-    height: 100%;
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-    min-height: 100vh;
-    min-width: unset;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  min-height: 100vh;
+  min-width: unset;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-form {
-    background-color: #EAEDED;
-    border: 2px solid #AAB0B6;
-    border-radius: 8px;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #EAEDED;
+  border: 2px solid #AAB0B6;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 32px;
-    font-size: 24px;
-    font-weight: normal;
-    color: #333;
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: normal;
+  color: #333333;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-    color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333333;
 }
 
 input, #descripcion {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    font-size: 14px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-}
-
-button {
-    padding: 8px 24px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-button:hover, select:hover{
-    background-color: #FFC300;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  font-size: 14px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-
-/* Estilos para la ventana del listado de incidencias. */
 
 #incidencias {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-/*
-.header {
-    background-color: #0A3D62;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-*/
 
 .logo {
-    color: #FFFFFF;
-    font-size: 1.5em;
-    font-weight: bold;
+  color: #FFFFFF;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .user-icon {
-    background-color: #AAB0B6;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #AAB0B6;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #EAEDED;
+  flex: 1;
+  padding: 20px;
+  background-color: #EAEDED;
 }
 
 .frame-title {
-    color: #0A3D62;
-    margin-bottom: 20px;
-    font-size: 1.2em;
+  color: #0A3D62;
+  margin-bottom: 20px;
+  font-size: 1.2em;
 }
 
 .actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.btn {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-create {
-    background-color: #FFC300;
-    color: black;
-}
-
-.btn-view {
-    background-color: #AAB0B6;
-    color: #0A3D62;
-}
-
-.btn-filter {
-    background-color: #ffe48c;
-    color: #0A3D62;
-}
-
-.incidents-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.incident {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #FFFFFF;
-    padding: 15px;
-    border-radius: 4px;
-    border-left: 4px solid #0A3D62;
-}
-
-.detail-btn {
-    background-color: #0A3D62;
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.detail-btn:hover {
-    background-color: #FF5733;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .footer {
-    background-color: #0A3D62;
-    height: 20px;
+  background-color: #0A3D62;
+  height: 20px;
 }
 
-.status-filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+.incidencia {
+  display: flex;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  margin-top: 1em;
 }
 
-.status-btn {
-    padding: 6px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    color: white;
-    transition: opacity 0.2s;
+.incidencia p {
+  display: flex;
+  align-self: center;
 }
 
-.status-btn:hover {
-    opacity: 0.9;
+.incidenciaResuelta {
+  display: flex;
+  justify-content: space-between;
+  gap: 15em;
+  background-color: #FFFFFF;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  margin-top: 1em;
 }
 
-.status-pending {
-    background-color: #FFC300;
-    color: #0A3D62;
+.incidenciaResuelta p {
+  display: flex;
+  align-self: center;
 }
 
-.status-in-progress {
-    background-color: #FF5733;
+.datos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.status-critical {
-    background-color: #C0392B;
+.categoria, .gravedad, .maquina, .fechaEntrada {
+  margin-right: 2em;
 }
 
-.status-low {
-    background-color: #28A745;
+.tecnicos, .datos {
+  margin-top: 1.5em;
 }
 
-.status-medium {
-    background-color: #AAB0B6;
-    color: #0A3D62;
-}
-
-.volver{
-    margin-bottom: 1.5em;
-}
-
-button.active {
-    background-color: #FF5733;
-    border-color: #AAB0B6;
-}
-
-.crear-form, .incidencia-form{
-    width: 90vh;
-}
-
-button, select {
-    padding: 8px 24px;
-    background-color: white;
-    border: 1px solid #AAB0B6;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.button-group {
-    display: flex;
-    gap: 1.5em;
-    margin-bottom: 4em;
-}
-
-select {
-    width: 15vh;
-    text-align: center;
-    text-align-last: center;
-    padding: 1px;
-}
-
-select option{
-    text-align: center;
-    background-color: white;
-}
-
-#descripcion, #tecnicos{
-    height: 10vh;
-}
-
-.incidencia{
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 0.3em;
-    border-radius: 0.5em;
-    margin-top: 1em;
-}
-
-.incidencia p{
-    display: flex;
-    align-self: center;
-}
-
-.titulo{
-    font-size: 3rem;
-    font-weight: bold;
-}
-
-.crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias{
-    color: #AAB0B6;
-}
-
-/* Estilos para el header */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333;
+  color: #FFFFFF;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo{
-    width: 6em;
-    margin-left: 2em;
-}
-
-.perfil{
-    width: 4em;
-    margin-right: 7em;
-}
-
-img.logo{
-    display: flex;
-    justify-content: center;
+.logo {
+  width: 6em;
+  margin-left: 2em;
 }
 
 .perfil {
-    display: flex;
-    justify-content: flex-end;
+  width: 4em;
+  margin-right: 7em;
 }
 
-.menuDesplegable{
-    display: block; /* El menú está oculto por defecto. */
-    position: absolute;
-    top: 95px; /* Debajo del botón de perfil. */
-    right: 0;
-    background-color: #fff;
-    border: .1em solid gainsboro;
-    box-shadow: 0 7px 30px #667292;
-    border-radius: .8em;
-    z-index: 3;
-    /* TODO : Poner que tanga un mínimo de 5em de width y que si se agranda la ventana el menú tambn. */
-    min-width: 10em; /* Ancho mínimo de 10em .*/
-    width: auto; /* Ajuste automático de ancho. */
-    max-width: 100%; /* Máximo ancho permitido al tamaño de la ventana. */
-    margin-right: 4em;
+img.logo {
+  display: flex;
+  justify-content: center;
 }
 
-.menuDesplegable ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.perfil {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.menuDesplegable ul li{
-    border-bottom: 1px solid darkgrey;
-    text-align: center;
-    margin: 0.6em;
+.menuDesplegable {
+  display: block;
+  position: absolute;
+  top: 95px;
+  right: 0;
+  background-color: #FFFFFF;
+  border: 0.1em solid gainsboro;
+  box-shadow: 0 7px 30px #667292;
+  border-radius: 0.8em;
+  z-index: 3;
+  min-width: 10em;
+  width: auto;
+  max-width: 100%;
+  margin-right: 4em;
 }
 
-.menuDesplegable ul li a{
-    text-decoration: none;
-    color: black;
+.menuDesplegable ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-.menuDesplegable ul li:hover{
-    background-color: #f0f0f0;
+.menuDesplegable ul li {
+  border-bottom: 1px solid darkgrey;
+  text-align: center;
+  margin: 0.6em;
 }
 
-.menuDesplegable ul li:last-child{
-    border-bottom: none;
+.menuDesplegable ul li a {
+  text-decoration: none;
+  color: #000000;
 }
 
-/* Estilos para la lista de incidencias que el técnico solucionó y/o donde él participó */
-.incidenciaResuelta{
-    display: flex;
-    justify-content: space-between;
-    gap: 15em;
-    background-color: white;
-    padding: 0.3em;
-    border-radius: 0.5em;
-    margin-top: 1em;
+.menuDesplegable ul li:hover {
+  background-color: #f0f0f0;
 }
 
-.incidenciaResuelta p{
-    display: flex;
-    align-self: center;
+.menuDesplegable ul li:last-child {
+  border-bottom: none;
 }
 
-/* Estilos para los detalles de cualquier incidencia resuelta */
-.datos{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-.categoria, .gravedad, .maquina, .fechaEntrada{
-    margin-right: 2em;
+.btn-create {
+  background-color: #FFC300;
+  color: black;
 }
 
-.tecnicos, .datos{
-    margin-top: 1.5em;
+.btn-view {
+  background-color: #AAB0B6;
+  color: #0A3D62;
+}
+
+.btn-filter {
+  background-color: #ffe48c;
+  color: #0A3D62;
+}
+
+button.active {
+  background-color: #FF5733;
+  border-color: #AAB0B6;
+}
+
+.detail-btn {
+  background-color: #0A3D62;
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.detail-btn:hover {
+  background-color: #FF5733;
+}
+
+.volver {
+  margin-bottom: 1.5em;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+button {
+  padding: 8px 24px;
+  background-color: #FFFFFF;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #FFC300;
+}
+
+.button-group {
+  display: flex;
+  gap: 1.5em;
+  margin-bottom: 4em;
+}
+
+input, #descripcion {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  font-size: 14px;
 }
 
 #tecnicos {
-    width: 30%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    font-size: 14px;
+  width: 30%;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  font-size: 14px;
 }
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333333;
+}
+
+select {
+  padding: 1px;
+  background-color: #FFFFFF;
+  border: 1px solid #AAB0B6;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: auto;
+  min-width: 200px;
+  text-align: center;
+  text-align-last: center;
+}
+
+#descripcion, #tecnicos {
+  height: 10vh;
+}
+
+select:hover {
+  background-color: #FFC300;
+}
+
+.crear-form, .incidencia-form {
+  width: 90vh;
+}
+
+select option {
+  text-align: center;
+  background-color: #FFFFFF;
+}
+
+.titulo {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias {
+  color: #AAB0B6;
+}
+
+.status-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #FFFFFF;
+  transition: opacity 0.2s;
+}
+
+.status-btn:hover {
+  opacity: 0.9;
+}
+
+.status-pending {
+  background-color: #FFC300;
+  color: #0A3D62;
+}
+
+.status-in-progress {
+  background-color: #FF5733;
+}
+
+.status-critical {
+  background-color: #C0392B;
+}
+
+.status-low {
+  background-color: #28A745;
+}
+
+.status-medium {
+  background-color: #AAB0B6;
+  color: #0A3D62;
+}
+
+/*# sourceMappingURL=main.css.map */

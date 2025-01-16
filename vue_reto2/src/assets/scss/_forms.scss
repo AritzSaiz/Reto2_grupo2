@@ -1,9 +1,21 @@
-input, #descripcion, select, #tecnicos {
+@use "sass:map";
+@use "variables" as *;
+
+input, #descripcion{
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid $color-border;
     border-radius: 4px;
-    background-color: white;
+    background-color: $color-white;
+    font-size: 14px;
+}
+
+#tecnicos {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    background-color: $color-white;
     font-size: 14px;
 }
 
@@ -15,15 +27,45 @@ label {
     display: block;
     margin-bottom: 8px;
     font-size: 16px;
-    color: #333;
+    color: $color-dark;
 }
 
 select {
-    width: 15vh;
-    text-align: center;
     padding: 1px;
+    background-color: $color-white;
+    border: 1px solid $color-tertiary;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: auto;
+    min-width: 200px;
+    text-align: center;
+    text-align-last: center;
 }
 
 #descripcion, #tecnicos {
     height: 10vh;
+}
+
+select:hover{
+    background-color: $color-accent;
+}
+
+.crear-form, .incidencia-form{
+    width: 90vh;
+}
+
+select option{
+    text-align: center;
+    background-color: $color-white;
+}
+
+.titulo{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias{
+    color: $color-tertiary;
 }
