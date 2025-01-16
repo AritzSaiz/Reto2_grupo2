@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
 
         // Llamar a los seeders específicos.
         $this->call([
-            CategoriasSeeder::class,
-            GravedadesSeeder::class,
             SeccionesSeeder::class,
             OperariosSeeder::class,
             TecnicosSeeder::class,
