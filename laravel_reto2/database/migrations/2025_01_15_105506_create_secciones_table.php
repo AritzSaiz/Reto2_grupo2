@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('secciones', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Autoincremental y PK.
             $table->string('codigo', 10)->nullable(false);
             $table->string('campus', 20)->nullable(false);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamps(); // Crea los campos 'created_at' y 'updated_at'.
+            $table->softDeletes(); // Crea el campo 'deleted_at'.
         });
     }
 
