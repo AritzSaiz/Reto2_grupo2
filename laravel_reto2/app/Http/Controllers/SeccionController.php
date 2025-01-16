@@ -1,7 +1,6 @@
 <?php
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Maquina;
 use App\Models\Seccion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +11,7 @@ class SeccionController extends Controller{
     public function save(Request $request){
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
-            'nombre' => 'required',
+            'campus' => 'required',
 
         ]);
 
@@ -23,13 +22,13 @@ class SeccionController extends Controller{
 
         try{
             $user= Auth::user();
-            $seccion = new Maquina($input);
+            $seccion = new Seccion($input);
             $seccion->codigo = $input['codigo'];
-            $seccion->nombre = $input['nombre'];
+            $seccion->campus = $input['campus'];
 
 
             // Guardar la máquina en la base de datos
-            //$seccion->save();
+            $seccion->save();
             return back()->with('success', 'Seccion guardada con éxito.');
 
         }

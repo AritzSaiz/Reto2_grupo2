@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\Maquina;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +16,7 @@ class MaquinaController extends Controller{
             'codigo' => 'required|max:255',
             'nombre' => 'required',
             'modelo' => 'required',
-            'prioridad' => 'required|Integer',
+            'prioridad' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -40,12 +39,13 @@ class MaquinaController extends Controller{
                 $maquina->prioridad = $input['prioridad'];
             }else{
                 throw new \Exception('El valor de prioridad debe ser un número entre 1 y 3.');
-
             }
 
             $maquina->codigo = $input['codigo'];
             $maquina->nombre = $input['nombre'];
             $maquina->modelo = $input['modelo'];
+
+            $maquina->seccion_id = 1;
 
             // Guardar la máquina en la base de datos
             $maquina->save();

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\SeccionController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,17 +15,9 @@ Route::get('/index', [AdminController::class, 'index'])->name('list.index');
 Route::get('/create', [AdminController::class, 'create'])->name('create');
 
 
-//Route::post('/save', [\App\Http\Controllers\MaquinaController::class, 'save'])->name('maquina.save');
+Route::post('maquina/save', [MaquinaController::class, 'save'])->name('maquina.save');
 
-Route::post('/save', [SeccionController::class, 'save'])->name('seccion.save');
-/*
- use App\Http\Controllers\MaquinaController;
+Route::post('seccion/save', [SeccionController::class, 'save'])->name('seccion.save');
 
-Route::get('/listar', [AdminController::class, 'index'])->name('list.index');
+Route::post('admin/save', [AdminController::class, 'save'])->name('admin.save');
 
-Route::get('/listar/{tipo}', [MaquinaController::class, 'listar'])->name('list.listar');
-
-Route::get('/crear', [AdminController::class, 'index'])->name('creAar.index');
-
-
-Route::get('/crear/{tipo}', [MaquinaController::class, 'listar'])->name('list.listar');*/

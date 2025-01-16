@@ -46,11 +46,24 @@
             </div>
         </div>
     </div>
+    <!-- Mostrar mensajes de éxito o error -->
+    @if (session('success'))
+        <div class="mensajeNuevo">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    @if (session('error'))
+        <div class="mensajeNuevo">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Usuarios -->
     <div class="form-section" id="form-usuario">
-        <form action="" method="post">
+        <form action="{{route('admin.save')}}" method="post">
+            @csrf
+
             <div class="mb-3 row">
                 <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
                 <div class="col-sm-6">
@@ -82,32 +95,34 @@
             <div class="mb-3 row">
                 <label for="contrasena" class="col-sm-3 col-form-label">Contraseña:</label>
                 <div class="col-sm-6">
-                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    <!--<input type="password" class="form-control" id="contrasena" name="contrasena" required>-->
+                    <input type="text" class="form-control" id="contrasena" name="contrasena" required>
+
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Tipo:</label>
                 <div class="col-sm-6">
-                    <input type="radio" name="tipo" value="Operario" id="tipoOperario"> Operario
+                    <input type="radio" name="tipo" value="Operario" id="tipoOperario" checked> Operario
                     <input type="radio" name="tipo" value="Tecnico" id="tipoTecnico" class="ms-5"> Técnico
                 </div>
             </div>
 
-            <!-- Especialidad -->
-            <div class="mb-3 row" id="especialidadDiv" style="display: none;">
+            <!-- Tecnico -->
+            <div class="mb-3 row" id="especialidad" >
                 <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="especialidad" name="especialidad" required>
                 </div>
             </div>
 
-            <!-- Admin -->
-            <div class="mb-3 row" id="adminDiv" style="display: none;">
+
+            <div class="mb-3 row" id="admin" >
                 <label class="col-sm-3 col-form-label">Admin:</label>
                 <div class="col-sm-6">
                     <input type="radio" name="admin" value="si"> Sí
-                    <input type="radio" name="admin" value="no" class="ms-5"> No
+                    <input type="radio" name="admin" value="no" class="ms-5" checked> No
                 </div>
             </div>
 
@@ -121,7 +136,9 @@
 
     <!-- Formulario de Máquina -->
     <div class="form-section" id="form-maquina">
-        <form action="" method="post">
+        <form action="{{route('maquina.save')}}" method="post">
+            @csrf
+
             <div class="mb-3 row">
                 <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
                 <div class="col-sm-6">
@@ -146,7 +163,7 @@
             <div class="mb-3 row">
                 <label for="prioridad" class="col-sm-3 col-form-label">Prioridad (1-3):</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="prioridad" name="prioridad" required>
+                    <input type="number" class="form-control" id="prioridad" name="prioridad" required>
                 </div>
             </div>
 
@@ -173,6 +190,8 @@
     <!-- Formulario de Sección -->
     <div class="form-section" id="form-seccion">
         <form action="{{route('seccion.save')}}" method="post">
+            @csrf
+
             <div class="mb-3 row">
                 <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
                 <div class="col-sm-6">
@@ -182,7 +201,8 @@
 
             <div class="mb-3 row">
                 <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
-                <div class="col-sm-6">
+                <!--
+                 <div class="col-sm-6">
                     <select id="campus" class="form-select" name="campus">
                         <option value="campus1">Arriga</option>
                         <option value="campus2">Jesús Obrero</option>
@@ -190,6 +210,11 @@
                         <option value="campus4">Nieves Cano</option>
                         <option value="campus5">Mendizorroza</option>
                     </select>
+                </div>
+                -->
+
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="campus" name="campus" required>
                 </div>
             </div>
 
@@ -214,32 +239,6 @@
           }
       });
 
-
-      document.addEventListener('DOMContentLoaded', function() {
-          // Seleccionamos los elementos
-          const tipoOperario = document.getElementById('tipoOperario');
-          const tipoTecnico = document.getElementById('tipoTecnico');
-          const especialidadDiv = document.getElementById('especialidadDiv');
-          const adminDiv = document.getElementById('adminDiv');
-
-          // Función para manejar el cambio de tipo
-          function toggleEspecialidadAdmin() {
-              if (tipoTecnico.checked) {
-                  especialidadDiv.style.display = 'flex';
-                  adminDiv.style.display = 'flex';
-              } else {
-                  especialidadDiv.style.display = 'none';
-                  adminDiv.style.display = 'none';
-              }
-          }
-
-          // Añadimos los event listeners para los radio buttons
-          tipoOperario.addEventListener('change', toggleEspecialidadAdmin);
-          tipoTecnico.addEventListener('change', toggleEspecialidadAdmin);
-
-          // Llamamos a la función al cargar la página para manejar el estado inicial
-          toggleEspecialidadAdmin();
-      });
 </script>
 
 @endsection

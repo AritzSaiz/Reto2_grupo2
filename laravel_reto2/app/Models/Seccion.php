@@ -9,4 +9,6 @@ class Seccion extends Model
         'codigo',
         'campus',
     ];
+
+    protected $table = 'secciones';
 }
