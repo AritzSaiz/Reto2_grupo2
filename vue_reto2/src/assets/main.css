@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #0A3D62;
+  background-color: #EAEDED !important;
 }
 
 #login {
@@ -18,25 +18,14 @@ body {
 
 .container {
   min-height: 100vh;
-  min-width: unset;
-  width: 100%;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .login-form {
-  background-color: #EAEDED;
-  border: 2px solid #AAB0B6;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: #0A3D62;
   width: 100%;
   max-width: 400px;
   margin: 0 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -45,7 +34,6 @@ h1 {
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: normal;
-  color: #333333;
 }
 
 .form-group {
@@ -124,11 +112,12 @@ form {
   justify-content: space-between;
   background-color: #FFFFFF;
   padding: 0.3em;
-  border-radius: 0.5em;
+  border-radius: 4px;
   margin-top: 1em;
+  border-left: 4px solid #0A3D62;
 }
 
-.incidencia p {
+.incidencia p, .incidenciaResuelta p {
   display: flex;
   align-self: center;
 }
@@ -141,11 +130,6 @@ form {
   padding: 0.3em;
   border-radius: 0.5em;
   margin-top: 1em;
-}
-
-.incidenciaResuelta p {
-  display: flex;
-  align-self: center;
 }
 
 .datos {
@@ -166,9 +150,9 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333333;
+  background-color: #0A3D62;
   color: #FFFFFF;
-  padding: 1rem;
+  padding: 16px;
   position: fixed;
   top: 0;
   left: 0;
@@ -239,11 +223,12 @@ img.logo {
 }
 
 .btn {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+  padding: 8px 24px !important;
+  background-color: #FFC300 !important;
+}
+
+.btn:hover {
+  background-color: #ffe48c !important;
 }
 
 .btn-create {
@@ -261,9 +246,22 @@ img.logo {
   color: #0A3D62;
 }
 
-button.active {
-  background-color: #FF5733;
-  border-color: #AAB0B6;
+.btn.active {
+  background-color: #AAB0B6 !important;
+  border-color: #AAB0B6 !important;
+}
+
+.btn.active:hover {
+  background-color: #FFC300;
+}
+
+.btn-detalle, .btn-resolver {
+  background-color: #0A3D62 !important;
+  color: #FFFFFF !important;
+}
+
+.btn-detalle:hover, .btn-resolver:hover {
+  background-color: #FF5733 !important;
 }
 
 .detail-btn {
@@ -279,34 +277,10 @@ button.active {
   background-color: #FF5733;
 }
 
-.volver {
-  margin-bottom: 1.5em;
-}
-
 .button-container {
   display: flex;
   justify-content: center;
   margin-top: 24px;
-}
-
-button {
-  padding: 8px 24px;
-  background-color: #FFFFFF;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #FFC300;
-}
-
-.button-group {
-  display: flex;
-  gap: 1.5em;
-  margin-bottom: 4em;
 }
 
 input, #descripcion {
@@ -335,12 +309,11 @@ label {
   display: block;
   margin-bottom: 8px;
   font-size: 16px;
-  color: #333333;
+  color: #FFFFFF;
 }
 
 select {
   padding: 1px;
-  background-color: #FFFFFF;
   border: 1px solid #AAB0B6;
   border-radius: 4px;
   font-size: 16px;
@@ -356,12 +329,10 @@ select {
   height: 10vh;
 }
 
-select:hover {
-  background-color: #FFC300;
-}
-
 .crear-form, .incidencia-form {
-  width: 90vh;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 select option {
@@ -375,7 +346,11 @@ select option {
 }
 
 .crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias {
-  color: #AAB0B6;
+  color: #0A3D62;
+}
+
+select[name=filtroEstado], select[name=filtroFecha] {
+  background-color: #ffe48c;
 }
 
 .status-filters {
