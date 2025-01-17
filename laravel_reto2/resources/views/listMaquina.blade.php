@@ -17,12 +17,7 @@
             background-color: #FFFFFF;
         }
 
-        .frame-title {
-            color: #0A3D62;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            padding: 20px; /* Add some padding to space from the top */
-        }
+
 
         .incidents-list {
             display: flex;
@@ -79,11 +74,6 @@
             border-radius: 4px;
         }
 
-        .footer {
-            background-color: #0A3D62;
-            height: 20px;
-            margin-left: 250px; /* Adjust for sidebar width */
-        }
 
     </style>
 
@@ -92,11 +82,11 @@
 
         <div class="col-4">
             <div class="sidebar" id="sidebar">
-                <a href="#">Lista de operarios</a>
-                <a href="#">Lista de tecnicos</a>
-                <a href="#">Lista de maquinas</a>
-                <a href="#">Lista de secciones</a>
-                <a href="#">Lista de mantenimientos preventivos</a>
+                <a href="{{route("operario.show")}}">Lista de operarios</a>
+                <a href="{{route("tecnico.show")}}">Lista de tecnicos</a>
+                <a href="{{route("maquina.show")}}">Lista de maquinas</a>
+                <a href="{{route("seccion.show")}}">Lista de secciones</a>
+                <a href="">Lista de mantenimientos preventivos</a>
             </div>
 
         </div>

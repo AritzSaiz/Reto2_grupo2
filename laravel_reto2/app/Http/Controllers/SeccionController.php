@@ -11,11 +11,9 @@ class SeccionController extends Controller{
 
     public function show()
     {
-        // Obtén todas las secciones
         $secciones = Seccion::all();
 
-        // Retorna la vista con las secciones
-        return view('create', compact('secciones'));
+        return view('listSeccion', compact('secciones'));
     }
     public function save(Request $request)
     {
