@@ -93,8 +93,8 @@
                             <select name="gravedad" class="form-select">
                                 <option value="0">-- Selecciona la gravedad --</option>
                                 <option value="no">No funciona</option>
-                                <option value="si">Si funciona</option>
-                                <option value="averia">Avería</option>
+                                <option value="si">Sí funciona</option>
+                                <option value="aviso">Aviso</option>
                                 <option value="mantenimiento">Mantenimiento preventivo</option>
                             </select>
                         </div>
