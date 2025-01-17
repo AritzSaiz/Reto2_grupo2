@@ -87,15 +87,27 @@
 
     </style>
 
-    <h2 class="frame-title">Listado de incidencias</h2>
 
-    <div class="sidebar" id="sidebar">
-        <a href="#">Lista de operarios</a>
-        <a href="#">Lista de tecnicos</a>
-        <a href="#">Lista de maquinas</a>
-        <a href="#">Lista de secciones</a>
-        <a href="#">Lista de mantenimientos preventivos</a>
+    <div class="row">
+
+        <div class="col-4">
+            <div class="sidebar" id="sidebar">
+                <a href="#">Lista de operarios</a>
+                <a href="#">Lista de tecnicos</a>
+                <a href="#">Lista de maquinas</a>
+                <a href="#">Lista de secciones</a>
+                <a href="#">Lista de mantenimientos preventivos</a>
+            </div>
+
+        </div>
+
+        <div class="col-4 mt-4">
+            <h1>Lista de maquinas </h1>
+
+        </div>
+
     </div>
+
 
 
     @foreach ($maquinas as $maquina)
