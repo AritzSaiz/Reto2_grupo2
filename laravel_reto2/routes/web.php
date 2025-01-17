@@ -5,6 +5,7 @@ use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\SeccionController;
 
+use App\Http\Controllers\TecnicoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,3 +23,10 @@ Route::post('seccion/save', [SeccionController::class, 'save'])->name('seccion.s
 
 Route::post('operario/save', [OperarioController::class, 'save'])->name('operario.save');
 
+Route::get('/index', [MaquinaController::class, 'show'])->name('maquina.show');
+
+Route::get('/showOperario', [OperarioController::class, 'show'])->name('operario.show');
+
+Route::get('/showTecnico', [TecnicoController::class, 'show'])->name('tecnico.show');
+
+Route::get('/showSeccion', [SeccionController::class, 'show'])->name('seccion.show');

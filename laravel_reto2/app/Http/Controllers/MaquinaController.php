@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Operario;
 use Illuminate\Http\Request;
 use App\Models\Maquina;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class MaquinaController extends Controller{
 
+    public function show(){
+        $maquinas = Maquina::all();
+        return view('listMaquina', compact('maquinas'));
 
+    }
     public function save(Request $request){
 
         $validator = Validator::make($request->all(), [

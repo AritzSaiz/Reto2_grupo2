@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class SeccionController extends Controller{
 
+
+    public function show()
+    {
+        $secciones = Seccion::all();
+
+        return view('listSeccion', compact('secciones'));
+    }
     public function save(Request $request)
     {
         // Validación

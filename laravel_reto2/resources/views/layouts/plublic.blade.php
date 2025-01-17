@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="{{ route('list.index') }}">Listar</a>
+                    <a class="nav-link " aria-current="page" href="{{ route('maquina.show') }}">Listar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('create') }}">Añadir</a>

@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('list');
+        return view('listMaquina');
     }
 
 
@@ -21,9 +21,4 @@ class AdminController extends Controller
     {
         return view('create');
     }
-
-
-
-
-
 }

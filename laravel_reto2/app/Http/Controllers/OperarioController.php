@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
 {
+
+    public function show(){
+        $operarios = Operario::all();
+        return view('listOperario', compact('operarios'));
+
+    }
     public function save(Request $request)
     {
         $input = $request->all();
@@ -20,26 +26,28 @@ class OperarioController extends Controller
                 'email' => 'required|email',
                 'usuario' => 'required|max:255',
                 'contrasena' => 'required|min:6',
-
             ]);
 
             if ($validator->fails()) {
-                return redirect()->back()->with('error', 'Error al validad');
+                return redirect()->back()->withErrors($validator)->withInput();
             }
 
+            // Crear y guardar el operario
+            $operario = new Operario();
+            $operario->nombre = $input['nombre'];
+            $operario->apellidos = $input['apellidos'];
+            $operario->email = $input['email'];
+            $operario->usuario = $input['usuario'];
+            $operario->contrasena = $input['contrasena'];
+            $operario->save();
 
-                $operario = new Operario();
-                $operario->nombre = $input['nombre'];
-                $operario->apellidos = $input['apellidos'];
-                $operario->email = $input['email'];
-                $operario->usuario = $input['usuario'];
-                $operario->contrasena = $input['contrasena'];
-                $operario->save();
-
-                return redirect()->back()->with('success', 'Operario guardado con éxito.');
+            // Redirigir a la función `show` para recargar la vista con los operarios actualizados
+            return redirect()->action([OperarioController::class, 'show'])
+                ->with('success', 'Operario guardado con éxito.');
 
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
     }
+
 }

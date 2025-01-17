@@ -101,7 +101,7 @@
             <h1>Iniciar Sesión</h1>
         </div>
 
-        <form action="{{route('list.index')}}">
+        <form action="{{route('maquina.show')}}">
             <div class="mb-3 row">
                 <label for="username" class="form-label">Usuario</label>
                 <input type="text" class="form-control" id="username" name="username" required>
