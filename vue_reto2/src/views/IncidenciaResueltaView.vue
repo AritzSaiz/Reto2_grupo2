@@ -14,19 +14,19 @@
 <template>
     <Header />
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="incidencia-form p-4">
+        <div class="incidencia-form">
 
-            <h1 class="titulo text-center mb-4">Detalles de la incidencia</h1>
+            <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
             <div class="mb-4">
-                <button @click="volver" type="button" class="btn btn-warning">Volver</button>
+                <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
             </div>
             
             <form>
                 <div class="form-group-resuelta mb-4">
                     <div class="descripcion">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" readonly></textarea>
+                        <textarea id="descripcion" name="descripcion" class="form-control" readonly></textarea>
                     </div>
 
                     <div class="datos d-flex">

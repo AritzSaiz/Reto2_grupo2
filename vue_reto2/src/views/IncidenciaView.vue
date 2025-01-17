@@ -16,14 +16,14 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="incidencia-form">
 
-            <h1 class="fw-bold fs-1">Detalles de la incidencia</h1>
+            <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
             <div class="mb-4">
                 <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
             </div>
             
-            <form class="verIncidencia">
-                <div class="form-group">
+            <form>
+                <div class="form-group mb-4">
                     <div class="descripcion">
                         <label for="descripcion" class="form-label">Descripción</label>
                         <textarea id="descripcion" name="descripcion" class="form-control" readonly></textarea>
@@ -32,7 +32,7 @@
                     <div class="datos d-flex">
                         <div class="col me-2">
                             <label for="categoria" class="form-label">Categoría</label>
-                            <input id="categoria" name="categoria"  readonly>
+                            <input id="categoria" name="categoria" readonly>
                         </div>
 
                         <div class="col me-2">

@@ -29,31 +29,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2 {
   text-align: center;
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: normal;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
-  color: #333333;
-}
-
-input, #descripcion {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  background-color: #FFFFFF;
-  font-size: 14px;
 }
 
 form {
@@ -66,12 +46,6 @@ form {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.logo {
-  color: #FFFFFF;
-  font-size: 1.5em;
-  font-weight: bold;
 }
 
 .user-icon {
@@ -132,11 +106,6 @@ form {
   margin-top: 1em;
 }
 
-.datos {
-  flex-direction: row;
-  align-items: center;
-}
-
 .categoria, .gravedad, .maquina, .fechaEntrada {
   margin-right: 2em;
 }
@@ -163,6 +132,8 @@ form {
 .logo {
   width: 6em;
   margin-left: 2em;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .perfil {
@@ -344,7 +315,7 @@ select option {
   font-weight: bold;
 }
 
-.crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias {
+.form-group label, .crear .form-group label, .form-group-resuelta label, .crear-form h1, .crear-form h2, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .incidencia-form h2, .cantIncidencias {
   color: #0A3D62;
 }
 
