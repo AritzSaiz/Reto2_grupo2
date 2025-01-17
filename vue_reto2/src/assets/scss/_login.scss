@@ -21,11 +21,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 32px;
     font-size: 24px;
     font-weight: normal;
+<<<<<<< HEAD
 }
 
 .form-group {
@@ -46,6 +47,8 @@ input, #descripcion {
     border-radius: 4px;
     background-color: $color-white;
     font-size: 14px;
+=======
+>>>>>>> develop
 }
 
 form {

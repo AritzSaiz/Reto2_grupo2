@@ -63,7 +63,11 @@ select option{
     font-weight: bold;
 }
 
+<<<<<<< HEAD
 .crear .form-group label, .form-group-resuelta label, .crear-form h1, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .cantIncidencias{
+=======
+.form-group label, .crear .form-group label, .form-group-resuelta label, .crear-form h1, .crear-form h2, .verIncidencia .form-group label, .verIncidencia .form-group-resuelta label, .incidencia-form h1, .incidencia-form h2, .cantIncidencias {
+>>>>>>> develop
     color: $color-primary;
 }
 

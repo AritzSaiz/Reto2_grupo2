@@ -1,3 +1,4 @@
+
 @extends('layouts.plublic')
 @section('content')
     <style>

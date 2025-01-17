@@ -7,12 +7,6 @@
     flex-direction: column;
 }
 
-.logo {
-    color: $color-white;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
 .user-icon {
     background-color: $color-tertiary;
     width: 40px;
@@ -71,12 +65,15 @@
     margin-top: 1em;
 }
 
+<<<<<<< HEAD
 .datos{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
+=======
+>>>>>>> develop
 .categoria, .gravedad, .maquina, .fechaEntrada{
     margin-right: 2em;
 }
