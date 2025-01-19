@@ -15,16 +15,13 @@ return new class extends Migration
         Schema::create('secciones', function (Blueprint $table) {
             $table->id(); // Autoincremental y PK.
             $table->string('codigo', 10)->nullable(false);
-            $table->string('campus', 20)->nullable(false);
+            $table->string('nombre', 50)->nullable(false);
+            $table->unsignedBigInteger('campus_id')->nullable(false);
             $table->timestamps(); // Crea los campos 'created_at' y 'updated_at'.
             $table->softDeletes(); // Crea el campo 'deleted_at'.
+
+            $table->foreign('campus_id')->references('id')->on('campuses');
         });
-
-        // Definir la restricción de la columna 'campus'.
-        DB::statement("ALTER TABLE secciones ADD CONSTRAINT SECCI_CAMP_CK CHECK (campus IN
-                                                         ('Arriaga', 'Mendizorroza', 'Molinuevo', 'Nieves Cano',
-                                                          'Jesús Obrero'))");
-
     }
 
     /**
@@ -32,9 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Eliminar las restricciones explícitamente, por si en el futuro se necesita modificar o migrar parte de la estructura de la tabla.
-        DB::statement('ALTER TABLE secciones DROP CONSTRAINT IF EXISTS SECCI_CAMP_CK');
-
         // Eliminar la tabla.
         Schema::dropIfExists('secciones');
     }

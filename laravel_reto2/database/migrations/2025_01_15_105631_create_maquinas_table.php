@@ -35,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Eliminar las restricciones explícitamente, por si en el futuro se necesita modificar o migrar parte de la estructura de la tabla.
         DB::statement('ALTER TABLE maquinas DROP CONSTRAINT IF EXISTS MAQ_PRIO_CK');
 
         Schema::dropIfExists('maquinas');
