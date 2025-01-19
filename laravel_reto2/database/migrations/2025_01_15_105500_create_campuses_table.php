@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('campuses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Autoincremental y PK.
+            $table->string('codigo', 2)->nullable(false);
+            $table->string('nombre', 50)->nullable(false);
+            $table->string('direccion', 100)->nullable(false);
+            $table->string('codigo_postal', 5)->nullable(false);
+            $table->string('telefono', 9)->nullable(false);
+            $table->string('email', 50)->nullable(false);
+            $table->timestamps(); // Crea los campos 'created_at' y 'updated_at'.
+            $table->softDeletes(); // Crea el campo 'deleted_at'.
         });
     }
 

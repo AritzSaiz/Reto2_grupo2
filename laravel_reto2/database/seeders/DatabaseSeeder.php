@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +14,7 @@ class DatabaseSeeder extends Seeder
 
         // Llamar a los seeders específicos.
         $this->call([
+            CampusesSeeder::class,
             SeccionesSeeder::class,
             OperariosSeeder::class,
             TecnicosSeeder::class,
