@@ -23,7 +23,9 @@
     font-weight: bold;
 }
 
-.perfil {
+.cerrarSesion {
+    display: flex;
+    justify-content: flex-end;
     width: 4em;
     margin-right: 7em;
 }
@@ -33,11 +35,7 @@ img.logo {
     justify-content: center;
 }
 
-.perfil {
-    display: flex;
-    justify-content: flex-end;
-}
-
+/*
 .menuDesplegable {
     display: block;
     position: absolute;
@@ -74,3 +72,4 @@ img.logo {
     background-color: #f0f0f0;
     border-radius: .8em;
 }
+*/
