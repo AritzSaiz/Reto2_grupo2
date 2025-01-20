@@ -9,7 +9,12 @@ class TecnicoController extends Controller
 {
     public function show(){
         $tecnicos = Tecnico::all();
-        return view('listTecnico', compact('tecnicos'));
+        return view('Tecnico.listTecnico', compact('tecnicos'));
+
+    }
+
+    public function create(){
+        return view('Tecnico.createTecnico');
 
     }
 }

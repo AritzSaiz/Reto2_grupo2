@@ -17,7 +17,12 @@
             background-color: #FFFFFF;
         }
 
-
+        .frame-title {
+            color: #0A3D62;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            padding: 20px; /* Add some padding to space from the top */
+        }
 
         .incidents-list {
             display: flex;
@@ -75,6 +80,7 @@
         }
 
 
+
     </style>
 
 
@@ -87,24 +93,25 @@
                 <a href="{{route("maquina.show")}}">Lista de maquinas</a>
                 <a href="{{route("seccion.show")}}">Lista de secciones</a>
                 <a href="">Lista de mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Lista de campus</a>
             </div>
 
         </div>
 
         <div class="col-4 mt-4">
-            <h1>Lista de maquinas </h1>
+            <h1>Lista de Operarios </h1>
 
         </div>
 
     </div>
 
 
+    @foreach ($operarios as $operario)
 
-    @foreach ($maquinas as $maquina)
 
         <div class="incidents-list">
-            <div class="incident">
-                <span>{{$maquina->nombre}}</span>
+            <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
+                <span>{{$operario->nombre}}</span>
                 <button class="detail-btn">Borrar</button>
             </div>
         </div>
@@ -112,8 +119,8 @@
     @endforeach
 
 
-
-
-
-
 @endsection
+
+
+
+

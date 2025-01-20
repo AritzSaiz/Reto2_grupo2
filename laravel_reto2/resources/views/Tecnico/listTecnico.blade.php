@@ -2,7 +2,6 @@
 @section('content')
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -15,13 +14,6 @@
             display: flex;
             flex-direction: column;
             background-color: #FFFFFF;
-        }
-
-        .frame-title {
-            color: #0A3D62;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            padding: 20px; /* Add some padding to space from the top */
         }
 
         .incidents-list {
@@ -79,8 +71,6 @@
             border-radius: 4px;
         }
 
-
-
     </style>
 
 
@@ -91,28 +81,27 @@
                 <a href="{{route("operario.show")}}">Lista de operarios</a>
                 <a href="{{route("tecnico.show")}}">Lista de tecnicos</a>
                 <a href="{{route("maquina.show")}}">Lista de maquinas</a>
-                <a href="{{route("seccion.show")}}">Lista de secciones</a>
+                <a href=""{{route("seccion.show")}}"">Lista de secciones</a>
                 <a href="">Lista de mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Lista de campus</a>
             </div>
 
         </div>
 
         <div class="col-4 mt-4">
-            <h1>Lista de Secciones </h1>
+            <h1>Lista de tecnicos </h1>
 
         </div>
 
     </div>
 
 
-    @foreach ($secciones as $seccion)
 
+    @foreach ($tecnicos as $tecnico)
 
         <div class="incidents-list">
-            <div class="incident border border-dark rounded p-3 shadow-sm">
-                <span>{{$seccion->codigo}}</span>
-                <span>{{$seccion->campus}}</span>
-
+            <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
+                <span>{{$tecnico->nombre}}</span>
                 <button class="detail-btn">Borrar</button>
             </div>
         </div>
@@ -120,8 +109,8 @@
     @endforeach
 
 
+
+
+
+
 @endsection
-
-
-
-
