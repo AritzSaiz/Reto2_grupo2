@@ -54,4 +54,15 @@ class MantenimientoController extends Controller
         }
         return redirect()->route('campus.show');
     }
+
+    public function delete($id)
+    {
+        try {
+            $mantenimiento = Mantenimiento::findOrFail($id);
+            $mantenimiento->delete();
+            return redirect()->route('mantenimiento.show')->with('success', 'Mantenimiento eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento.');
+        }
+    }
 }

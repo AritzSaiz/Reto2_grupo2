@@ -50,7 +50,7 @@ Route::delete('/deleteMantenimiento/{id}', [MantenimientoController::class, 'del
 Route::get('/createCampus', [CampusController::class, 'create'])->name('campus.create');
 Route::get('/showCampus', [CampusController::class, 'show'])->name('campus.show');
 Route::post('/saveCampus', [CampusController::class, 'save'])->name('campus.save');
-Route::delete('/deleteCampus', [CampusController::class, 'delete'])->name('campus.delete');
+Route::delete('/deleteCampus/{id}', [CampusController::class, 'delete'])->name('campus.delete');
 
 
 
