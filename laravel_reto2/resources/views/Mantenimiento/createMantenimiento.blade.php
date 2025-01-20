@@ -98,56 +98,61 @@
             <!-- Formulario de Campus -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
-                    <h1>Añadir Campus </h1>
+                    <h1>Añadir Mantenimiento</h1>
                 </div>
-                <form action="{{route('campus.save')}}" method="post">
+                <form action="{{route('mantenimiento.save')}}" method="post">
                     @csrf
 
-                    <!-- Código -->
+                    <!-- Periodicidad -->
                     <div class="mb-3 row">
-                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
+                        <label for="periodicidad" class="col-sm-3 col-form-label">Periodicidad:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="codigo" name="codigo" required>
+                            <input type="text" class="form-control" id="periodicidad" name="periodicidad" required>
                         </div>
                     </div>
 
-                    <!-- Nombre -->
+                    <!-- Inicio ultima revision -->
                     <div class="mb-3 row">
-                        <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                        <label for="inicio_ultima_revision" class="col-sm-3 col-form-label">Inicio ultima revision:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="datetime-local" class="form-control" id="inicio_ultima_revision" name="inicio_ultima_revision" required>
                         </div>
                     </div>
 
-                    <!-- Dirección -->
+                    <!-- Fin ultima revision -->
                     <div class="mb-3 row">
-                        <label for="direccion" class="col-sm-3 col-form-label">Dirección:</label>
+                        <label for="fin_ultima_revision" class="col-sm-3 col-form-label">Fin ultima revision:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                            <input type="datetime-local" class="form-control" id="fin_ultima_revision" name="fin_ultima_revision" required>
                         </div>
                     </div>
 
-                    <!-- Código postal -->
+                    <!-- Dias -->
                     <div class="mb-3 row">
-                        <label for="codigo_postal" class="col-sm-3 col-form-label">Código postal:</label>
+                        <label for="dias" class="col-sm-3 col-form-label">Dias:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
+                            <input type="text" class="form-control" id="dias" name="dias" required>
                         </div>
                     </div>
 
-                    <!-- Teléfono -->
+                    <!-- Siguiente revision -->
                     <div class="mb-3 row">
-                        <label for="telefono" class="col-sm-3 col-form-label">Teléfono:</label>
+                        <label for="siguiente_revision" class="col-sm-3 col-form-label">Siguiente revision:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                            <input type="datetime-local" class="form-control" id="siguiente_revision" name="siguiente_revision" required>
                         </div>
                     </div>
 
-                    <!-- Email -->
+                    <!-- Maquina id -->
                     <div class="mb-3 row">
-                        <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                        <label for="maquina_id" class="col-sm-3 col-form-label">Máquina:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="email" name="email" required>
+                            <select id="maquina_id" class="form-select" name="maquina_id" required>
+                                <option value="">Seleccione una maquina</option>
+                                @foreach ($maquinas as $maquina)
+                                    <option value="{{ $maquina->id }}">{{ $maquina->nombre }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

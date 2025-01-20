@@ -2,7 +2,6 @@
 @section('content')
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -16,8 +15,6 @@
             flex-direction: column;
             background-color: #FFFFFF;
         }
-
-
 
         .incidents-list {
             display: flex;
@@ -60,6 +57,7 @@
             top: 56px; /* Assuming your header height is 56px, adjust if different */
             left: 0; /* Position on the left */
             height: calc(100% - 56px); /* Full height minus header height */
+            z-index: 999;
         }
 
         .sidebar a {
@@ -74,21 +72,8 @@
             border-radius: 4px;
         }
 
-
     </style>
 
-    <!-- Mostrar mensajes de éxito o error -->
-    @if (session('success'))
-        <div class="mensajeNuevo">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="mensajeNuevo">
-            {{ session('error') }}
-        </div>
-    @endif
 
     <div class="row">
 
@@ -103,47 +88,34 @@
             </div>
         </div>
 
-        <div class="col-6 mt-4">
 
-            <!-- Formulario de Sección -->
-            <div class="form-section" id="form-seccion">
-                <div class="row mb-3">
-                    <h1>Añadir seccion </h1>
-                </div>
-                <form action="{{route('seccion.save')}}" method="post">
-                    @csrf
-                    <div class="mb-3 row">
-                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="codigo" name="codigo" required>
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
-                        <div class="col-sm-6">
-                            <select id="campus_id" class="form-select" name="campus_id" required>
-                                <option value="campus_id">Seleccione un campus</option>
-                                @foreach ($campuses as $campus)
-                                    <option value="{{ $campus->id }}">{{ $campus->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-create">Enviar</button>
-                        </div>
-                    </div>
-                </form>
-
+        <div class="col-8 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1>Lista de Mantenimientos </h1>
+            <div class="btn-toolbar align-items-right mb-2 mb-md-0">
+                <a type="button" href="{{ route('mantenimiento.create') }}" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="plus-circle"></span>
+                    Añadir
+                </a>
             </div>
+        </div>
     </div>
+
+    @foreach ($mantenimientos as $mantenimiento)
+        <div class="incidents-list">
+            <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+                <span>{{ $mantenimiento->perioricidad }}</span>
+                <form action="{{ route('mantenimiento.delete', $mantenimiento->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="detail-btn">Borrar</button>
+                </form>
+            </div>
+        </div>
+    @endforeach
+
+
+
+
+
+
 @endsection
-
-
-
-
-
-
