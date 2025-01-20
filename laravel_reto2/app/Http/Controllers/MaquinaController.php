@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Operario;
+use App\Models\Seccion;
 use Illuminate\Http\Request;
 use App\Models\Maquina;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,8 @@ class MaquinaController extends Controller{
     }
 
     public function create(){
-        return view('Maquina.createMaquina');
+        $secciones = Seccion::all();
+        return view('Maquina.createMaquina',compact('secciones'));
 
     }
     public function save(Request $request){

@@ -17,41 +17,6 @@
             background-color: #FFFFFF;
         }
 
-
-
-        .incidents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            /* Adjust margins to account for the sidebar on the left */
-            margin-left: 250px; /* Sidebar width */
-            margin-right: 0; /* No need for right margin now */
-            padding: 20px; /* Add padding to space from the top */
-        }
-
-        .incident {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 4px solid #0A3D62;
-        }
-
-        .detail-btn {
-            background-color: #0A3D62;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .detail-btn:hover {
-            background-color: #FF5733;
-        }
-
         .sidebar {
             width: 250px;
             background-color: #000; /* Black background */
@@ -131,16 +96,17 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="combobox" class="col-sm-3 col-form-label">Selecciona una sección:</label>
+                        <label for="seccion_id" class="col-sm-3 col-form-label">Seccion:</label>
                         <div class="col-sm-6">
-                            <select id="combobox" class="form-select" name="opcion">
-                                <option value="seccion1">Sección 1</option>
-                                <option value="seccion2">Sección 2</option>
-                                <option value="seccion3">Sección 3</option>
-                                <option value="seccion4">Sección 4</option>
+                            <select id="seccion_id" class="form-select" name="seccion_id" required>
+                                <option value="">Seleccione una seccion</option>
+                                @foreach ($secciones as $seccion)
+                                    <option value="{{ $seccion->id }}">{{ $seccion->nombre }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="col-12 text-center">

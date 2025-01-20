@@ -110,6 +110,21 @@
 
     </div>
 
+    <!-- Mostrar mensajes de éxito o error -->
+   <div>
+       @if (session('success'))
+           <div class="mensajeNuevo">
+               {{ session('success') }}
+           </div>
+       @endif
+
+       @if (session('error'))
+           <div class="mensajeNuevo">
+               {{ session('error') }}
+           </div>
+       @endif
+   </div>
+
     @foreach ($operarios as $operario)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
