@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mantenimientos', function (Blueprint $table) {
+        Schema::create('mantenimientos_preventivos', function (Blueprint $table) {
             $table->id();
             $table->string('perioricidad', 20)->nullable(false);
             $table->dateTime('inicio_ultima_revision')->nullable(false);
             $table->dateTime('fin_ultima_revision')->nullable(false);
             $table->integer('dias')->nullable(false);
-            $table->integer('meses')->nullable(false);
-            $table->integer('anios')->nullable(false);
             $table->dateTime('siguiente_revision')->nullable(false);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mantenimientos');
+        Schema::dropIfExists('mantenimientos_preventivos');
     }
 };
