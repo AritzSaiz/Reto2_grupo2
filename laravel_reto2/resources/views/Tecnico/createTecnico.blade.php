@@ -103,9 +103,9 @@
 
                         <!-- Combobox de Operadores -->
                         <div class="mb-3 row">
-                                <label for="usuario_id" class="col-sm-3 col-form-label">Operario:</label>
+                                <label for="operario_id" class="col-sm-3 col-form-label">Operario:</label>
                                 <div class="col-sm-6">
-                                    <select id="usuario_id" class="form-select" name="usuario_id" required>
+                                    <select id="operario_id" class="form-select" name="operario_id" required>
                                         <option value="">Seleccione un operario</option>
                                         @foreach ($operarios as $operario)
                                             <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>

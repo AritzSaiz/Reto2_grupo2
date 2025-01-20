@@ -24,16 +24,16 @@ class TecnicoController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'usuario_id' => 'required|exists:usuarios,id',
+            'operario_id' => 'required|exists:operarios,id',
             'especialidad' => 'required|string|max:255',
-            'admin' => 'required|in:si,no',
+            'administrador' => 'required|in:si,no',
         ]);
 
         // Crear un nuevo técnico
         $tecnico = new Tecnico();
-        $tecnico->usuario_id = $validatedData['usuario_id'];
+        $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
-        $tecnico->admin = ($validatedData['admin'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
+        $tecnico->administrador = ($validatedData['admin'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
 
         // Guardar el técnico en la base de datos
         $tecnico->save();
