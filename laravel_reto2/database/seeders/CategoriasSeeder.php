@@ -13,13 +13,13 @@ class CategoriasSeeder extends Seeder
     public function run(): void
     {
         DB::table('categorias')->insert([
-            ['nombre' => 'Mecánica'],
-            ['nombre' => 'Eléctrica'],
-            ['nombre' => 'Neumática'],
-            ['nombre' => 'Hidráulica'],
-            ['nombre' => 'Informática'],
-            ['nombre' => 'Instalaciones generales'],
-            ['nombre' => 'Otra'],
+            ['nombre' => 'Mecánica', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Eléctrica', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Neumática', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Hidráulica', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Informática', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Instalaciones generales', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Otra', 'created_at' => now(), 'updated_at' => now()],
             ]);
     }
 }
