@@ -55,13 +55,24 @@ class MaquinaController extends Controller{
             $maquina->nombre = $input['nombre'];
             $maquina->modelo = $input['modelo'];
 
-            $maquina->seccion_id = 1;
+            $maquina->seccion_id = 5;
 
             // Guardar la máquina en la base de datos
             $maquina->save();
         }
         catch (\Exception $exception) {
             return back()->withError($exception->getMessage())->withInput();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $maquina = Maquina::findOrFail($id);
+            $maquina->delete();
+            return redirect()->route('maquina.show')->with('success', 'Operario eliminada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }
 
