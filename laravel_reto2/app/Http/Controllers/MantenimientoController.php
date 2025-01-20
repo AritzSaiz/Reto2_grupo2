@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mantenimiento;
 use App\Models\Maquina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MantenimientoController extends Controller
