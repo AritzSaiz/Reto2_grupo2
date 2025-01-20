@@ -95,25 +95,59 @@
         <div class="col-6 mt-4">
 
 
-            <!-- Formulario de CAmpus -->
+            <!-- Formulario de Campus -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
                     <h1>Añadir Campus </h1>
                 </div>
-                <form action="{{route('maquina.save')}}" method="post">
+                <form action="{{route('campus.save')}}" method="post">
                     @csrf
 
+                    <!-- Código -->
                     <div class="mb-3 row">
-                        <label for="Ciudad" class="col-sm-3 col-form-label">Ciudad:</label>
+                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="codigo" name="codigo" required>
                         </div>
                     </div>
 
+                    <!-- Nombre -->
                     <div class="mb-3 row">
                         <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                    </div>
+
+                    <!-- Dirección -->
+                    <div class="mb-3 row">
+                        <label for="direccion" class="col-sm-3 col-form-label">Dirección:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        </div>
+                    </div>
+
+                    <!-- Código postal -->
+                    <div class="mb-3 row">
+                        <label for="codigo_postal" class="col-sm-3 col-form-label">Código postal:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
+                        </div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="mb-3 row">
+                        <label for="telefono" class="col-sm-3 col-form-label">Teléfono:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="email" name="email" required>
                         </div>
                     </div>
 
