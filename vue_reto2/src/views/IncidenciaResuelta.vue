@@ -1,8 +1,18 @@
 <script setup>
     import Header from '@/components/Header.vue';
     import { useRouter } from 'vue-router';
+    import {onMounted, ref} from 'vue';
 
     const router = useRouter();
+
+    const cantidadDivs = ref(0);
+
+    onMounted(() => {
+        const contenedorDatos = document.querySelector('.listaIncidencias');
+        if (contenedorDatos) {
+            cantidadDivs.value = contenedorDatos.querySelectorAll('div').length;
+        }
+    })
 
     function volver(){
         router.push('/operario');
@@ -32,7 +42,7 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias mb-4">Se han encontrado 32 incidencias resueltas</p>
+                <p class="cantIncidencias mb-4">Se han encontrado {{ cantidadDivs }} incidencias resueltas</p>
 
                 <div class="listaIncidencias">
                     <div class="incidenciaResuelta mb-3">

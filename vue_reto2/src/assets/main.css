@@ -162,7 +162,9 @@ form {
   font-weight: bold;
 }
 
-.perfil {
+.cerrarSesion {
+  display: flex;
+  justify-content: flex-end;
   width: 4em;
   margin-right: 7em;
 }
@@ -172,48 +174,44 @@ img.logo {
   justify-content: center;
 }
 
-.perfil {
-  display: flex;
-  justify-content: flex-end;
-}
-
+/*
 .menuDesplegable {
-  display: block;
-  position: absolute;
-  top: 95px;
-  right: 0;
-  background-color: #FFFFFF;
-  border: 0.1em solid gainsboro;
-  box-shadow: 0 7px 30px #667292;
-  border-radius: 0.8em;
-  z-index: 3;
-  min-width: 10em;
-  width: auto;
-  max-width: 100%;
-  margin-right: 4em;
+    display: block;
+    position: absolute;
+    top: 95px;
+    right: 0;
+    background-color: $color-white;
+    border: .1em solid $color-gainsboro;
+    box-shadow: 0 7px 30px $color-shadow;
+    border-radius: .8em;
+    z-index: 3;
+    min-width: 10em;
+    width: auto;
+    max-width: 100%;
+    margin-right: 4em;
 }
 
 .menuDesplegable.show {
-  display: flex;
+    display: flex;
 }
 
-.menuDesplegable a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin: 0;
-  text-align: center;
-  text-decoration: none;
-  color: #000000;
-  height: 40px;
+.menuDesplegable a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+    height: 40px;
 }
 
 .menuDesplegable a:hover {
-  background-color: #f0f0f0;
-  border-radius: 0.8em;
+    background-color: #f0f0f0;
+    border-radius: .8em;
 }
-
+*/
 .btn {
   padding: 8px 24px !important;
   background-color: #FFC300 !important;
