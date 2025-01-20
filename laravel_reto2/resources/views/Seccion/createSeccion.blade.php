@@ -77,6 +77,18 @@
 
     </style>
 
+    <!-- Mostrar mensajes de éxito o error -->
+    @if (session('success'))
+        <div class="mensajeNuevo">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mensajeNuevo">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="row">
 
@@ -100,7 +112,6 @@
                 </div>
                 <form action="{{route('seccion.save')}}" method="post">
                     @csrf
-
                     <div class="mb-3 row">
                         <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
                         <div class="col-sm-6">
@@ -109,12 +120,12 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="campus" class="col-sm-3 col-form-label">Operario:</label>
+                        <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
                         <div class="col-sm-6">
-                            <select id="campus" class="form-select" name="operario_id" required>
-                                <option value="">Seleccione un campus</option>
-                                @foreach ($campus as $camp)
-                                    <option value="{{ $camp->id }}">{{ $camp->nombre }}</option>
+                            <select id="campus_id" class="form-select" name="campus_id" required>
+                                <option value="campus_id">Seleccione un campus</option>
+                                @foreach ($campuses as $campus)
+                                    <option value="{{ $campus->id }}">{{ $campus->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -126,6 +137,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
     </div>
 @endsection

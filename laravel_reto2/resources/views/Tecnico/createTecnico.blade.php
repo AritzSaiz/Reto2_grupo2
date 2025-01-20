@@ -97,6 +97,17 @@
             <div class="form-section" id="form-seccion">
                 <div class="row mb-3">
                     <h1>Añadir tecnico </h1>
+
+                    <!-- Mostrar mensajes de éxito o error -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                     <form action="{{route('tecnico.save')}}" method="post">
                         @csrf
@@ -125,8 +136,8 @@
                         <div class="mb-3 row" id="div-admin">
                             <label class="col-sm-3 col-form-label">Admin:</label>
                             <div class="col-sm-6">
-                                <input type="radio" name="admin" value="si"> Sí
-                                <input type="radio" name="admin" value="no" class="ms-5" checked> No
+                                <input type="radio" name="administrador" value="si" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> Sí
+                                <input type="radio" name="administrador" value="no" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
                             </div>
                         </div>
 

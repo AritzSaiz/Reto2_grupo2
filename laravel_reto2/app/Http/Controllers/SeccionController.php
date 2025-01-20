@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Campus;
 use App\Models\Seccion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,18 +18,17 @@ class SeccionController extends Controller{
     }
 
     public function create(){
-        $secciones = Campus::all();
+        $campuses = Campus::all();
 
-        return view('Seccion.createSeccion');
+        return view('Seccion.createSeccion',compact('campuses'));
 
     }
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
-            'campus' => 'required|in:Arriaga,Jesús Obrero,Molinuevo,Nieves Cano,Mendizorroza'
+            'campus_id' => 'required|exists:campus,id' // Cambié a 'operario_id' y validé que exista en la tabla campus
         ]);
-
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -37,12 +37,10 @@ class SeccionController extends Controller{
         $input = $request->all();
 
         try {
-            $user = Auth::user();
+            // Crear la nueva sección
             $seccion = new Seccion();
-
-            $seccion->codigo = $input['codigo'];
-            $seccion->campus = $input['campus'];
-
+            $seccion->codigo = $input['codigo']; // Asignar el código
+            $seccion->operario_id = $input['operario_id']; // Asignar el ID del operario (campus)
             $seccion->save();
 
             return back()->with('success', 'Sección guardada con éxito.');

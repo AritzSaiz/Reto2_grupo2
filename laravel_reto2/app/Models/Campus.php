@@ -15,4 +15,6 @@ class Campus extends Model
         "telefono",
         "email",
     ];
+
+
 }

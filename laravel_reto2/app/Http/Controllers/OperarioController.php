@@ -60,6 +60,7 @@ class OperarioController extends Controller
             $operario->delete();
             return redirect()->route('operario.show')->with('success', 'Operario eliminada correctamente.');
         } catch (\Exception $e) {
+            dd($e->getMessage()); // Muestra el mensaje del error
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }
