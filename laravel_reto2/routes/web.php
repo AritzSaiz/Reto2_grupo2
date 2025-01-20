@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\SeccionController;
@@ -39,6 +40,11 @@ Route::get('/createSeccion', [SeccionController::class, 'create'])->name('seccio
 Route::post('/saveSeccion', [SeccionController::class, 'save'])->name('seccion.save');
 Route::delete('/deleteSeccion/{id}', [SeccionController::class, 'delete'])->name('seccion.delete');
 
+
+Route::get('/showMantenimiento', [MantenimientoController::class, 'show'])->name('mantenimiento.show');
+Route::get('/createMantenimiento', [MantenimientoController::class, 'create'])->name('mantenimiento.create');
+Route::post('/saveMantenimiento', [MantenimientoController::class, 'save'])->name('mantenimiento.save');
+Route::delete('/deleteMantenimiento/{id}', [MantenimientoController::class, 'delete'])->name('mantenimiento.delete');
 
 
 Route::get('/createCampus', [CampusController::class, 'create'])->name('campus.create');

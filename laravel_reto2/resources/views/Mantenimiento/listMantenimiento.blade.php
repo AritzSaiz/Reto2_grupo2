@@ -2,7 +2,6 @@
 @section('content')
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -16,8 +15,6 @@
             flex-direction: column;
             background-color: #FFFFFF;
         }
-
-
 
         .incidents-list {
             display: flex;
@@ -60,6 +57,7 @@
             top: 56px; /* Assuming your header height is 56px, adjust if different */
             left: 0; /* Position on the left */
             height: calc(100% - 56px); /* Full height minus header height */
+            z-index: 999;
         }
 
         .sidebar a {
@@ -73,7 +71,6 @@
             background-color: #495057;
             border-radius: 4px;
         }
-
 
     </style>
 
@@ -91,58 +88,34 @@
             </div>
         </div>
 
-        <div class="col-6 mt-4">
 
-            <!-- Formulario de Tecnico -->
-            <div class="form-section" id="form-seccion">
-                <div class="row mb-3">
-                    <h1>Añadir tecnico </h1>
-                </div>
-                    <form action="{{route('tecnico.save')}}" method="post">
-                        @csrf
-
-                        <!-- Combobox de Operadores -->
-                        <div class="mb-3 row">
-                                <label for="operario_id" class="col-sm-3 col-form-label">Operario:</label>
-                                <div class="col-sm-6">
-                                    <select id="operario_id" class="form-select" name="operario_id" required>
-                                        <option value="">Seleccione un operario</option>
-                                        @foreach ($operarios as $operario)
-                                            <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                        </div>
-
-
-                        <div class="mb-3 row" id="div-especialidad">
-                            <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="especialidad" name="especialidad">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row" id="div-admin">
-                            <label class="col-sm-3 col-form-label">Admin:</label>
-                            <div class="col-sm-6">
-                                <input type="radio" name="admin" value="si"> Sí
-                                <input type="radio" name="admin" value="no" class="ms-5" checked> No
-                            </div>
-                        </div>
-
-                        <!-- Botón enviar -->
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-create">Enviar</button>
-                            </div>
-                        </div>
-                    </form>
+        <div class="col-8 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1>Lista de Mantenimientos </h1>
+            <div class="btn-toolbar align-items-right mb-2 mb-md-0">
+                <a type="button" href="{{ route('mantenimiento.create') }}" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="plus-circle"></span>
+                    Añadir
+                </a>
             </div>
         </div>
+    </div>
+
+    @foreach ($mantenimientos as $mantenimiento)
+        <div class="incidents-list">
+            <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+                <span>{{ $mantenimiento->perioricidad }}</span>
+                <form action="{{ route('$mantenimiento.delete', $mantenimiento->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="detail-btn">Borrar</button>
+                </form>
+            </div>
+        </div>
+    @endforeach
+
+
+
+
+
+
 @endsection
-
-
-
-
-
-
