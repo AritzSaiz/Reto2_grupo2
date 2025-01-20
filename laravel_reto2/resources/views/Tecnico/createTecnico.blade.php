@@ -82,14 +82,13 @@
 
         <div class="col-4">
             <div class="sidebar" id="sidebar">
-                <a href="{{route("operario.create")}}">Añadir operarios</a>
-                <a href="{{route("tecnico.create")}}">Añadir tecnicos</a>
-                <a href="{{route("maquina.create")}}">Añadir maquinas</a>
-                <a href="{{route("seccion.create")}}">Añadir secciones</a>
-                <a href="">Añadir mantenimientos preventivos</a>
-                <a href="{{route("campus.create")}}">Añadir campus</a>
+                <a href="{{route("operario.show")}}">Operarios</a>
+                <a href="{{route("tecnico.show")}}">Tecnicos</a>
+                <a href="{{route("maquina.show")}}">Maquinas</a>
+                <a href="{{route("seccion.show")}}">Secciones</a>
+                <a href="">Mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Campus</a>
             </div>
-
         </div>
 
         <div class="col-6 mt-4">
@@ -99,18 +98,22 @@
                 <div class="row mb-3">
                     <h1>Añadir tecnico </h1>
                 </div>
-                    <form action="" method="post">
+                    <form action="{{route('tecnico.save')}}" method="post">
                         @csrf
 
                         <!-- Combobox de Operadores -->
                         <div class="mb-3 row">
-                            <label for="especialidad" class="col-sm-3 col-form-label">Operario:</label>
-                            <div class="col-sm-6">
-                                <select id="usuario_id" class="form-select" name="usuario_id" required>
-                                    <option value="">Seleccione un operario</option>
-                                </select>
-                            </div>
+                                <label for="usuario_id" class="col-sm-3 col-form-label">Operario:</label>
+                                <div class="col-sm-6">
+                                    <select id="usuario_id" class="form-select" name="usuario_id" required>
+                                        <option value="">Seleccione un operario</option>
+                                        @foreach ($operarios as $operario)
+                                            <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                         </div>
+
 
                         <div class="mb-3 row" id="div-especialidad">
                             <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>

@@ -82,12 +82,12 @@
 
         <div class="col-4">
             <div class="sidebar" id="sidebar">
-                <a href="{{route("operario.create")}}">Añadir operarios</a>
-                <a href="{{route("tecnico.create")}}">Añadir tecnicos</a>
-                <a href="{{route("maquina.create")}}">Añadir maquinas</a>
-                <a href="{{route("seccion.create")}}">Añadir secciones</a>
-                <a href="">Añadir mantenimientos preventivos</a>
-                <a href="{{route("campus.create")}}">Añadir campus</a>
+                <a href="{{route("operario.show")}}">Operarios</a>
+                <a href="{{route("tecnico.show")}}">Tecnicos</a>
+                <a href="{{route("maquina.show")}}">Maquinas</a>
+                <a href="{{route("seccion.show")}}">Secciones</a>
+                <a href="">Mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Campus</a>
             </div>
         </div>
 

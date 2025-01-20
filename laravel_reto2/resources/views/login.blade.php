@@ -103,8 +103,10 @@
 
         <form action="{{route('maquina.show')}}">
             <div class="mb-3 row">
-                <label for="username" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <div class="col-12">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
             </div>
 
             <div class="mb-3 row">

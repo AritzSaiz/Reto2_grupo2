@@ -82,20 +82,27 @@
 
         <div class="col-4">
             <div class="sidebar" id="sidebar">
-                <a href="{{route("operario.show")}}">Lista de operarios</a>
-                <a href="{{route("tecnico.show")}}">Lista de tecnicos</a>
-                <a href="{{route("maquina.show")}}">Lista de maquinas</a>
-                <a href="{{route("seccion.show")}}">Lista de secciones</a>
-                <a href="">Lista de mantenimientos preventivos</a>
-                <a href="{{route("campus.show")}}">Lista de campus</a>
+                <a href="{{route("operario.show")}}">Operarios</a>
+                <a href="{{route("tecnico.show")}}">Tecnicos</a>
+                <a href="{{route("maquina.show")}}">Maquinas</a>
+                <a href="{{route("seccion.show")}}">Secciones</a>
+                <a href="">Mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Campus</a>
             </div>
-
         </div>
 
-        <div class="col-4 mt-4">
-            <h1>Lista de maquinas </h1>
 
+        <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Lista de maquinas</h1>
+            <div class="btn-toolbar align-items-right mb-2 mb-md-0">
+                <a type="button" href="{{ route('maquina.create') }}" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="plus-circle"></span>
+                    Añadir
+                </a>
+            </div>
         </div>
+
+
 
     </div>
 
@@ -105,8 +112,13 @@
 
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
+                <span>{{$maquina->codigo}}</span>
                 <span>{{$maquina->nombre}}</span>
-                <button class="detail-btn">Borrar</button>
+                <form action="{{ route('maquina.delete', $maquina->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="detail-btn">Borrar</button>
+                </form>
             </div>
         </div>
 

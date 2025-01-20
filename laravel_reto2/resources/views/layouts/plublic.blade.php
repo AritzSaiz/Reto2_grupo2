@@ -34,10 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="{{ route('maquina.show') }}">Listar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('operario.create') }}">Añadir</a>
+                    <a class="nav-link " aria-current="page">Panel del Adminstrador</a>
                 </li>
             </ul>
         </div>

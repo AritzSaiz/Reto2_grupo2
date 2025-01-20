@@ -22,7 +22,6 @@ class SeccionController extends Controller{
     }
     public function save(Request $request)
     {
-        // Validación
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
             'campus' => 'required|in:Arriaga,Jesús Obrero,Molinuevo,Nieves Cano,Mendizorroza'
@@ -36,14 +35,12 @@ class SeccionController extends Controller{
         $input = $request->all();
 
         try {
-            $user = Auth::user(); // Obtenemos el usuario autenticado (opcional si no se utiliza)
+            $user = Auth::user();
             $seccion = new Seccion();
 
-            // Asignamos valores a la entidad Seccion
             $seccion->codigo = $input['codigo'];
             $seccion->campus = $input['campus'];
 
-            // Guardar en la base de datos
             $seccion->save();
 
             return back()->with('success', 'Sección guardada con éxito.');
@@ -52,5 +49,16 @@ class SeccionController extends Controller{
         }
     }
 
+
+    public function delete($id)
+    {
+        try {
+            $seccion = Seccion::findOrFail($id);
+            $seccion->delete();
+            return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar el operario.');
+        }
+    }
 
 }

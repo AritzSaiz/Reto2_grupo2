@@ -10,6 +10,30 @@
 
     const cantidadDivs = ref(0);
 
+    const descripcion = ref("");
+    const categoria = ref("");
+    const gravedad = ref("");
+    const maquina = ref("");
+
+    function crearIncidencia(){
+        if (descripcion.value != "" && categoria.value != "" && gravedad.value != "" && maquina.value != ""){
+            router.push('/operario')
+        }
+        else if (descripcion.value == ""){
+            alert('La descripción está vacía');
+        }
+        else if (categoria.value == ""){
+            alert('La categoría no está seleccionada');
+        }
+        else if (gravedad.value == ""){
+            alert('La gravedad no está seleccionada');
+        }
+        else if (maquina.value == ""){
+            alert('La máquina no está seleccionada');
+        }
+
+    }
+
     onMounted(() => {
         const contenedorDatos = document.querySelector('.listaIncidencias');
         if (contenedorDatos) {
@@ -126,14 +150,13 @@
                 <div class="form-group mb-3">
                     <div class="descripcion">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
+                        <textarea id="descripcion" name="descripcion" class="form-control" v-model="descripcion" rows="3"></textarea>
                     </div>
 
                     <div class="datos d-flex mt-3">
                         <div class="col mb-3 me-1">
                             <label for="categoria" class="form-label">Categoría</label>
-                            <select name="categoria" class="form-select">
-                                <option value="0">-- Selecciona una categoría --</option>
+                            <select name="categoria" class="form-select" v-model="categoria">
                                 <option value="mecanica">Mecánica</option>
                                 <option value="electrica">Eléctrica</option>
                                 <option value="neumatica">Neumática</option>
@@ -146,8 +169,7 @@
 
                         <div class="col mb-3 me-1">
                             <label for="gravedad" class="form-label">Gravedad</label>
-                            <select name="gravedad" class="form-select">
-                                <option value="0">-- Selecciona la gravedad --</option>
+                            <select name="gravedad" class="form-select" v-model="gravedad">
                                 <option value="no">No funciona</option>
                                 <option value="si">Sí funciona</option>
                                 <option value="aviso">Aviso</option>
@@ -157,8 +179,7 @@
 
                         <div class="col mb-3">
                             <label for="máquina" class="form-label">Máquina</label>
-                            <select name="máquina" class="form-select">
-                                <option value="0">-- Selecciona la máquina --</option>
+                            <select name="máquina" class="form-select" v-model="maquina">
                                 <option value="id1">Máquina 1</option>
                                 <option value="id2">Máquina 2</option>
                                 <option value="id3">Máquina 3</option>
@@ -169,7 +190,7 @@
                 </div>
 
                 <div>
-                    <button id="crearIncidencia" class="btn btn-warning">Crear incidencia</button>
+                    <button id="crearIncidencia" @click="crearIncidencia" class="btn btn-warning">Crear incidencia</button>
                 </div>
             </form>
         </div>
