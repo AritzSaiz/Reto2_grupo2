@@ -1,6 +1,6 @@
 <script setup>
     import IniciarSesion from '@/components/IniciarSesion.vue';
-    import {isVNode, ref} from 'vue';
+    import {onMounted, ref} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
@@ -8,9 +8,14 @@
 
     const mostrarCrear = ref(true);
 
-    function volver(){
-        router.push('/');
-    }
+    const cantidadDivs = ref(0);
+
+    onMounted(() => {
+        const contenedorDatos = document.querySelector('.listaIncidencias');
+        if (contenedorDatos) {
+            cantidadDivs.value = contenedorDatos.querySelectorAll('div').length;
+        }
+    })
 
     function detalle(){
         router.push('/incidencia');
@@ -96,7 +101,7 @@
                     </div>
                 </div>
 
-                <p class="cantIncidencias mb-0">Se han encontrado 32 incidencias</p>
+                <p class="cantIncidencias mb-0">Se han encontrado {{ cantidadDivs }} incidencias</p>
 
                 <div class="listaIncidencias">
                     <div class="incidencia mb-3">
