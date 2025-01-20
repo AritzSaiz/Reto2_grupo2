@@ -6,8 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel_reto2/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/laravel_reto2/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/laravel_reto2/tests" isTestSource="true" packagePrefix="Tests\" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel_reto2/tests/Feature" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel_reto2/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/archtechx/enums" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/carbonphp/carbon-doctrine-types" />
@@ -131,6 +129,21 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/brianium/paratest" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/fidry/cpu-core-counter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/laravel/breeze" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/pestphp/pest" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/pestphp/pest-plugin" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/pestphp/pest-plugin-arch" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/pestphp/pest-plugin-laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/pestphp/pest-plugin-mutate" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpstan/phpdoc-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/ta-tikoma/phpunit-architecture-test" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
