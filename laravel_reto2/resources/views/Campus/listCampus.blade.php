@@ -98,12 +98,20 @@
                 </a>
             </div>
         </div>
-
-
-
-
-
     </div>
+
+    @foreach ($campus as $camp)
+        <div class="incidents-list">
+            <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+                <span>{{ $camp->nombre }}</span>
+                <form action="{{ route('campus.delete', $camp->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="detail-btn">Borrar</button>
+                </form>
+            </div>
+        </div>
+    @endforeach
 
 
 

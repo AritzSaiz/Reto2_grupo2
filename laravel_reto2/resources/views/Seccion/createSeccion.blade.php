@@ -113,8 +113,8 @@
                         <div class="col-sm-6">
                             <select id="campus" class="form-select" name="operario_id" required>
                                 <option value="">Seleccione un campus</option>
-                                @foreach ($campuses as $campus)
-                                    <option value="{{ $campus->id }}">{{ $campus->nombre }}</option>
+                                @foreach ($campus as $camp)
+                                    <option value="{{ $camp->id }}">{{ $camp->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
