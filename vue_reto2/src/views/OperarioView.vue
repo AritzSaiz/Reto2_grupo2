@@ -24,37 +24,17 @@
             <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
             <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
-            <div class="mb-4">
-                <button @click="volver" type="button" class="btn btn-warning">Volver</button>
-            </div>
-
             <div class="button-group mb-4 text-center">
                 <button :class="{ active: mostrarCrear }" @click="mostrarCrear = true" class="btn btn-warning me-2">Ver</button>
-<<<<<<< HEAD
-                <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" class="btn btn-warning me-2">Crear</button>
-
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = true" name="filtroEstado" v-show="mostrarCrear" class="form-select d-inline-block w-auto">
-                    <option value="1">Todas</option>
-                    <option value="2">Pendientes</option>
-                    <option value="3">Solucionadas</option>
-                </select>
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = true" name="filtroFecha" v-show="mostrarCrear" class="form-select d-inline-block w-auto">
-                    <option value="1">Elegir orden</option>
-                    <option value="2">Más antiguas</option>
-                    <option value="3">Más recientes</option>
-                </select>
-            </div>
-
-            <form class="ver" v-show="mostrarCrear">
-=======
                 <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" class="btn btn-warning">Crear</button>
             </div>
 
             <form class="ver" v-show="mostrarCrear">
                 <h2 class="mt-3">Filtros</h2>
-                <div class="row">
+                <div class="row g-1">
                     <div class="col">
                         <select name="filtroEstado" class="form-select">
+                            <option value="0">-- Estado --</option>
                             <option value="1">Todas</option>
                             <option value="2">Pendientes</option>
                             <option value="3">Solucionadas</option>
@@ -62,14 +42,60 @@
                     </div>
                     <div class="col">
                         <select name="filtroFecha" class="form-select">
-                            <option value="1">Elegir orden</option>
-                            <option value="2">Más antiguas</option>
-                            <option value="3">Más recientes</option>
+                            <option value="0">-- Fecha --</option>
+                            <option value="1">Más antiguas</option>
+                            <option value="2">Más recientes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="filtroFecha" class="form-select">
+                            <option value="0">-- Campus --</option>
+                            <option value="1">Arriaga</option>
+                            <option value="2">Mendizorroza</option>
+                            <option value="3">Molinuevo</option>
+                            <option value="4">Nieves Cano</option>
+                            <option value="5">Jesús Obrero</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="filtroFecha" class="form-select">
+                            <option value="0">-- Seccion --</option>
+                            <option value="1">Seccion 1</option>
+                            <option value="2">Seccion 2</option>
+                            <option value="3">Seccion 3</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="filtroFecha" class="form-select">
+                            <option value="0">-- Gravedad --</option>
+                            <option value="1">No funciona</option>
+                            <option value="2">Si funciona</option>
+                            <option value="3">Aviso</option>
+                            <option value="4">Mantenimiento Preventivo</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="filtroFecha" class="form-select">
+                            <option value="0">-- Prioridad --</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="filtroFecha" class="form-select">
+                            <option value="0">-- Categoría --</option>
+                            <option value="1">Mecánica</option>
+                            <option value="2">Eléctrica</option>
+                            <option value="3">Neumática</option>
+                            <option value="4">Hidraulica</option>
+                            <option value="5">Informática</option>
+                            <option value="6">Instalaciones generales</option>
+                            <option value="7">Otros</option>
                         </select>
                     </div>
                 </div>
 
->>>>>>> develop
                 <p class="cantIncidencias mb-0">Se han encontrado 32 incidencias</p>
 
                 <div class="listaIncidencias">
@@ -98,13 +124,8 @@
                         <textarea id="descripcion" name="descripcion" class="form-control" rows="3"></textarea>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="datos mt-3">
-                        <div class="categoria mb-3">
-=======
                     <div class="datos d-flex mt-3">
                         <div class="col mb-3 me-1">
->>>>>>> develop
                             <label for="categoria" class="form-label">Categoría</label>
                             <select name="categoria" class="form-select">
                                 <option value="0">-- Selecciona una categoría --</option>
@@ -118,11 +139,7 @@
                             </select>
                         </div>
 
-<<<<<<< HEAD
-                        <div class="gravedad mb-3">
-=======
                         <div class="col mb-3 me-1">
->>>>>>> develop
                             <label for="gravedad" class="form-label">Gravedad</label>
                             <select name="gravedad" class="form-select">
                                 <option value="0">-- Selecciona la gravedad --</option>
@@ -133,11 +150,7 @@
                             </select>
                         </div>
 
-<<<<<<< HEAD
-                        <div class="maquina mb-3">
-=======
                         <div class="col mb-3">
->>>>>>> develop
                             <label for="máquina" class="form-label">Máquina</label>
                             <select name="máquina" class="form-select">
                                 <option value="0">-- Selecciona la máquina --</option>
@@ -151,11 +164,7 @@
                 </div>
 
                 <div>
-<<<<<<< HEAD
-                    <button id="crearIncidencia" class="btn btn-success">Crear incidencia</button>
-=======
                     <button id="crearIncidencia" class="btn btn-warning">Crear incidencia</button>
->>>>>>> develop
                 </div>
             </form>
         </div>
