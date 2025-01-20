@@ -37,7 +37,7 @@
                     <a class="nav-link " aria-current="page" href="{{ route('maquina.show') }}">Listar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('create') }}">Añadir</a>
+                    <a class="nav-link " href="{{ route('operario.create') }}">Añadir</a>
                 </li>
             </ul>
         </div>

@@ -13,7 +13,12 @@ class SeccionController extends Controller{
     {
         $secciones = Seccion::all();
 
-        return view('listSeccion', compact('secciones'));
+        return view('Seccion.listSeccion', compact('secciones'));
+    }
+
+    public function create(){
+        return view('Seccion.createSeccion');
+
     }
     public function save(Request $request)
     {

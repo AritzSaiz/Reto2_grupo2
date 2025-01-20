@@ -12,7 +12,12 @@ class MaquinaController extends Controller{
 
     public function show(){
         $maquinas = Maquina::all();
-        return view('listMaquina', compact('maquinas'));
+        return view('Maquina.listMaquina', compact('maquinas'));
+
+    }
+
+    public function create(){
+        return view('Maquina.createMaquina');
 
     }
     public function save(Request $request){

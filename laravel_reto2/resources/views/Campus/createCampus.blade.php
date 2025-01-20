@@ -2,6 +2,7 @@
 @section('content')
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +16,8 @@
             flex-direction: column;
             background-color: #FFFFFF;
         }
+
+
 
         .incidents-list {
             display: flex;
@@ -71,6 +74,7 @@
             border-radius: 4px;
         }
 
+
     </style>
 
 
@@ -78,38 +82,48 @@
 
         <div class="col-4">
             <div class="sidebar" id="sidebar">
-                <a href="{{route("operario.show")}}">Lista de operarios</a>
-                <a href="{{route("tecnico.show")}}">Lista de tecnicos</a>
-                <a href="{{route("maquina.show")}}">Lista de maquinas</a>
-                <a href=""{{route("seccion.show")}}"">Lista de secciones</a>
-                <a href="">Lista de mantenimientos preventivos</a>
+                <a href="{{route("operario.create")}}">Añadir operarios</a>
+                <a href="{{route("tecnico.create")}}">Añadir tecnicos</a>
+                <a href="{{route("maquina.create")}}">Añadir maquinas</a>
+                <a href="{{route("seccion.create")}}">Añadir secciones</a>
+                <a href="">Añadir mantenimientos preventivos</a>
+                <a href="{{route("campus.create")}}">Añadir campus</a>
             </div>
-
         </div>
 
-        <div class="col-4 mt-4">
-            <h1>Lista de tecnicos </h1>
 
+        <div class="col-6 mt-4">
+
+
+            <!-- Formulario de CAmpus -->
+            <div class="form-section" id="form-maquina">
+                <div class="row mb-3">
+                    <h1>Añadir Campus </h1>
+                </div>
+                <form action="{{route('maquina.save')}}" method="post">
+                    @csrf
+
+                    <div class="mb-3 row">
+                        <label for="Ciudad" class="col-sm-3 col-form-label">Ciudad:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="codigo" name="codigo" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-create">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-
     </div>
-
-
-
-    @foreach ($tecnicos as $tecnico)
-
-        <div class="incidents-list">
-            <div class="incident">
-                <span>{{$tecnico->nombre}}</span>
-                <button class="detail-btn">Borrar</button>
-            </div>
-        </div>
-
-    @endforeach
-
-
-
-
-
-
 @endsection

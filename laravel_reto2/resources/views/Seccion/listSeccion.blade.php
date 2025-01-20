@@ -93,24 +93,27 @@
                 <a href="{{route("maquina.show")}}">Lista de maquinas</a>
                 <a href="{{route("seccion.show")}}">Lista de secciones</a>
                 <a href="">Lista de mantenimientos preventivos</a>
+                <a href="{{route("campus.show")}}">Lista de campus</a>
             </div>
 
         </div>
 
         <div class="col-4 mt-4">
-            <h1>Lista de Operarios </h1>
+            <h1>Lista de Secciones </h1>
 
         </div>
 
     </div>
 
 
-    @foreach ($operarios as $operario)
+    @foreach ($secciones as $seccion)
 
 
         <div class="incidents-list">
-            <div class="incident">
-                <span>{{$operario->nombre}}</span>
+            <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
+                <span>{{$seccion->codigo}}</span>
+                <span>{{$seccion->campus}}</span>
+
                 <button class="detail-btn">Borrar</button>
             </div>
         </div>

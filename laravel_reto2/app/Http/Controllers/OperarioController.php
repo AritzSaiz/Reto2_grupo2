@@ -11,9 +11,15 @@ class OperarioController extends Controller
 
     public function show(){
         $operarios = Operario::all();
-        return view('listOperario', compact('operarios'));
+        return view('Operario.listOperario', compact('operarios'));
 
     }
+
+    public function create(){
+        return view('Operario.createOperario');
+
+    }
+
     public function save(Request $request)
     {
         $input = $request->all();
@@ -41,9 +47,7 @@ class OperarioController extends Controller
             $operario->contrasena = $input['contrasena'];
             $operario->save();
 
-            // Redirigir a la función `show` para recargar la vista con los operarios actualizados
-            return redirect()->action([OperarioController::class, 'show'])
-                ->with('success', 'Operario guardado con éxito.');
+            // Redirigir a la función `recarga`
 
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
