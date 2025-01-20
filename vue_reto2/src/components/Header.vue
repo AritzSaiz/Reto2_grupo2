@@ -1,24 +1,5 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
-
-    const menuPerfil = ref(null);
-    const isMenuVisible = ref(false);
-
-    const toggleMenu = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        isMenuVisible.value = !isMenuVisible.value;
-    };
-
-    const closeMenu = (e) => {
-        if (isMenuVisible.value && !menuPerfil.value.contains(e.target)) {
-            isMenuVisible.value = false;
-        }
-    };
-
-    onMounted(() => {
-        document.addEventListener("click", closeMenu);
-    });
+    import { ref } from 'vue';
 
 </script>
 
@@ -32,6 +13,17 @@
         <a href="/incidenciasParticipa" class="text-white text-decoration-none">Incidencias NO Resueltas</a>
 
         <div>
+            <a href="/" id="botonCerrarSesion">
+                <img class="cerrarSesion" src="../assets/cerrarSesion2.png">
+            </a>
+        </div>
+        
+    </header>
+</template>
+
+<style>
+/*
+        <div>
             <a href="#" id="botonPerfil" @click="toggleMenu">
                 <img class="perfil" src="../assets/perfil.png">
             </a>
@@ -40,5 +32,5 @@
                 <a href="/">Cerrar sesión</a>
             </div>
         </div>
-    </header>
-</template>
+*/
+</style>

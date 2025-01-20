@@ -26,13 +26,13 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
     - Listado de técnicos que participaron en la resolución de la incidencia.
     - Tiempos asociados a cada etapa en la que ha participado cada técnico.
 - **Creación y gestión de mantenimientos preventivos periódicos**: Posibilidad de programar y administrar mantenimientos preventivos de manera periódica.
-- **Panel de administración**: Herramienta centralizada para gestionar usuarios (operarios, técnicos y técnicos-administradores), incidencias, mantenimientos preventivos, máquinas, secciones, entre otros.
+- **Panel de administración**: Herramienta centralizada para gestionar usuarios (operarios, técnicos y técnicos-administradores), incidencias, mantenimientos preventivos, máquinas, secciones, campus, entre otros.
 
 ---
 
 ## Posibles innovaciones
 
-- **Columna "imagen" en la tabla "incidencia"**: Añadir una columna para permitir adjuntar imágenes junto con la descripción de la incidencia. Esto facilitaría la comprensión y resolución de las incidencias, ya que las imágenes pueden proporcionar un contexto visual útil para los técnicos y operarios.
+*(falta por poner lo de la descarga de un excel y la visualización esquemática del historial de una incidencia)*
 
 ---
 
