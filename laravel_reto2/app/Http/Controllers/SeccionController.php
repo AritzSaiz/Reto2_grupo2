@@ -17,6 +17,8 @@ class SeccionController extends Controller{
     }
 
     public function create(){
+        $secciones = Campus::all();
+
         return view('Seccion.createSeccion');
 
     }

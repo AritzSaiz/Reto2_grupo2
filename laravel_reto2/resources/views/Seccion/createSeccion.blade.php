@@ -109,14 +109,13 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
+                        <label for="campus" class="col-sm-3 col-form-label">Operario:</label>
                         <div class="col-sm-6">
-                            <select id="campus" class="form-select" name="campus">
-                                <option value="Arriaga">Arriaga</option>
-                                <option value="Jesús Obrero">Jesús Obrero</option>
-                                <option value="Molinuevo">Molinuevo</option>
-                                <option value="Nieves Cano">Nieves Cano</option>
-                                <option value="Mendizorroza">Mendizorroza</option>
+                            <select id="campus" class="form-select" name="operario_id" required>
+                                <option value="">Seleccione un campus</option>
+                                @foreach ($campuses as $campus)
+                                    <option value="{{ $campus->id }}">{{ $campus->nombre }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

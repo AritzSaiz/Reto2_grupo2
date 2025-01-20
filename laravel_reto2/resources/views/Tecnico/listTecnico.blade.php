@@ -88,7 +88,7 @@
         </div>
 
 
-        <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1>Lista de Tecnicos </h1>
             <div class="btn-toolbar align-items-right mb-2 mb-md-0">
                 <a type="button" href="{{ route('tecnico.create') }}" class="btn btn-sm btn-outline-secondary">
@@ -106,7 +106,9 @@
 
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
-                <span>{{$tecnico->nombre}}</span>
+                <span>{{$tecnico->operario_id}}</span>
+                <span>{{$tecnico->especialidad}}</span>
+
                 <form action="{{ route('tecnico.delete', $tecnico->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
