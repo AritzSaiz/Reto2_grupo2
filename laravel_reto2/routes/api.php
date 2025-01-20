@@ -1,33 +1,49 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CampusController;
+use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\OperarioController;
+use App\Http\Controllers\SeccionController;
+use App\Http\Controllers\TecnicoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
+Route::controller(AdminController::class)->group(function () {
+    Route::get('admin/index', 'index');
+});
 
+Route::controller(MaquinaController::class)->group(function () {
+    Route::get('maquina/index', 'show');
+    Route::get('maquina/create', 'create');
+    Route::post('maquina/save', 'save');
+    Route::delete('maquina/delete/{id}', 'delete');
+});
 
-Route::get('/index', [AdminController::class, 'index'])->name('list.index');
+Route::controller(OperarioController::class)->group(function () {
+    Route::get('operario/show', 'show');
+    Route::get('operario/create', 'create');
+    Route::post('operario/save', 'save');
+    Route::delete('operario/delete/{id}', 'delete');
+});
 
+Route::controller(TecnicoController::class)->group(function () {
+    Route::get('tecnico/show', 'show');
+    Route::get('tecnico/create', 'create');
+    Route::post('tecnico/save', 'save');
+    Route::delete('tecnico/delete/{id}', 'delete');
+});
 
-Route::get('/index', [MaquinaController::class, 'show'])->name('maquina.show');
-Route::get('/createMaquina', [MaquinaController::class, 'create'])->name('maquina.create');
-Route::post('/saveMaquina', [MaquinaController::class, 'save'])->name('maquina.save');
+Route::controller(SeccionController::class)->group(function () {
+    Route::get('seccion/show', 'show');
+    Route::get('seccion/create', 'create');
+    Route::post('seccion/save', 'save');
+    Route::delete('seccion/delete/{id}', 'delete');
+});
 
-Route::get('/showOperario', [OperarioController::class, 'show'])->name('operario.show');
-Route::get('/createOperario', [OperarioController::class, 'create'])->name('operario.create');
-Route::post('/saveOperario', [OperarioController::class, 'save'])->name('operario.save');
-
-
-Route::get('/showTecnico', [TecnicoController::class, 'show'])->name('tecnico.show');
-Route::get('/createTecnico', [TecnicoController::class, 'create'])->name('tecnico.create');
-
-Route::get('/showSeccion', [SeccionController::class, 'show'])->name('seccion.show');
-Route::get('/createSeccion', [SeccionController::class, 'create'])->name('seccion.create');
-Route::post('/saveSeccion', [SeccionController::class, 'save'])->name('seccion.save');
-
-
-Route::get('/createCampus', [CampusController::class, 'create'])->name('campus.create');
-Route::get('/showCampus', [CampusController::class, 'show'])->name('campus.show');
+Route::controller(CampusController::class)->group(function () {
+    Route::get('campus/show', 'show');
+    Route::get('campus/create', 'create');
+    Route::post('campus/save', 'save');
+    Route::delete('campus/delete', 'delete');
+});
