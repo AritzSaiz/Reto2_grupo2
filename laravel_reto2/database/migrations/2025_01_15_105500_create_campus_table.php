@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campuses', function (Blueprint $table) {
+        Schema::create('campus', function (Blueprint $table) {
             $table->id(); // Autoincremental y PK.
             $table->string('codigo', 2)->nullable(false);
             $table->string('nombre', 50)->nullable(false);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campuses');
+        Schema::dropIfExists('campus');
     }
 };
