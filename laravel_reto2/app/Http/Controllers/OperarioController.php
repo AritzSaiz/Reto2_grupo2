@@ -12,12 +12,10 @@ class OperarioController extends Controller
     public function show(){
         $operarios = Operario::all();
         return view('Operario.listOperario', compact('operarios'));
-
     }
 
     public function create(){
         return view('Operario.createOperario');
-
     }
 
     public function save(Request $request)
@@ -47,11 +45,21 @@ class OperarioController extends Controller
             $operario->contrasena = $input['contrasena'];
             $operario->save();
 
-            // Redirigir a la función `recarga`
 
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
     }
 
+
+    public function delete($id)
+    {
+        try {
+            $operario = Operario::findOrFail($id);
+            $operario->delete();
+            return redirect()->route('operario.show')->with('success', 'Operario eliminada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
+        }
+    }
 }
