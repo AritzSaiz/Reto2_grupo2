@@ -30,9 +30,11 @@ class MantenimientoController extends Controller
                 'periodicidad' => 'required|max:255',
                 'inicio_ultima_revision' => 'required|max:255',
                 'fin_ultima_revision' => 'required|max:255',
-                'dias' => 'required',
+                'dias' => 'required|regex:/^[0-9]+$/',
                 'siguiente_revision' => 'required|max:255',
                 'maquina_id' => 'required',
+            ],[
+                'dias.regex' => 'El campo dias solo puede tener numeros',
             ]);
 
             if ($validator->fails()) {

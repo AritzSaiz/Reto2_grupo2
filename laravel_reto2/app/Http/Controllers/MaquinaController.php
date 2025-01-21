@@ -26,11 +26,16 @@ class MaquinaController extends Controller{
     {
         // Validar los datos enviados
         $validator = Validator::make($request->all(), [
-            'codigo' => 'required|max:255',
+            'codigo' => 'required|regex:/^\d{7}$/',
             'nombre' => 'required',
             'modelo' => 'required',
             'prioridad' => 'required|integer|min:1|max:3',
-            'seccion_id' => 'required|integer', // Asegura que este campo sea obligatorio
+            'seccion_id' => 'required|integer',
+        ], [
+            'codigo.size' => 'El código debe tener exactamente 7 numeros.',
+            'prioridad.integer' => 'La prioridad debe ser un número entero.',
+            'prioridad.min' => 'La prioridad debe ser al menos 1.',
+            'prioridad.max' => 'La prioridad no puede ser mayor que 3.',
         ]);
 
         if ($validator->fails()) {

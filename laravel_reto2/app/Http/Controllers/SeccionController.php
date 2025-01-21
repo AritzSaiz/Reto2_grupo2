@@ -27,9 +27,13 @@ class SeccionController extends Controller{
     {
 
         $validator = Validator::make($request->all(), [
-            'codigo' => 'required|max:255',
+            'codigo' => 'required|max:255|regex:/^\d{4}$/',
             'campus_id' => 'required|exists:campus,id',
             'nombre'=>'required|max:255',
+        ],[
+            'codigo.size' => 'El código debe tener exactamente 4 numeros.',
+            'codigo.regex' => 'El código debe tener exactamente 4 numeros.',
+
         ]);
 
         if ($validator->fails()) {

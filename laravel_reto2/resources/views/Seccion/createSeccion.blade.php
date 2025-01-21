@@ -125,7 +125,7 @@
                 <form action="{{route('seccion.save')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
-                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
+                        <label for="codigo" class="col-sm-3 col-form-label @error('codigo') is-invalid @enderror">Código:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="codigo" name="codigo" required>
                         </div>

@@ -129,7 +129,7 @@
                         <div class="mb-3 row" id="div-especialidad">
                             <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="especialidad" name="especialidad">
+                                <input type="text" class="form-control  @error('especialidad') is-invalid @enderror" id="especialidad" name="especialidad">
                             </div>
                         </div>
 
