@@ -95,7 +95,7 @@
         <div class="col-6 mt-4">
 
 
-            <!-- Formulario de Campus -->
+            <!-- Formulario de Mantenimiento -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
                     <h1>Añadir Mantenimiento</h1>
