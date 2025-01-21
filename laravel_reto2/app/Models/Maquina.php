@@ -12,4 +12,8 @@ class Maquina extends Model
         'prioridad',
 
     ];
+
+    public function seccion(){
+        return $this->belongsTo(Seccion::class);
+    }
 }

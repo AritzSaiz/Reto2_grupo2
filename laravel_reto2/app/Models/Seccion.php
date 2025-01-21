@@ -12,4 +12,12 @@ class Seccion extends Model
     ];
 
     protected $table = 'secciones';
+
+    public function maquinas(){
+        return $this->hasMany(Maquina::class);
+    }
+
+    public function campus(){
+        return $this->belongsTo(Campus::class);
+    }
 }

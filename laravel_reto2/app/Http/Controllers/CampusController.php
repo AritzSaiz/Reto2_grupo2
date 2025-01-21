@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class CampusController extends Controller{
 
     public function show(){
-        $campus = Campus::all();
+        $campus = Campus::whereNull('deleted_at')->get();
         return view('Campus.listCampus', compact('campus'));
     }
 
@@ -65,8 +65,18 @@ class CampusController extends Controller{
     {
         try {
             $campus = Campus::findOrFail($id);
-            $campus->delete();
-            return redirect()->route('campus.show')->with('success', 'Campus eliminado correctamente.');
+
+            $todasSeccionesEliminadas = $campus->secciones()->whereNull('deleted_at')->count() == 0;
+
+            if (!$todasSeccionesEliminadas) {
+                return back()->withErrors(['message' => 'No se puede eliminar el campus porque tiene secciones asignadas.']);
+            }else{
+                $campus->deleted_at = now();
+                $campus->save();
+                return redirect()->route('campus.show')->with('success', 'Campus eliminado correctamente.');
+
+            }
+
         } catch (\Exception $e) {
             return redirect()->route('campus.show')->with('error', 'No se pudo eliminar el campus.');
         }

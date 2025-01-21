@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('mantenimientos_preventivos', function (Blueprint $table) {
             $table->id();
-            $table->string('periodicidad', 20)->nullable(false);
-            $table->dateTime('inicio_ultima_revision')->nullable(false);
-            $table->dateTime('fin_ultima_revision')->nullable(false);
             $table->integer('dias')->nullable(false);
+            $table->dateTime('ultima_revision')->nullable(false);
             $table->dateTime('siguiente_revision')->nullable(false);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();

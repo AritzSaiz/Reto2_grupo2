@@ -17,12 +17,7 @@
             background-color: #FFFFFF;
         }
 
-        .frame-title {
-            color: #0A3D62;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            padding: 20px; /* Add some padding to space from the top */
-        }
+
 
         .incidents-list {
             display: flex;
@@ -110,21 +105,18 @@
 
     </div>
 
-    <!-- Mostrar mensajes de éxito o error -->
-   <div>
-       @if (session('success'))
-           <div class="mensajeNuevo">
-               {{ session('success') }}
-           </div>
-       @endif
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-auto">
 
-       @if (session('error'))
-           <div class="mensajeNuevo">
-               {{ session('error') }}
-           </div>
-       @endif
-   </div>
-
+                @if (session('error'))
+                    <div class="mensajeNuevo alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
     @foreach ($operarios as $operario)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
