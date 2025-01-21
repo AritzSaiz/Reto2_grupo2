@@ -7,7 +7,8 @@ class Seccion extends Model
 {
     protected $fillable = [
         'codigo',
-        'campus',
+        'nombre',
+        'campus_id',
     ];
 
     protected $table = 'secciones';
