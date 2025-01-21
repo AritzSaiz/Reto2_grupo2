@@ -339,7 +339,7 @@ select option {
   color: #0A3D62;
 }
 
-select[name=filtroEstado], select[name=filtroFecha] {
+select[name=filtroEstado], select[name=filtroFecha], select[name=filtroCampus], select[name=filtroSeccion], select[name=filtroGravedad], select[name=filtroPrioridad], select[name=filtroCategoria] {
   background-color: #ffe48c;
 }
 

@@ -21,6 +21,11 @@
 
     const incidencias = ref([]);
 
+    /* TODO
+    "En lugar de usar alert para errores y validaciones, considera
+    integrar una biblioteca de notificaciones como SweetAlert2 o Toastr."
+     */
+
     // PARTE DE AXIOS
     async function fetchIncidencias() {
       try {
@@ -28,6 +33,7 @@
         incidencias.value = response.data;
       } catch (error) {
         console.error('Error al cargar las incidencias:', error);
+        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
       }
     }
 
@@ -55,11 +61,15 @@
     }
 
     onMounted(() => {
+      fetchIncidencias();
+      /*
         const contenedorDatos = document.querySelector('.listaIncidencias');
         if (contenedorDatos) {
             cantidadDivs.value = contenedorDatos.querySelectorAll('div').length;
         }
-    })
+       */
+      cantidadDivs.value = incidencias.value.length;
+    });
 
 </script>
 
@@ -94,7 +104,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroFecha" class="form-select">
+                        <select name="filtroCampus" class="form-select">
                             <option value="0">-- Campus --</option>
                             <option value="1">Arriaga</option>
                             <option value="2">Mendizorroza</option>
@@ -104,7 +114,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroFecha" class="form-select">
+                        <select name="filtroSeccion" class="form-select">
                             <option value="0">-- Seccion --</option>
                             <option value="1">Seccion 1</option>
                             <option value="2">Seccion 2</option>
@@ -112,7 +122,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroFecha" class="form-select">
+                        <select name="filtroGravedad" class="form-select">
                             <option value="0">-- Gravedad --</option>
                             <option value="1">No funciona</option>
                             <option value="2">Sí funciona</option>
@@ -121,7 +131,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroFecha" class="form-select">
+                        <select name="filtroPrioridad" class="form-select">
                             <option value="0">-- Prioridad --</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -129,7 +139,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroFecha" class="form-select">
+                        <select name="filtroCategoria" class="form-select">
                             <option value="0">-- Categoría --</option>
                             <option value="1">Mecánica</option>
                             <option value="2">Eléctrica</option>
@@ -142,21 +152,11 @@
                     </div>
                 </div>
 
-                <p class="cantIncidencias mb-0">Se han encontrado {{ cantidadDivs }} incidencias</p>
+              <p class="cantIncidencias mb-0">Se han encontrado <b>{{ incidencias.length }}</b> incidencias.</p>
 
                 <div class="listaIncidencias">
-                    <div class="incidencia mb-3">
-                        <p class="mb-0">Incidencia 1</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
-                        <button class="btn btn-resolver">Resolver</button>
-                    </div>
-                    <div class="incidencia mb-3">
-                        <p class="mb-0">Incidencia 2</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
-                        <button class="btn btn-resolver">Resolver</button>
-                    </div>
-                    <div class="incidencia mb-3">
-                        <p class="mb-0">Incidencia 3</p>
+                  <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
+                    <p class="mb-0">{{ incidencia.descripcion }}</p>
                         <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
                         <button class="btn btn-resolver">Resolver</button>
                     </div>
