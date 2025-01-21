@@ -25,9 +25,11 @@ class SeccionController extends Controller{
     }
     public function save(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
-            'campus_id' => 'required|exists:campus,id' // Cambié a 'operario_id' y validé que exista en la tabla campus
+            'campus_id' => 'required|exists:campus,id',
+            'nombre'=>'required|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -37,10 +39,10 @@ class SeccionController extends Controller{
         $input = $request->all();
 
         try {
-            // Crear la nueva sección
             $seccion = new Seccion();
-            $seccion->codigo = $input['codigo']; // Asignar el código
-            $seccion->operario_id = $input['operario_id']; // Asignar el ID del operario (campus)
+            $seccion->codigo = $input['codigo'];
+            $seccion->nombre = $input['nombre'];
+            $seccion->campus_id = $input['campus_id'];
             $seccion->save();
 
             return back()->with('success', 'Sección guardada con éxito.');

@@ -17,41 +17,6 @@
             background-color: #FFFFFF;
         }
 
-
-
-        .incidents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            /* Adjust margins to account for the sidebar on the left */
-            margin-left: 250px; /* Sidebar width */
-            margin-right: 0; /* No need for right margin now */
-            padding: 20px; /* Add padding to space from the top */
-        }
-
-        .incident {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 4px solid #0A3D62;
-        }
-
-        .detail-btn {
-            background-color: #0A3D62;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .detail-btn:hover {
-            background-color: #FF5733;
-        }
-
         .sidebar {
             width: 250px;
             background-color: #000; /* Black background */
