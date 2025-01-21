@@ -26,12 +26,19 @@ class OperarioController extends Controller
         try {
             // Validar campos requeridos
             $validator = Validator::make($input, [
-                'nombre' => 'required|max:255',
-                'apellidos' => 'required|max:255',
+                'nombre' => 'required|max:255|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+                'apellidos' => 'required|max:255|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
                 'email' => 'required|email',
                 'usuario' => 'required|max:255',
                 'contrasena' => 'required|min:6',
+            ], [
+                'nombre.regex' => 'El nombre solo puede contener letras y espacios.',
+                'apellidos.regex' => 'El apellido solo puede contener letras y espacios.',
+                'email.email' => 'Debe ingresar un correo electrónico válido.',
+                'contrasena.min' => 'La contraseña debe tener al menos 6 caracteres.',
             ]);
+
+
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -50,7 +57,7 @@ class OperarioController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
-        return redirect()->route('operario.show');
+        return redirect()->route('operario.show')->with('error', 'Datos incorrectos');
     }
 
 
@@ -61,7 +68,6 @@ class OperarioController extends Controller
             $operario->delete();
             return redirect()->route('operario.show')->with('success', 'Operario eliminada correctamente.');
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Muestra el mensaje del error
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }

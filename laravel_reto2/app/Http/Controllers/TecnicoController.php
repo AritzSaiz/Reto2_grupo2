@@ -26,9 +26,11 @@ class TecnicoController extends Controller
 
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id', // Asegura que el operario no esté ya en la tabla
-            'especialidad' => 'required|string|max:255',
+            'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id',
+            'especialidad' => 'required|string|max:255|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
             'administrador' => 'required|in:si,no',
+        ],[
+            'especialidad.regex' => 'La especialidad solo puede contener letras y espacios',
         ]);
 
 

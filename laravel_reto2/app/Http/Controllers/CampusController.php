@@ -28,12 +28,16 @@ class CampusController extends Controller{
         try {
             // Validar campos requeridos
             $validator = Validator::make($input, [
-                'codigo' => 'required|max:255',
+                'codigo' => 'required|max:255|size:2',
                 'nombre' => 'required|max:255',
                 'direccion' => 'required|max:255',
-                'codigo_postal' => 'required',
+                'codigo_postal' => 'required|size:5|regex:/^\d{5}$/',
                 'telefono' => 'required|max:255',
                 'email' => 'required|email',
+            ],[
+                'codigo.size' => 'El codigo tiene que tener 2 digitos',
+                'codigo_postal.size' => 'El codigo postal tiene que tener 5 digitos',
+                'codigo_postal.regex' => 'El codigo postal tiene que tener 5 digitos',
             ]);
 
             if ($validator->fails()) {
