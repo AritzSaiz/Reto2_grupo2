@@ -27,10 +27,8 @@ class MantenimientoController extends Controller
         try {
             // Validar campos requeridos
             $validator = Validator::make($input, [
-                'periodicidad' => 'required|max:255',
-                'inicio_ultima_revision' => 'required|max:255',
-                'fin_ultima_revision' => 'required|max:255',
                 'dias' => 'required|regex:/^[0-9]+$/',
+                'ultima_revision' => 'required|max:255',
                 'siguiente_revision' => 'required|max:255',
                 'maquina_id' => 'required',
             ],[
@@ -41,12 +39,10 @@ class MantenimientoController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            // Crear y guardar el campus
+            // Crear y guardar el mantenimiento
             $mantenimiento = new Mantenimiento();
-            $mantenimiento->periodicidad = $input['periodicidad'];
-            $mantenimiento->inicio_ultima_revision = $input['inicio_ultima_revision'];
-            $mantenimiento->fin_ultima_revision = $input['fin_ultima_revision'];
             $mantenimiento->dias = $input['dias'];
+            $mantenimiento->ultima_revision = $input['ultima_revision'];
             $mantenimiento->siguiente_revision = $input['siguiente_revision'];
             $mantenimiento->maquina_id = $input['maquina_id'];
             $mantenimiento->save();
@@ -55,7 +51,7 @@ class MantenimientoController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
-        return redirect()->route('campus.show');
+        return redirect()->route('mantenimiento.show');
     }
 
     public function delete($id)

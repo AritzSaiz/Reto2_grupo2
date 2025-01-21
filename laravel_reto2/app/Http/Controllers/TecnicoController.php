@@ -5,10 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Operario;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class TecnicoController extends Controller
 {
+    public function login(Request $request){
+        // Validar los datos del formulario
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Buscar al operario por usuario
+        $operario = Operario::where('usuario', $request->username)->first();
+
+        // Verificar si el operario existe y si la contraseña es válida
+        if ($operario && Hash::check($request->password, $operario->contrasena)) {
+            // Comprobar si tiene un técnico asociado
+            $tecnico = $operario->tecnico;
+
+            if ($tecnico) {
+                if ($tecnico->administrador){
+                    // Guardar información del técnico en la sesión
+                    session([
+                        'tecnico_id' => $tecnico->id,
+                        'tecnico_nombre' => $tecnico->nombre,
+                    ]);
+
+                    return redirect()->route('maquina.show')->with('success', 'Inicio de sesión exitoso');
+                } else {
+                    return back()->withErrors(['message' => 'Usuario o contraseña incorrectos.']);
+                }
+            }
+
+            return back()->withErrors(['message' => 'El operario no tiene un técnico asociado.']);
+        }
+
+        return back()->withErrors(['message' => 'Usuario o contraseña incorrectos.']);
+    }
+
     public function show(){
 
         $tecnicos = Tecnico::whereNull('deleted_at')->get();
@@ -28,11 +64,9 @@ class TecnicoController extends Controller
 
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
-            'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id',
-            'especialidad' => 'required|string|max:255|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
-            'administrador' => 'required|in:si,no',
-        ],[
-            'especialidad.regex' => 'La especialidad solo puede contener letras y espacios',
+            'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id', // Asegura que el operario no esté ya en la tabla
+            'especialidad' => 'required|string|max:255',
+            'administrador' => 'required|in:0,1',
         ]);
 
 
@@ -40,7 +74,7 @@ class TecnicoController extends Controller
         $tecnico = new Tecnico();
         $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
-        $tecnico->administrador = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
+        $tecnico->administrador = ($validatedData['administrador'] === '0'); // Convertir a booleano (1 para sí, 0 para no)
 
 
         try {

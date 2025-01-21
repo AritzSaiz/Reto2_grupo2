@@ -6,7 +6,7 @@
 <template>
     <header class="header">
         <a href="/operario">
-            <img class="logo" src="../assets/logoEgibide.png">
+            <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide">
         </a>
 
         <a href="/incidenciasResueltas" class="text-white text-decoration-none">Incidencias Resueltas</a>
@@ -14,7 +14,8 @@
 
         <div>
             <a href="/" id="botonCerrarSesion">
-                <img class="cerrarSesion" src="../assets/cerrarSesion2.png">
+              <!-- TODO : Igual poner el CSS en su archivo correspondiente. -->
+                <img class="cerrarSesion" src="../assets/cerrarSesion2.png" style="width: 40px" alt="Icono de cerrar sesión">
             </a>
         </div>
         

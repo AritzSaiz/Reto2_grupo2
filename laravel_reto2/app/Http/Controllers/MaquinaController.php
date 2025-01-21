@@ -33,6 +33,7 @@ class MaquinaController extends Controller{
             'seccion_id' => 'required|integer',
         ], [
             'codigo.size' => 'El código debe tener exactamente 7 numeros.',
+            'codigo.regex' => 'El código debe tener exactamente 7 numeros.',
             'prioridad.integer' => 'La prioridad debe ser un número entero.',
             'prioridad.min' => 'La prioridad debe ser al menos 1.',
             'prioridad.max' => 'La prioridad no puede ser mayor que 3.',
@@ -58,13 +59,11 @@ class MaquinaController extends Controller{
             // Guardar en la base de datos
             $maquina->save();
 
-            // Retornar con mensaje de éxito
-            return back()->with('success', 'La máquina se ha creado correctamente.');
-
         } catch (\Exception $exception) {
             // Capturar errores y retornar con mensaje
             return back()->with('error', 'Ocurrió un error al intentar crear la máquina: ' . $exception->getMessage());
         }
+        return redirect()->route('maquina.show');
     }
     public function delete($id)
     {

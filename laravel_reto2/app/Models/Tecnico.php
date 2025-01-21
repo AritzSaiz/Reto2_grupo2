@@ -11,9 +11,14 @@ class Tecnico extends Model
         'apellidos',
         'email',
         'usuario',
-        'contraseña',
+        'contrasena',
         'disponibilidad',
         'especialidad',
         'admin',
+        'operario_id'
     ];
+
+    public function operario(){
+        return $this->belongsTo(Operario::class);
+    }
 }

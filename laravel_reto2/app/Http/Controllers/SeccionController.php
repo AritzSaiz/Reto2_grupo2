@@ -49,10 +49,10 @@ class SeccionController extends Controller{
             $seccion->campus_id = $input['campus_id'];
             $seccion->save();
 
-            return back()->with('success', 'Sección guardada con éxito.');
         } catch (\Exception $exception) {
             return back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
+        return redirect()->route('seccion.show');
     }
 
 
@@ -60,11 +60,17 @@ class SeccionController extends Controller{
     {
         try {
             $seccion = Seccion::findOrFail($id);
-            $seccion->deleted_at = now();
-            $seccion->save();
-            return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+
+            if ($seccion->maquinas()->count() > 0){
+                return back()->withErrors(['message' => 'No se puede eliminar la sección porque tiene máquinas asignadas.']);
+            }else{
+                $seccion->deleted_at = now();
+                $seccion->save();
+                return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+
+            }
         } catch (\Exception $e) {
-            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar el operario.');
+            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar la sección.');
         }
     }
 

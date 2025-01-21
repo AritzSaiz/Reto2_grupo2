@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('apellidos', 60)->nullable(false);
             $table->string('email', 50)->nullable(false);
             $table->string('usuario', 20)->nullable(false);
-            $table->string('contrasena', 20)->nullable(false);
+            $table->string('contrasena', 255)->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 

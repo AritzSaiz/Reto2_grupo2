@@ -103,7 +103,7 @@
     @foreach ($mantenimientos as $mantenimiento)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
-                <span>{{ $mantenimiento->perioricidad }}</span>
+                <span>{{ $mantenimiento->id }}</span>
                 <form action="{{ route('mantenimiento.delete', $mantenimiento->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

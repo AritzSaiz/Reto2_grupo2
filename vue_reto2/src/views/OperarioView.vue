@@ -98,9 +98,9 @@
                         <select name="filtroFecha" class="form-select">
                             <option value="0">-- Gravedad --</option>
                             <option value="1">No funciona</option>
-                            <option value="2">Si funciona</option>
+                            <option value="2">Sí funciona</option>
                             <option value="3">Aviso</option>
-                            <option value="4">Mantenimiento Preventivo</option>
+                            <option value="4">Mantenimiento preventivo</option>
                         </select>
                     </div>
                     <div class="col">
