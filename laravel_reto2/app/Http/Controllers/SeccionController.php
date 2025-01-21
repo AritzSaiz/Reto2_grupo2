@@ -60,10 +60,15 @@ class SeccionController extends Controller{
     {
         try {
             $seccion = Seccion::findOrFail($id);
+
+            if ($seccion->maquinas()->count() > 0){
+                return back()->withErrors(['message' => 'No se puede eliminar la sección porque tiene máquinas asignadas.']);
+            }
             $seccion->delete();
-            return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+
+            return redirect()->route('seccion.show')->with('success', 'Sección eliminada correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar el operario.');
+            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar la sección.');
         }
     }
 

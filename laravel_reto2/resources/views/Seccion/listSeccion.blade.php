@@ -79,10 +79,16 @@
             border-radius: 4px;
         }
 
-
+        .error-messages {
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%; /* Ajusta el ancho según lo que necesites */
+            position: relative;
+            top: 10px;
+        }
 
     </style>
-
 
     <div class="row">
 
@@ -108,9 +114,18 @@
             </div>
         </div>
 
-
+        <div class="col-12 error-messages">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
     </div>
-
 
     @foreach ($secciones as $seccion)
 

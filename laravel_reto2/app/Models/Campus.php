@@ -16,5 +16,9 @@ class Campus extends Model
         "email",
     ];
 
+    public function secciones(){
+        return $this->hasMany(Seccion::class);
+    }
+
 
 }

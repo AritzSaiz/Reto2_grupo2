@@ -65,6 +65,11 @@ class CampusController extends Controller{
     {
         try {
             $campus = Campus::findOrFail($id);
+
+            if ($campus->secciones()->count() > 0){
+                return back()->withErrors(['message' => 'No se puede eliminar el campus porque tiene secciones asignadas.']);
+            }
+
             $campus->delete();
             return redirect()->route('campus.show')->with('success', 'Campus eliminado correctamente.');
         } catch (\Exception $e) {
