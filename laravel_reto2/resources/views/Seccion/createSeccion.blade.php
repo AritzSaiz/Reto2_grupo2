@@ -120,6 +120,13 @@
                     </div>
 
                     <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
                         <div class="col-sm-6">
                             <select id="campus_id" class="form-select" name="campus_id" required>

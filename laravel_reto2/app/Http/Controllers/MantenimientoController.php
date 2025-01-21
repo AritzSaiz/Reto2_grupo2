@@ -39,7 +39,7 @@ class MantenimientoController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            // Crear y guardar el campus
+            // Crear y guardar el mantenimiento
             $mantenimiento = new Mantenimiento();
             $mantenimiento->periodicidad = $input['periodicidad'];
             $mantenimiento->inicio_ultima_revision = $input['inicio_ultima_revision'];
@@ -53,7 +53,7 @@ class MantenimientoController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
-        return redirect()->route('campus.show');
+        return redirect()->route('mantenimiento.show');
     }
 
     public function delete($id)

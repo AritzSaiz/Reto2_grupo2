@@ -114,11 +114,9 @@
 
     @foreach ($secciones as $seccion)
 
-
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
-                <span>{{$seccion->codigo}}</span>
-                <span>{{$seccion->campus}}</span>
+                <span>{{$seccion->nombre}}</span>
 
                 <form action="{{ route('seccion.delete', $seccion->id) }}" method="POST" style="display:inline;">
                     @csrf

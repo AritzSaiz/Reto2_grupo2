@@ -27,6 +27,7 @@ class SeccionController extends Controller{
     {
         $validator = Validator::make($request->all(), [
             'codigo' => 'required|max:255',
+            'nombre' => 'required|max:255',
             'campus_id' => 'required|exists:campus,id' // Cambié a 'operario_id' y validé que exista en la tabla campus
         ]);
 
@@ -40,13 +41,15 @@ class SeccionController extends Controller{
             // Crear la nueva sección
             $seccion = new Seccion();
             $seccion->codigo = $input['codigo']; // Asignar el código
-            $seccion->operario_id = $input['operario_id']; // Asignar el ID del operario (campus)
+            $seccion->nombre = $input['nombre'];
+            $seccion->campus_id = $input['campus_id']; // Asignar el ID del campus
             $seccion->save();
 
-            return back()->with('success', 'Sección guardada con éxito.');
+            //return back()->with('success', 'Sección guardada con éxito.');
         } catch (\Exception $exception) {
             return back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
+        return redirect()->route('seccion.show');
     }
 
 
@@ -55,9 +58,9 @@ class SeccionController extends Controller{
         try {
             $seccion = Seccion::findOrFail($id);
             $seccion->delete();
-            return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+            return redirect()->route('seccion.show')->with('success', 'Seccion eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar el operario.');
+            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar la sección.');
         }
     }
 
