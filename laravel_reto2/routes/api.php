@@ -9,60 +9,55 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 
-// Admin routes
-Route::middleware('auth:sanctum')->group(function () {
-    // Rutas protegidas (requieren autenticación)
-    Route::controller(AdminController::class)->group(function() {
-        Route::get('/admins', 'index')->name('admins.index');
-    });
+Route::controller(AdminController::class)->group(function() {
+    Route::get('/index', 'index')->name('list.index');
 });
 
-// Máquina routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::controller(MaquinaController::class)->group(function() {
-        Route::get('/maquinas', 'show')->name('maquinas.show');
-        Route::post('/maquinas', 'create')->name('maquinas.create');
-        Route::put('/maquinas/{id}', 'save')->name('maquinas.save');
-        Route::delete('/maquinas/{id}', 'delete')->name('maquinas.delete');
-    });
+Route::controller(MaquinaController::class)->group(function() {
+    Route::get('/index', 'show')->name('maquina.show');
+    Route::get('/createMaquina', 'create')->name('maquina.create');
+    Route::post('/saveMaquina', 'save')->name('maquina.save');
+    Route::delete('/deleteMaquina/{id}', 'delete')->name('maquina.delete');
 });
 
-// Operario routes
 Route::controller(OperarioController::class)->group(function() {
-    Route::get('/operarios', 'show')->name('operarios.show');
-    Route::post('/operarios', 'create')->name('operarios.create');
-    Route::put('/operarios/{id}', 'save')->name('operarios.save');
-    Route::delete('/operarios/{id}', 'delete')->name('operarios.delete');
+    Route::get('/showOperario', 'show')->name('operario.show');
+    Route::get('/createOperario', 'create')->name('operario.create');
+    Route::post('/saveOperario', 'save')->name('operario.save');
+    Route::delete('/deleteOperario/{id}', 'delete')->name('operario.delete');
 });
 
-// Técnico routes
 Route::controller(TecnicoController::class)->group(function() {
-    Route::get('/tecnicos', 'show')->name('tecnicos.show');
-    Route::post('/tecnicos', 'create')->name('tecnicos.create');
-    Route::put('/tecnicos/{id}', 'save')->name('tecnicos.save');
-    Route::delete('/tecnicos/{id}', 'delete')->name('tecnicos.delete');
+    Route::get('/showTecnico', 'show')->name('tecnico.show');
+    Route::get('/createTecnico', 'create')->name('tecnico.create');
+    Route::post('/saveTecnico', 'save')->name('tecnico.save');
+    Route::post('/login', 'login')->name('tecnico.login');
+    Route::delete('/deleteTecnico/{id}', 'delete')->name('tecnico.delete');
 });
 
-// Sección routes
 Route::controller(SeccionController::class)->group(function() {
-    Route::get('/secciones', 'show')->name('secciones.show');
-    Route::post('/secciones', 'create')->name('secciones.create');
-    Route::put('/secciones/{id}', 'save')->name('secciones.save');
-    Route::delete('/secciones/{id}', 'delete')->name('secciones.delete');
+    Route::get('/showSeccion', 'show')->name('seccion.show');
+    Route::get('/createSeccion', 'create')->name('seccion.create');
+    Route::post('/saveSeccion', 'save')->name('seccion.save');
+    Route::delete('/deleteSeccion/{id}', 'delete')->name('seccion.delete');
 });
 
-// Mantenimiento routes
 Route::controller(MantenimientoController::class)->group(function() {
-    Route::get('/mantenimientos', 'show')->name('mantenimientos.show');
-    Route::post('/mantenimientos', 'create')->name('mantenimientos.create');
-    Route::put('/mantenimientos/{id}', 'save')->name('mantenimientos.save');
-    Route::delete('/mantenimientos/{id}', 'delete')->name('mantenimientos.delete');
+    Route::get('/showMantenimiento', 'show')->name('mantenimiento.show');
+    Route::get('/createMantenimiento', 'create')->name('mantenimiento.create');
+    Route::post('/saveMantenimiento', 'save')->name('mantenimiento.save');
+    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
 });
 
-// Campus routes
 Route::controller(CampusController::class)->group(function() {
-    Route::get('/campus', 'show')->name('campus.show');
-    Route::post('/campus', 'create')->name('campus.create');
-    Route::put('/campus/{id}', 'save')->name('campus.save');
-    Route::delete('/campus/{id}', 'delete')->name('campus.delete');
+    Route::get('/showCampus', 'show')->name('campus.show');
+    Route::get('/createCampus', 'create')->name('campus.create');
+    Route::post('/saveCampus', 'save')->name('campus.save');
+    Route::delete('/deleteCampus/{id}', 'delete')->name('campus.delete');
 });
+
+
+
+
+// todo
+Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'show']);

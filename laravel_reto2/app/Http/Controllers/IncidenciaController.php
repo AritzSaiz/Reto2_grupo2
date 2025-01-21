@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class IncidenciaController extends Controller
 {
     public function show(){
-        $incidencias = Incidencia::all();
-        return view('listIncidencia', compact('incidencias'));
+        // todo
+        //$incidencias = Incidencia::all();
+        //return view('listIncidencia', compact('incidencias'));
 
+        return Incidencia::all();
     }
 }

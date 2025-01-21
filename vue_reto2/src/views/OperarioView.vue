@@ -1,3 +1,48 @@
+<template>
+  <div>
+    <h1>Lista de Incidencias</h1>
+    <ul>
+      <li v-for="incidencia in incidencias" :key="incidencia.id">
+        {{ incidencia.descripcion }}: {{ incidencia.abierta }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import api from '@/plugins/axios';
+
+export default {
+  data() {
+    return {
+      incidencias: [],
+    };
+  },
+  async created() {
+    try {
+      const response = await api.get('/incidencias');
+      this.incidencias = response.data;
+    } catch (error) {
+      console.error('Error al cargar las incidencias:', error);
+    }
+  },
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- todo -->
+
+<!--
+
+
 <script setup>
     import IniciarSesion from '@/components/IniciarSesion.vue';
     import {onMounted, ref} from 'vue';
@@ -196,3 +241,6 @@
         </div>
     </div>
 </template>
+
+
+-->
