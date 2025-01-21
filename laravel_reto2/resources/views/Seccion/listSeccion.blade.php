@@ -92,7 +92,7 @@
                 <a href="{{route("tecnico.show")}}">Tecnicos</a>
                 <a href="{{route("maquina.show")}}">Maquinas</a>
                 <a href="{{route("seccion.show")}}">Secciones</a>
-                <a href="">Mantenimientos preventivos</a>
+                <a href="{{route("mantenimiento.show")}}">Mantenimientos preventivos</a>
                 <a href="{{route("campus.show")}}">Campus</a>
             </div>
         </div>
