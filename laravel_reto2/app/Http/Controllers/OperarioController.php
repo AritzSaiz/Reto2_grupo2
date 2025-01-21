@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Operario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
@@ -43,9 +44,8 @@ class OperarioController extends Controller
             $operario->apellidos = $input['apellidos'];
             $operario->email = $input['email'];
             $operario->usuario = $input['usuario'];
-            $operario->contrasena = $input['contrasena'];
+            $operario->contrasena = Hash::make($input['contrasena']);
             $operario->save();
-
 
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();

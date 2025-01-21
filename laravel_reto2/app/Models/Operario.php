@@ -10,6 +10,12 @@ class Operario extends Model
         'apellidos',
         'email',
         'usuario',
-        'contraseña',
+        'contrasena',
     ];
+
+    public function tecnico()
+    {
+        return $this->hasOne(Tecnico::class);
+
+    }
 }
