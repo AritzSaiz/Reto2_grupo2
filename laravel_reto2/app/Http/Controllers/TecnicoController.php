@@ -35,7 +35,7 @@ class TecnicoController extends Controller
 
                     return redirect()->route('maquina.show')->with('success', 'Inicio de sesión exitoso');
                 } else {
-                    return back()->withErrors(['message' =>'Este técnico no es administrador']);
+                    return back()->withErrors(['message' => 'Usuario o contraseña incorrectos.']);
                 }
             }
 

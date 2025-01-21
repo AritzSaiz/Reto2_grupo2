@@ -49,10 +49,10 @@ class SeccionController extends Controller{
             $seccion->campus_id = $input['campus_id'];
             $seccion->save();
 
-            return back()->with('success', 'Sección guardada con éxito.');
         } catch (\Exception $exception) {
             return back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
+        return redirect()->route('seccion.show');
     }
 
 

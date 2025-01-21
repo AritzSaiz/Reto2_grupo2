@@ -103,35 +103,19 @@
                 <form action="{{route('mantenimiento.save')}}" method="post">
                     @csrf
 
-                    <!-- Periodicidad -->
-                    <div class="mb-3 row">
-                        <label for="periodicidad" class="col-sm-3 col-form-label">Periodicidad:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="periodicidad" name="periodicidad" required>
-                        </div>
-                    </div>
-
-                    <!-- Inicio ultima revision -->
-                    <div class="mb-3 row">
-                        <label for="inicio_ultima_revision" class="col-sm-3 col-form-label">Inicio ultima revision:</label>
-                        <div class="col-sm-6">
-                            <input type="datetime-local" class="form-control" id="inicio_ultima_revision" name="inicio_ultima_revision" required>
-                        </div>
-                    </div>
-
-                    <!-- Fin ultima revision -->
-                    <div class="mb-3 row">
-                        <label for="fin_ultima_revision" class="col-sm-3 col-form-label">Fin ultima revision:</label>
-                        <div class="col-sm-6">
-                            <input type="datetime-local" class="form-control" id="fin_ultima_revision" name="fin_ultima_revision" required>
-                        </div>
-                    </div>
-
                     <!-- Dias -->
                     <div class="mb-3 row">
                         <label for="dias" class="col-sm-3 col-form-label">Dias:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="dias" name="dias" required>
+                        </div>
+                    </div>
+
+                    <!-- Ultima revision -->
+                    <div class="mb-3 row">
+                        <label for="ultima_revision" class="col-sm-3 col-form-label">Última revisión:</label>
+                        <div class="col-sm-6">
+                            <input type="datetime-local" class="form-control" id="ultima_revision" name="ultima_revision" required>
                         </div>
                     </div>
 
