@@ -61,7 +61,9 @@ class SeccionController extends Controller{
         try {
             $seccion = Seccion::findOrFail($id);
 
-            if ($seccion->maquinas()->count() > 0){
+            $todasMaquinasEliminadas = $seccion->maquinas()->whereNull('deleted_at')->count() == 0;
+
+            if (!$todasMaquinasEliminadas) {
                 return back()->withErrors(['message' => 'No se puede eliminar la sección porque tiene máquinas asignadas.']);
             }else{
                 $seccion->deleted_at = now();

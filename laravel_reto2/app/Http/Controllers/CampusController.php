@@ -66,10 +66,9 @@ class CampusController extends Controller{
         try {
             $campus = Campus::findOrFail($id);
 
+            $todasSeccionesEliminadas = $campus->secciones()->whereNull('deleted_at')->count() == 0;
 
-
-
-            if ($campus->secciones()->count() > 0){
+            if (!$todasSeccionesEliminadas) {
                 return back()->withErrors(['message' => 'No se puede eliminar el campus porque tiene secciones asignadas.']);
             }else{
                 $campus->deleted_at = now();

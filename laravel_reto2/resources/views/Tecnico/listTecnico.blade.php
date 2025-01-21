@@ -102,12 +102,12 @@
 
 
 
-    @foreach ($operarios as $operario)
+    @foreach ($tecnicos as $tecnico)
 
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
-                <span>{{$operario->nombre}}</span>
-                <span>{{$operario->tecnico->especialidad}}</span>
+                <span>{{$tecnico->operario_id}}</span>
+                <span>{{$tecnico->especialidad}}</span>
 
                 <form action="{{ route('tecnico.delete', $tecnico->id) }}" method="POST" style="display:inline;">
                     @csrf

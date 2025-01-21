@@ -59,7 +59,7 @@ class OperarioController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
-        return redirect()->route('operario.show')->with('error', 'Datos incorrectos');
+        return redirect()->route('operario.show');
     }
 
 
