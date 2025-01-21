@@ -5,14 +5,15 @@
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
-    // PARTE DE AXIOS (para conectar ventanas de Vue y datos de Laravel)
+    /*
+    Importar la instancia de Axios previamente configurada en su archivo.
+    Axios permite realizar solicitudes HTTP a la API de Laravel.
+     */
     import api from '@/plugins/axios';
 
     const router = useRouter();
 
     const mostrarCrear = ref(true);
-
-    const cantidadDivs = ref(0);
 
     const descripcion = ref("");
     const categoria = ref("");
@@ -21,15 +22,20 @@
 
     const incidencias = ref([]);
 
+
     /* TODO
     "En lugar de usar alert para errores y validaciones, considera
     integrar una biblioteca de notificaciones como SweetAlert2 o Toastr."
      */
 
-    // PARTE DE AXIOS
+
+    // Función para obtener las incidencias desde el backend.
+    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/incidencias'.
     async function fetchIncidencias() {
       try {
+        // Obtener las incidencias.
         const response = await api.get('/incidencias');
+        //  Guardar los datos recibidos en la variable reactiva "incidencias".
         incidencias.value = response.data;
       } catch (error) {
         console.error('Error al cargar las incidencias:', error);
@@ -60,15 +66,9 @@
       router.push('/incidencia');
     }
 
+    // Ciclo de vida: Al montar el componente, se ejecuta la función para cargar las incidencias desde el backend.
     onMounted(() => {
       fetchIncidencias();
-      /*
-        const contenedorDatos = document.querySelector('.listaIncidencias');
-        if (contenedorDatos) {
-            cantidadDivs.value = contenedorDatos.querySelectorAll('div').length;
-        }
-       */
-      cantidadDivs.value = incidencias.value.length;
     });
 
 </script>
@@ -151,6 +151,8 @@
                         </select>
                     </div>
                 </div>
+
+              <!-- Acceder a las incidencias obtenidas para mostrar el número total y sus datos. -->
 
               <p class="cantIncidencias mb-0">Se han encontrado <b>{{ incidencias.length }}</b> incidencias.</p>
 
