@@ -13,7 +13,6 @@ Route::get('/', function () {
     return view('login');
 });
 
-
 Route::controller(AdminController::class)->group(function() {
     Route::get('/index', 'index')->name('list.index');
 });

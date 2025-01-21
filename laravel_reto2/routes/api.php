@@ -9,19 +9,22 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 
-// TODO : Repasar y mejorar.
-
 // Admin routes
-Route::controller(AdminController::class)->group(function() {
-    Route::get('/admins', 'index')->name('admins.index');
+Route::middleware('auth:sanctum')->group(function () {
+    // Rutas protegidas (requieren autenticación)
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/admins', 'index')->name('admins.index');
+    });
 });
 
 // Máquina routes
-Route::controller(MaquinaController::class)->group(function() {
-    Route::get('/maquinas', 'show')->name('maquinas.show');
-    Route::post('/maquinas', 'create')->name('maquinas.create');
-    Route::put('/maquinas/{id}', 'save')->name('maquinas.save');
-    Route::delete('/maquinas/{id}', 'delete')->name('maquinas.delete');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(MaquinaController::class)->group(function() {
+        Route::get('/maquinas', 'show')->name('maquinas.show');
+        Route::post('/maquinas', 'create')->name('maquinas.create');
+        Route::put('/maquinas/{id}', 'save')->name('maquinas.save');
+        Route::delete('/maquinas/{id}', 'delete')->name('maquinas.delete');
+    });
 });
 
 // Operario routes
