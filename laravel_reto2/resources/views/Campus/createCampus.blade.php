@@ -17,41 +17,6 @@
             background-color: #FFFFFF;
         }
 
-
-
-        .incidents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            /* Adjust margins to account for the sidebar on the left */
-            margin-left: 250px; /* Sidebar width */
-            margin-right: 0; /* No need for right margin now */
-            padding: 20px; /* Add padding to space from the top */
-        }
-
-        .incident {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 4px solid #0A3D62;
-        }
-
-        .detail-btn {
-            background-color: #0A3D62;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .detail-btn:hover {
-            background-color: #FF5733;
-        }
-
         .sidebar {
             width: 250px;
             background-color: #000; /* Black background */
@@ -99,13 +64,24 @@
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
                     <h1>Añadir Campus </h1>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                 </div>
                 <form action="{{route('campus.save')}}" method="post">
                     @csrf
 
                     <!-- Código -->
                     <div class="mb-3 row">
-                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
+                        <label for="codigo" class="col-sm-3 col-form-label @error('codigo_postal') is-invalid @enderror">Código:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="codigo" name="codigo" required>
                         </div>
@@ -129,7 +105,7 @@
 
                     <!-- Código postal -->
                     <div class="mb-3 row">
-                        <label for="codigo_postal" class="col-sm-3 col-form-label">Código postal:</label>
+                        <label for="codigo_postal" class="col-sm-3 col-form-label @error('codigo_postal') is-invalid @enderror">Código postal:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
                         </div>

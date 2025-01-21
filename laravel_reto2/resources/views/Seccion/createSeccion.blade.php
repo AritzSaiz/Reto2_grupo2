@@ -109,11 +109,23 @@
             <div class="form-section" id="form-seccion">
                 <div class="row mb-3">
                     <h1>Añadir seccion </h1>
+
+
+                    <!-- Mostrar mensajes de éxito o error -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <form action="{{route('seccion.save')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
-                        <label for="codigo" class="col-sm-3 col-form-label">Código:</label>
+                        <label for="codigo" class="col-sm-3 col-form-label @error('codigo') is-invalid @enderror">Código:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="codigo" name="codigo" required>
                         </div>

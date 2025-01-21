@@ -17,41 +17,6 @@
             background-color: #FFFFFF;
         }
 
-
-
-        .incidents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            /* Adjust margins to account for the sidebar on the left */
-            margin-left: 250px; /* Sidebar width */
-            margin-right: 0; /* No need for right margin now */
-            padding: 20px; /* Add padding to space from the top */
-        }
-
-        .incident {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 4px solid #0A3D62;
-        }
-
-        .detail-btn {
-            background-color: #0A3D62;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .detail-btn:hover {
-            background-color: #FF5733;
-        }
-
         .sidebar {
             width: 250px;
             background-color: #000; /* Black background */
@@ -97,6 +62,18 @@
             <div class="form-section" id="form-operario">
                 <div class="row mb-3">
                     <h1>Añadir Operario </h1>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                 </div>
                 <form action="{{ route('operario.save') }}" method="post">
                     @csrf
@@ -105,7 +82,10 @@
                     <div class="mb-3 row">
                         <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
+                            @error('nombre')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -113,7 +93,10 @@
                     <div class="mb-3 row">
                         <label for="apellidos" class="col-sm-3 col-form-label">Apellidos:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                            <input type="text" class="form-control @error('apellidos') is-invalid @enderror" id="apellidos" name="apellidos" value="{{ old('apellidos') }}" required>
+                            @error('apellidos')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -121,7 +104,10 @@
                     <div class="mb-3 row">
                         <label for="email" class="col-sm-3 col-form-label">Email:</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+                            @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -129,7 +115,10 @@
                     <div class="mb-3 row">
                         <label for="usuario" class="col-sm-3 col-form-label">Usuario:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="usuario" name="usuario" required>
+                            <input type="text" class="form-control @error('usuario') is-invalid @enderror" id="usuario" name="usuario" value="{{ old('usuario') }}" required>
+                            @error('usuario')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -137,7 +126,10 @@
                     <div class="mb-3 row">
                         <label for="contrasena" class="col-sm-3 col-form-label">Contraseña:</label>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                            <input type="password" class="form-control @error('contrasena') is-invalid @enderror" id="contrasena" name="contrasena" required>
+                            @error('contrasena')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -148,6 +140,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

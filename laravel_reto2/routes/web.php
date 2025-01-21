@@ -36,6 +36,7 @@ Route::controller(TecnicoController::class)->group(function() {
     Route::get('/showTecnico', 'show')->name('tecnico.show');
     Route::get('/createTecnico', 'create')->name('tecnico.create');
     Route::post('/saveTecnico', 'save')->name('tecnico.save');
+    Route::post('/login', 'login')->name('tecnico.login');
     Route::delete('/deleteTecnico/{id}', 'delete')->name('tecnico.delete');
 });
 

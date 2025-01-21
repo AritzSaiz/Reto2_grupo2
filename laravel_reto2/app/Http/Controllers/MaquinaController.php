@@ -22,51 +22,50 @@ class MaquinaController extends Controller{
         return view('Maquina.createMaquina',compact('secciones'));
 
     }
-    public function save(Request $request){
-
+    public function save(Request $request)
+    {
+        // Validar los datos enviados
         $validator = Validator::make($request->all(), [
-            'codigo' => 'required|max:255',
+            'codigo' => 'required|regex:/^\d{7}$/',
             'nombre' => 'required',
             'modelo' => 'required',
-            'prioridad' => 'required|integer',
+            'prioridad' => 'required|integer|min:1|max:3',
+            'seccion_id' => 'required|integer',
+        ], [
+            'codigo.size' => 'El código debe tener exactamente 7 numeros.',
+            'prioridad.integer' => 'La prioridad debe ser un número entero.',
+            'prioridad.min' => 'La prioridad debe ser al menos 1.',
+            'prioridad.max' => 'La prioridad no puede ser mayor que 3.',
         ]);
 
         if ($validator->fails()) {
-            return back()->withError("Error validando la maquina")->withInput();
+            return back()->withErrors($validator)->withInput()
+                ->with('error', 'Hay errores en los datos proporcionados.'); // Mensaje de error si la validación falla
         }
-        $input = $request->all();
 
-        try{
-            $user= Auth::user();
+        try {
+            // Crear instancia de Maquina
+            $input = $request->all();
             $maquina = new Maquina($input);
+
+            // Asignar manualmente campos
             $maquina->codigo = $input['codigo'];
             $maquina->nombre = $input['nombre'];
             $maquina->modelo = $input['modelo'];
+            $maquina->prioridad = $input['prioridad'];
+            $maquina->seccion_id = $input['seccion_id'];
 
-
-            $user = Auth::user();
-            $maquina = new Maquina($input);
-
-            if (isset($input['prioridad']) && is_numeric($input['prioridad']) && $input['prioridad'] >= 1 && $input['prioridad'] <= 3) {
-                $maquina->prioridad = $input['prioridad'];
-            }else{
-                throw new \Exception('El valor de prioridad debe ser un número entre 1 y 3.');
-            }
-
-            $maquina->codigo = $input['codigo'];
-            $maquina->nombre = $input['nombre'];
-            $maquina->modelo = $input['modelo'];
-
-            $maquina->seccion_id = 5;
-
-            // Guardar la máquina en la base de datos
+            // Guardar en la base de datos
             $maquina->save();
-        }
-        catch (\Exception $exception) {
-            return back()->withError($exception->getMessage())->withInput();
+
+            // Retornar con mensaje de éxito
+            return back()->with('success', 'La máquina se ha creado correctamente.');
+
+        } catch (\Exception $exception) {
+            // Capturar errores y retornar con mensaje
+            return back()->with('error', 'Ocurrió un error al intentar crear la máquina: ' . $exception->getMessage());
         }
     }
-
     public function delete($id)
     {
         try {
