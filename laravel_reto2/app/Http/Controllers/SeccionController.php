@@ -12,13 +12,13 @@ class SeccionController extends Controller{
 
     public function show()
     {
-        $secciones = Seccion::all();
+        $secciones = Seccion::whereNull('deleted_at')->get();
 
         return view('Seccion.listSeccion', compact('secciones'));
     }
 
     public function create(){
-        $campuses = Campus::all();
+        $campuses = Campus::whereNull('deleted_at')->get();
 
         return view('Seccion.createSeccion',compact('campuses'));
 
@@ -60,7 +60,8 @@ class SeccionController extends Controller{
     {
         try {
             $seccion = Seccion::findOrFail($id);
-            $seccion->delete();
+            $seccion->deleted_at = now();
+            $seccion->save();
             return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar el operario.');

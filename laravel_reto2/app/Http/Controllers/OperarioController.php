@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Operario;
+use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,9 +12,10 @@ class OperarioController extends Controller
 {
 
     public function show(){
-        $operarios = Operario::all();
+        $operarios = Operario::whereNull('deleted_at')->get();
         return view('Operario.listOperario', compact('operarios'));
     }
+
 
     public function create(){
         return view('Operario.createOperario');
@@ -65,10 +67,21 @@ class OperarioController extends Controller
     {
         try {
             $operario = Operario::findOrFail($id);
-            $operario->delete();
-            return redirect()->route('operario.show')->with('success', 'Operario eliminada correctamente.');
+
+            $tecnico = Tecnico::where('operario_id', $id)
+                ->whereNull('deleted_at')
+                ->first();
+
+            if ($tecnico == null) {
+                $operario->deleted_at = now();
+                $operario->save();
+                return redirect()->route('operario.show')->with('success', 'Operario eliminado correctamente.');
+            } else {
+                return redirect()->route('operario.show')->with('error', 'El operario está relacionado con un técnico');
+            }
         } catch (\Exception $e) {
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }
+
 }

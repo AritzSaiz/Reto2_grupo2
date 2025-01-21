@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class MantenimientoController extends Controller
 {
     public function show(){
-        $mantenimientos = Mantenimiento::all();
+        $mantenimientos = Mantenimiento::whereNull('deleted_at')->get();
         return view('Mantenimiento.listMantenimiento', compact('mantenimientos'));
     }
 
@@ -62,7 +62,8 @@ class MantenimientoController extends Controller
     {
         try {
             $mantenimiento = Mantenimiento::findOrFail($id);
-            $mantenimiento->delete();
+            $mantenimiento->deleted_at = now();
+            $mantenimiento->save();
             return redirect()->route('mantenimiento.show')->with('success', 'Mantenimiento eliminado correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento.');

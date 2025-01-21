@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class CampusController extends Controller{
 
     public function show(){
-        $campus = Campus::all();
+        $campus = Campus::whereNull('deleted_at')->get();
         return view('Campus.listCampus', compact('campus'));
     }
 
@@ -65,7 +65,9 @@ class CampusController extends Controller{
     {
         try {
             $campus = Campus::findOrFail($id);
-            $campus->delete();
+            $campus->deleted_at = now();
+            $campus->save();
+
             return redirect()->route('campus.show')->with('success', 'Campus eliminado correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('campus.show')->with('error', 'No se pudo eliminar el campus.');

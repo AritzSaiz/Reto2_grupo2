@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Log;
 class TecnicoController extends Controller
 {
     public function show(){
-        $tecnicos = Tecnico::all();
+
+        $tecnicos = Tecnico::whereNull('deleted_at')->get();
         return view('Tecnico.listTecnico', compact('tecnicos'));
 
     }
 
     public function create(){
-        $operarios = Operario::all();
+        $operarios = Operario::whereNull('deleted_at')->get();
         return view('Tecnico.createTecnico',compact('operarios'));
 
     }
@@ -57,7 +58,8 @@ class TecnicoController extends Controller
     {
         try {
             $tecnico = Tecnico::findOrFail($id);
-            $tecnico->delete();
+            $tecnico->deleted_at = now();
+            $tecnico->save();
             return redirect()->route('tecnico.show')->with('success', 'Tecnico eliminada correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('tecnico.show')->with('error', 'No se pudo eliminar el tecnico.');

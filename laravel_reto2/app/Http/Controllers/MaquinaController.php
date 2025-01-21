@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class MaquinaController extends Controller{
 
     public function show(){
-        $maquinas = Maquina::all();
+        $maquinas = Maquina::whereNull('deleted_at')->get();
         return view('Maquina.listMaquina', compact('maquinas'));
 
     }
@@ -70,7 +70,8 @@ class MaquinaController extends Controller{
     {
         try {
             $maquina = Maquina::findOrFail($id);
-            $maquina->delete();
+            $maquina->deleted_at = now();
+            $maquina->save();
             return redirect()->route('maquina.show')->with('success', 'Operario eliminada correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar el operario.');
