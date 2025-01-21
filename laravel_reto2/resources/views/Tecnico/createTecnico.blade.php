@@ -109,51 +109,45 @@
                         </div>
                     @endif
                 </div>
-                    <form action="{{route('tecnico.save')}}" method="post">
-                        @csrf
+                <form action="{{route('tecnico.save')}}" method="post">
+                    @csrf
 
-                        <!-- Combobox de Operadores -->
-                        <div class="mb-3 row">
-                                <label for="operario_id" class="col-sm-3 col-form-label">Operario:</label>
-                                <div class="col-sm-6">
-                                    <select id="operario_id" class="form-select" name="operario_id" required>
-                                        <option value="">Seleccione un operario</option>
-                                        @foreach ($operarios as $operario)
-                                            <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                    <!-- Combobox de Operadores -->
+                    <div class="mb-3 row">
+                        <label for="operario_id" class="col-sm-3 col-form-label">Operario:</label>
+                        <div class="col-sm-6">
+                            <select id="operario_id" class="form-select" name="operario_id" required>
+                                <option value="">Seleccione un operario</option>
+                                @foreach ($operarios as $operario)
+                                    <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                    </div>
 
 
-                        <div class="mb-3 row" id="div-especialidad">
-                            <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control  @error('especialidad') is-invalid @enderror" id="especialidad" name="especialidad">
-                            </div>
+                    <div class="mb-3 row" id="div-especialidad">
+                        <label for="especialidad" class="col-sm-3 col-form-label">Especialidad:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control  @error('especialidad') is-invalid @enderror" id="especialidad" name="especialidad">
                         </div>
+                    </div>
 
-                        <div class="mb-3 row" id="div-admin">
-                            <label class="col-sm-3 col-form-label">Admin:</label>
-                            <div class="col-sm-6">
-                                <input type="radio" name="administrador" value="si" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> Sí
-                                <input type="radio" name="administrador" value="no" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
-                            </div>
+                    <div class="mb-3 row" id="div-admin">
+                        <label class="col-sm-3 col-form-label">Admin:</label>
+                        <div class="col-sm-6">
+                            <input type="radio" name="administrador" value="si" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> Sí
+                            <input type="radio" name="administrador" value="no" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
                         </div>
+                    </div>
 
-                        <!-- Botón enviar -->
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-create">Enviar</button>
-                            </div>
+                    <!-- Botón enviar -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-create">Enviar</button>
                         </div>
-                    </form>
+                    </div>
+                </form>
             </div>
         </div>
 @endsection
-
-
-
-
-
-

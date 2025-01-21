@@ -12,6 +12,7 @@ class TecnicoController extends Controller
     public function show(){
 
         $tecnicos = Tecnico::whereNull('deleted_at')->get();
+
         return view('Tecnico.listTecnico', compact('tecnicos'));
 
     }
