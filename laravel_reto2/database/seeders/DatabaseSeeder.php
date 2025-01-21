@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // Llamar a los seeders específicos.
+        // Llamar a los seeders específicos en el orden correcto (teniendo en cuenta las FK).
         $this->call([
             CampusSeeder::class,
             CategoriasSeeder::class,

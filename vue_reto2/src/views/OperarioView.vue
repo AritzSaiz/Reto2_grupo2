@@ -1,53 +1,12 @@
-<template>
-  <div>
-    <h1>Lista de Incidencias</h1>
-    <ul>
-      <li v-for="incidencia in incidencias" :key="incidencia.id">
-        {{ incidencia.descripcion }}: {{ incidencia.abierta }}
-      </li>
-    </ul>
-  </div>
-</template>
-
-<script>
-import api from '@/plugins/axios';
-
-export default {
-  data() {
-    return {
-      incidencias: [],
-    };
-  },
-  async created() {
-    try {
-      const response = await api.get('/incidencias');
-      this.incidencias = response.data;
-    } catch (error) {
-      console.error('Error al cargar las incidencias:', error);
-    }
-  },
-};
-</script>
-
-
-
-
-
-
-
-
-
-
-<!-- todo -->
-
-<!--
-
-
 <script setup>
+
     import IniciarSesion from '@/components/IniciarSesion.vue';
     import {onMounted, ref} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
+
+    // PARTE DE AXIOS (para conectar ventanas de Vue y datos de Laravel)
+    import api from '@/plugins/axios';
 
     const router = useRouter();
 
@@ -59,6 +18,18 @@ export default {
     const categoria = ref("");
     const gravedad = ref("");
     const maquina = ref("");
+
+    const incidencias = ref([]);
+
+    // PARTE DE AXIOS
+    async function fetchIncidencias() {
+      try {
+        const response = await api.get('/incidencias');
+        incidencias.value = response.data;
+      } catch (error) {
+        console.error('Error al cargar las incidencias:', error);
+      }
+    }
 
     function crearIncidencia(){
         if (descripcion.value != "" && categoria.value != "" && gravedad.value != "" && maquina.value != ""){
@@ -79,6 +50,10 @@ export default {
 
     }
 
+    function detalle(){
+      router.push('/incidencia');
+    }
+
     onMounted(() => {
         const contenedorDatos = document.querySelector('.listaIncidencias');
         if (contenedorDatos) {
@@ -86,9 +61,6 @@ export default {
         }
     })
 
-    function detalle(){
-        router.push('/incidencia');
-    }
 </script>
 
 <template>
@@ -241,6 +213,3 @@ export default {
         </div>
     </div>
 </template>
-
-
--->

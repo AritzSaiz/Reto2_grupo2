@@ -31,7 +31,7 @@ return new class extends Migration
 
         // Restricción de la columna 'gravedad'.
         DB::statement("ALTER TABLE incidencias ADD CONSTRAINT INCI_GRAVE_CK CHECK (gravedad IN
-                                                      ('No funciona', 'Sí funciona', 'Avería',
+                                                      ('No funciona', 'Sí funciona', 'Aviso',
                                                        'Mantenimiento preventivo'))");
 
     }
