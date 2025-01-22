@@ -34,7 +34,12 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page">Panel del Adminstrador</a>
+                    <a class="nav-link" aria-current="page">Panel del Adminstrador</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}" aria-current="page">Cerrar sesión</a>
                 </li>
             </ul>
         </div>

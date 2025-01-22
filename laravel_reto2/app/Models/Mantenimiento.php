@@ -9,9 +9,9 @@ class Mantenimiento extends Model
     protected $table = 'mantenimientos_preventivos';
 
     protected $fillable = [
+        "descripcion",
         "dias",
-        "ultima_revision",
-        "siguiente_revision",
+        "primera_revision",
         "maquina_id"
     ];
 }
