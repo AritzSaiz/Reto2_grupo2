@@ -11,42 +11,37 @@ use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
 {
-    use Illuminate\Support\Facades\Hash;
 
     public function inicioSesion(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'usuario' => 'required|string',
-            'contrasena' => 'required|string',
-        ]);
+
+        $usuario = $request->input('usuario');
+        $contrasena = $request->input('contrasena');
 
         // Buscar al operario por usuario
-        $operario = Operario::where('usuario', $request->usuario)->first(); // Se agregó `first()`
+        $operario = Operario::where('usuario', $usuario)->first();
 
         // Verificar si el operario existe y si la contraseña es válida
-        if (!$operario) {
-            return response()->json(['message' => 'Usuario no encontrado'], 404);
-        }
-
-        // Comprobar la contraseña
-        if (Hash::check($request->contrasena, $operario->contrasena)) { 
+        if ($operario && Hash::check($contrasena, $operario->contrasena)) {
+            // Comprobar si tiene un técnico asociado
             return response()->json([
                 'message' => 'Inicio de sesión exitoso',
                 'data' => $operario
             ], 200);
         } else {
-            return response()->json(['message' => 'Contraseña incorrecta'], 401);
+            return response()->json([
+                'message' => 'Usuario o contraseña incorrectos'
+            ], 401);
         }
+
     }
-
-
 
 
     public function show(){
         $operarios = Operario::whereNull('deleted_at')->get();
         return view('Operario.listOperario', compact('operarios'));
     }
+
 
     public function create(){
         return view('Operario.createOperario');
