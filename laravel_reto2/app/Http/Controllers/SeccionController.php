@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SeccionController extends Controller{
 
+    // Función para obtener todas las secciones.
+    public function list(){
+        return Seccion::all();
+    }
 
     public function show()
     {

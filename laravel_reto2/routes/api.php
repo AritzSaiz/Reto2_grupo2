@@ -58,8 +58,20 @@ Route::controller(CampusController::class)->group(function() {
 
 
 
-// todo
+/*
+ * Definir rutas HTTP GET para obtener los datos de la ventana de incidencias desde
+ * el controlador de Laravel y enviarlas al frontend en Vue.
+*/
 
-// Definir una ruta HTTP GET para obtener las incidencias desde el controlador de Laravel y enviarlas al frontend en Vue.
-Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'show']);
+Route::get('/campus', [\App\Http\Controllers\CampusController::class, 'list']);
+Route::get('/secciones', [\App\Http\Controllers\SeccionController::class, 'list']);
+Route::get('/categorias', [\App\Http\Controllers\CategoriaController::class, 'list']);
+Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'list']);
+
+
+
+//Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'show']);
+Route::get('/incidencias/{incidencia}', [\App\Http\Controllers\IncidenciaController::class, 'detalle']);
 Route::post('/createIncidencia',[\App\Http\Controllers\IncidenciaController::class, 'create']);
+
+Route::post('/login', [OperarioController::class, 'inicioSesion']);
