@@ -165,7 +165,7 @@ form {
 .cerrarSesion {
   display: flex;
   justify-content: flex-end;
-  width: 4em;
+  width: 40px;
   margin-right: 7em;
 }
 

@@ -10,6 +10,11 @@
     Axios permite realizar solicitudes HTTP a la API de Laravel.
      */
     import api from '@/plugins/axios';
+    import alert from "bootstrap/js/src/alert.js";
+
+    // TODO
+    // Mejorar el manejo de errores con SweetAlert2 (es una biblioteca de notificaciones).
+    //import Swal from 'sweetalert2';
 
     const router = useRouter();
 
@@ -20,55 +25,68 @@
     const gravedad = ref("");
     const maquina = ref("");
 
+    // Listas reactivas que contienen los datos obtenidos de la API.
+    const campus = ref([]);
+    const secciones = ref([]);
+    const categorias = ref([]);
     const incidencias = ref([]);
 
+    // Constantes reutilizables con las rutas para obtener datos.
+    const API_ROUTES = {
+      CAMPUS: '/campus',
+      SECCIONES: '/secciones',
+      CATEGORIAS: '/categorias',
+      INCIDENCIAS: '/incidencias',
+    };
 
-    /* TODO
-    "En lugar de usar alert para errores y validaciones, considera
-    integrar una biblioteca de notificaciones como SweetAlert2 o Toastr."
-     */
-
-
-    // Función para obtener las incidencias desde el backend.
-    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/incidencias'.
-    async function fetchIncidencias() {
+    // Función para obtener los datos desde el backend.
+    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
+    async function fetchDatos(rutaDatos, variableRef) {
       try {
-        // Obtener las incidencias.
-        const response = await api.get('/incidencias');
-        //  Guardar los datos recibidos en la variable reactiva "incidencias".
-        incidencias.value = response.data;
-      } catch (error) {
-        console.error('Error al cargar las incidencias:', error);
-        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+        // Realiza la solicitud GET a la ruta proporcionada.
+        const response = await api.get(rutaDatos);
+        //  Guardar los datos recibidos en la variable reactiva correspondiente.
+        variableRef.value = response.data;
+      }
+      catch (error) {
+        console.error('Error al cargar datos desde ${rutaDatos}:', error);
+        alert('Hubo un problema al cargar los datos de ${rutaDatos}. Inténtalo más tarde.');
       }
     }
 
-    function crearIncidencia(){
-        if (descripcion.value != "" && categoria.value != "" && gravedad.value != "" && maquina.value != ""){
-            router.push('/operario')
-        }
-        else if (descripcion.value == ""){
-            alert('La descripción está vacía');
-        }
-        else if (categoria.value == ""){
-            alert('La categoría no está seleccionada');
-        }
-        else if (gravedad.value == ""){
-            alert('La gravedad no está seleccionada');
-        }
-        else if (maquina.value == ""){
-            alert('La máquina no está seleccionada');
-        }
+    function validarIncidencia() {
+      if (!descripcion.value) return 'La descripción está vacía.';
+      if (!categoria.value) return 'La categoría no está seleccionada.';
+      if (!gravedad.value) return 'La gravedad no está seleccionada.';
+      if (!maquina.value) return 'La máquina no está seleccionada.';
+      // Sin errores, devolver null.
+      return null;
+    }
 
+    function crearIncidencia() {
+      const error = validarIncidencia();
+      if (error) {
+        alert(error);
+        return;
+      }
+      // Si es válido, redirigir.
+      router.push('/operario');
     }
 
     function detalle(){
       router.push('/incidencia');
     }
 
-    // Ciclo de vida: Al montar el componente, se ejecuta la función para cargar las incidencias desde el backend.
+    // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
     onMounted(() => {
-      fetchIncidencias();
+      const rutasApi = [
+        { ruta: API_ROUTES.CAMPUS, variable: campus },
+        { ruta: API_ROUTES.SECCIONES, variable: secciones },
+        { ruta: API_ROUTES.CATEGORIAS, variable: categorias },
+        { ruta: API_ROUTES.INCIDENCIAS, variable: incidencias },
+      ];
+
+      rutasApi.forEach(({ ruta, variable }) => fetchDatos(ruta, variable));
     });
 
 </script>
@@ -88,66 +106,60 @@
             <form class="ver" v-show="mostrarCrear">
                 <h2 class="mt-3">Filtros</h2>
                 <div class="row g-1">
+                  <div class="col">
+                    Filtrar por estado de incidencia.
+                    <select name="filtroEstado" class="form-select">
+                      <option value="1">Todas</option>
+                      <option value="2" selected>Pendientes</option>
+                      <option value="3">Solucionadas</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    Filtrar por gravedad de incidencia.
+                    <select name="filtroGravedad" class="form-select">
+                      <option value="1">No funciona</option>
+                      <option value="2">Sí funciona</option>
+                      <option value="3">Aviso</option>
+                      <option value="4">Mantenimiento preventivo</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    Filtrar por prioridad de máquina.
+                    <select name="filtroPrioridad" class="form-select">
+                      <option value="1">1 - Crítica</option>
+                      <option value="2">2 - Moderada</option>
+                      <option value="3">3 - Baja</option>
+                    </select>
+                  </div>
                     <div class="col">
-                        <select name="filtroEstado" class="form-select">
-                            <option value="0">-- Estado --</option>
-                            <option value="1">Todas</option>
-                            <option value="2">Pendientes</option>
-                            <option value="3">Solucionadas</option>
-                        </select>
-                    </div>
-                    <div class="col">
+                      Filtrar por fecha de incidencia.
                         <select name="filtroFecha" class="form-select">
-                            <option value="0">-- Fecha --</option>
                             <option value="1">Más antiguas</option>
                             <option value="2">Más recientes</option>
                         </select>
                     </div>
                     <div class="col">
+                      Filtrar por campus.
                         <select name="filtroCampus" class="form-select">
-                            <option value="0">-- Campus --</option>
-                            <option value="1">Arriaga</option>
-                            <option value="2">Mendizorroza</option>
-                            <option value="3">Molinuevo</option>
-                            <option value="4">Nieves Cano</option>
-                            <option value="5">Jesús Obrero</option>
+                          <option v-for="(camp, index) in campus" :key="index" :value="camp.id">
+                            {{ camp.nombre }}
+                          </option>
                         </select>
                     </div>
                     <div class="col">
+                      Filtrar por sección.
                         <select name="filtroSeccion" class="form-select">
-                            <option value="0">-- Seccion --</option>
-                            <option value="1">Seccion 1</option>
-                            <option value="2">Seccion 2</option>
-                            <option value="3">Seccion 3</option>
+                          <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
+                            {{ secci.codigo }}
+                          </option>
                         </select>
                     </div>
                     <div class="col">
-                        <select name="filtroGravedad" class="form-select">
-                            <option value="0">-- Gravedad --</option>
-                            <option value="1">No funciona</option>
-                            <option value="2">Sí funciona</option>
-                            <option value="3">Aviso</option>
-                            <option value="4">Mantenimiento preventivo</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select name="filtroPrioridad" class="form-select">
-                            <option value="0">-- Prioridad --</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div class="col">
+                      Filtrar por categoría.
                         <select name="filtroCategoria" class="form-select">
-                            <option value="0">-- Categoría --</option>
-                            <option value="1">Mecánica</option>
-                            <option value="2">Eléctrica</option>
-                            <option value="3">Neumática</option>
-                            <option value="4">Hidraulica</option>
-                            <option value="5">Informática</option>
-                            <option value="6">Instalaciones generales</option>
-                            <option value="7">Otros</option>
+                          <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
+                            {{ cate.nombre }}
+                          </option>
                         </select>
                     </div>
                 </div>
