@@ -3,6 +3,10 @@
     import { useRouter } from 'vue-router';
     import {onMounted, ref} from 'vue';
 
+    import api from '@/plugins/axios';
+
+    const incidencias = ref([]);
+
     const router = useRouter();
 
     const cantidadDivs = ref(0);
@@ -21,6 +25,23 @@
     function detalle(){
         router.push('/incidenciaResueltaView');
     }
+
+    async function fetchIncidencias() {
+      try {
+        // Obtener las incidencias.
+        const response = await api.get('/incidencias');
+        //  Guardar los datos recibidos en la variable reactiva "incidencias".
+        incidencias.value = response.data.filter(incidencia => incidencia.abierta === 0);
+      } catch (error) {
+        console.error('Error al cargar las incidencias:', error);
+        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+      }
+    }
+
+    onMounted(() => {
+      fetchIncidencias();
+    });
+
 </script>
 
 <template>
@@ -42,19 +63,11 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias mb-4">Se han encontrado {{ cantidadDivs }} incidencias resueltas</p>
+                <p class="cantIncidencias mb-4">Se han encontrado <b>{{ incidencias.length }}</b> incidencias resueltas</p>
 
                 <div class="listaIncidencias">
-                    <div class="incidenciaResuelta mb-3">
-                        <p class="mb-0">Incidencia 1</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
-                    </div>
-                    <div class="incidenciaResuelta mb-3">
-                        <p class="mb-0">Incidencia 2</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
-                    </div>
-                    <div class="incidenciaResuelta mb-3">
-                        <p class="mb-0">Incidencia 3</p>
+                    <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
+                        <p class="mb-0">{{ incidencia.descripcion }}</p>
                         <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
                     </div>
                 </div>
