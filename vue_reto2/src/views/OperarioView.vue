@@ -10,6 +10,11 @@
     Axios permite realizar solicitudes HTTP a la API de Laravel.
      */
     import api from '@/plugins/axios';
+    import alert from "bootstrap/js/src/alert.js";
+
+    // TODO
+    // Mejorar el manejo de errores con SweetAlert2 (es una biblioteca de notificaciones).
+    //import Swal from 'sweetalert2';
 
     const router = useRouter();
 
@@ -26,12 +31,13 @@
     const categorias = ref([]);
     const incidencias = ref([]);
 
-
-    /* TODO
-    "En lugar de usar alert para errores y validaciones, considera
-    integrar una biblioteca de notificaciones como SweetAlert2 o Toastr."
-     */
-
+    // Constantes reutilizables con las rutas para obtener datos.
+    const API_ROUTES = {
+      CAMPUS: '/campus',
+      SECCIONES: '/secciones',
+      CATEGORIAS: '/categorias',
+      INCIDENCIAS: '/incidencias',
+    };
 
     // Función para obtener los datos desde el backend.
     // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
@@ -48,24 +54,23 @@
       }
     }
 
-    // TODO : Repasar
-    function crearIncidencia(){
-        if (descripcion.value != "" && categoria.value != "" && gravedad.value != "" && maquina.value != ""){
-            router.push('/operario')
-        }
-        else if (descripcion.value == ""){
-            alert('La descripción está vacía');
-        }
-        else if (categoria.value == ""){
-            alert('La categoría no está seleccionada');
-        }
-        else if (gravedad.value == ""){
-            alert('La gravedad no está seleccionada');
-        }
-        else if (maquina.value == ""){
-            alert('La máquina no está seleccionada');
-        }
+    function validarIncidencia() {
+      if (!descripcion.value) return 'La descripción está vacía.';
+      if (!categoria.value) return 'La categoría no está seleccionada.';
+      if (!gravedad.value) return 'La gravedad no está seleccionada.';
+      if (!maquina.value) return 'La máquina no está seleccionada.';
+      // Sin errores, devolver null.
+      return null;
+    }
 
+    function crearIncidencia() {
+      const error = validarIncidencia();
+      if (error) {
+        alert(error);
+        return;
+      }
+      // Si es válido, redirigir.
+      router.push('/operario');
     }
 
     function detalle(){
@@ -75,10 +80,10 @@
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
     onMounted(() => {
       const rutasApi = [
-        { ruta: '/campus', variable: campus },
-        { ruta: '/secciones', variable: secciones },
-        { ruta: '/categorias', variable: categorias },
-        { ruta: '/incidencias', variable: incidencias },
+        { ruta: API_ROUTES.CAMPUS, variable: campus },
+        { ruta: API_ROUTES.SECCIONES, variable: secciones },
+        { ruta: API_ROUTES.CATEGORIAS, variable: categorias },
+        { ruta: API_ROUTES.INCIDENCIAS, variable: incidencias },
       ];
 
       rutasApi.forEach(({ ruta, variable }) => fetchDatos(ruta, variable));
