@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mantenimientos_preventivos', function (Blueprint $table) {
             $table->id();
+            $table->string('descripcion')->nullable(false);
             $table->integer('dias')->nullable(false);
             $table->dateTime('ultima_revision')->nullable(false);
             $table->dateTime('siguiente_revision')->nullable(false);

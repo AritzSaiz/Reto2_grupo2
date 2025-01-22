@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
 use App\Models\Maquina;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\Artisan;
 
 class MantenimientoController extends Controller
 {
     public function show(){
+        $this->actualizarRevisiones();
         $mantenimientos = Mantenimiento::whereNull('deleted_at')->get();
         return view('Mantenimiento.listMantenimiento', compact('mantenimientos'));
     }
@@ -27,9 +31,9 @@ class MantenimientoController extends Controller
         try {
             // Validar campos requeridos
             $validator = Validator::make($input, [
+                'descripcion' => 'required',
                 'dias' => 'required|regex:/^[0-9]+$/',
-                'ultima_revision' => 'required|max:255',
-                'siguiente_revision' => 'required|max:255',
+                'primera_revision' => 'required|date',
                 'maquina_id' => 'required',
             ],[
                 'dias.regex' => 'El campo dias solo puede tener numeros',
@@ -39,11 +43,17 @@ class MantenimientoController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
+            //Calcular las fechas
+            $primeraRevision = Carbon::createFromFormat('Y-m-d\TH:i', $input['primera_revision']);
+            $dias = (int)$input['dias'];
+            $siguienteRevision = Carbon::parse($primeraRevision)->addDays($dias);
+
             // Crear y guardar el mantenimiento
             $mantenimiento = new Mantenimiento();
-            $mantenimiento->dias = $input['dias'];
-            $mantenimiento->ultima_revision = $input['ultima_revision'];
-            $mantenimiento->siguiente_revision = $input['siguiente_revision'];
+            $mantenimiento->descripcion = $input['descripcion'];
+            $mantenimiento->dias = $dias;
+            $mantenimiento->ultima_revision = $primeraRevision;
+            $mantenimiento->siguiente_revision = $siguienteRevision;
             $mantenimiento->maquina_id = $input['maquina_id'];
             $mantenimiento->save();
 
@@ -52,6 +62,30 @@ class MantenimientoController extends Controller
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
         return redirect()->route('mantenimiento.show');
+    }
+
+    public function actualizarRevisiones()
+    {
+        try {
+            // Usar cursor para obtener los mantenimientos de manera eficiente sin cargar todos en memoria
+            $mantenimientos = Mantenimiento::where('siguiente_revision', '<=', now())->cursor();
+
+            foreach ($mantenimientos as $mantenimiento) {
+                // Actualizar ultima_revision a la fecha de siguiente_revision actual
+                $mantenimiento->ultima_revision = $mantenimiento->siguiente_revision;
+
+                // Calcular nueva fecha de siguiente_revision
+                $mantenimiento->siguiente_revision = \Carbon\Carbon::parse($mantenimiento->siguiente_revision)
+                    ->addDays($mantenimiento->dias);
+
+                // Guardar cambios
+                $mantenimiento->save();
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        return response()->json(['success' => 'Revisiones actualizadas correctamente'], 200);
     }
 
     public function delete($id)

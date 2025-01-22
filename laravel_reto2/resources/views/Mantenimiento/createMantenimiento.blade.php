@@ -103,6 +103,14 @@
                 <form action="{{route('mantenimiento.save')}}" method="post">
                     @csrf
 
+                    <!-- Descripción -->
+                    <div class="mb-3 row">
+                        <label for="descripcion" class="col-sm-3 col-form-label">Descripción:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                        </div>
+                    </div>
+
                     <!-- Dias -->
                     <div class="mb-3 row">
                         <label for="dias" class="col-sm-3 col-form-label">Dias:</label>
@@ -111,19 +119,11 @@
                         </div>
                     </div>
 
-                    <!-- Ultima revision -->
+                    <!-- Primera revision -->
                     <div class="mb-3 row">
-                        <label for="ultima_revision" class="col-sm-3 col-form-label">Última revisión:</label>
+                        <label for="primera_revision" class="col-sm-3 col-form-label">Primera Revisión:</label>
                         <div class="col-sm-6">
-                            <input type="datetime-local" class="form-control" id="ultima_revision" name="ultima_revision" required>
-                        </div>
-                    </div>
-
-                    <!-- Siguiente revision -->
-                    <div class="mb-3 row">
-                        <label for="siguiente_revision" class="col-sm-3 col-form-label">Siguiente revision:</label>
-                        <div class="col-sm-6">
-                            <input type="datetime-local" class="form-control" id="siguiente_revision" name="siguiente_revision" required>
+                            <input type="datetime-local" class="form-control" id="primera_revision" name="primera_revision" required>
                         </div>
                     </div>
 

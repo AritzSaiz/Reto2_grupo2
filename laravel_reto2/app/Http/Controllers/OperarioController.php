@@ -17,7 +17,6 @@ class OperarioController extends Controller
         return view('Operario.listOperario', compact('operarios'));
     }
 
-
     public function create(){
         return view('Operario.createOperario');
     }
