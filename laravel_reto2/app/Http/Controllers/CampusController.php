@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CampusController extends Controller{
 
+    // Función para obtener todos los campus.
+    public function list(){
+        return Campus::all();
+    }
+
     public function show(){
         $campus = Campus::whereNull('deleted_at')->get();
         return view('Campus.listCampus', compact('campus'));
