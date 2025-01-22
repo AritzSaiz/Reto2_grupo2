@@ -9,15 +9,6 @@
 
     const router = useRouter();
 
-    const cantidadDivs = ref(0);
-
-    onMounted(() => {
-        const contenedorDatos = document.querySelector('.listaIncidencias');
-        if (contenedorDatos) {
-            cantidadDivs.value = contenedorDatos.querySelectorAll('div').length;
-        }
-    })
-
     function volver(){
         router.push('/operario');
     }
@@ -28,11 +19,10 @@
 
     async function fetchIncidencias() {
       try {
-        // Obtener las incidencias.
         const response = await api.get('/incidencias');
-        //  Guardar los datos recibidos en la variable reactiva "incidencias".
         incidencias.value = response.data.filter(incidencia => incidencia.abierta === 0);
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Error al cargar las incidencias:', error);
         alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
       }
@@ -63,7 +53,7 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias mb-4">Se han encontrado <b>{{ incidencias.length }}</b> incidencias resueltas</p>
+                <p class="cantIncidencias mb-4">Se han encontrado <b>{{ incidencias.length }}</b> incidencias resueltas.</p>
 
                 <div class="listaIncidencias">
                     <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">

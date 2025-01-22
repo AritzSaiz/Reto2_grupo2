@@ -18,7 +18,17 @@
 
     const router = useRouter();
 
+    // Variable que controla el contenido de la ventana (para listar incidencias o crear una)
     const mostrarCrear = ref(true);
+
+    // Valores de los filtros de búsqueda
+    const filtroEstado = ref('2');
+    const filtroGravedad = ref('1');
+    const filtroPrioridad = ref('1');
+    const filtroFecha = ref('1');
+    const filtroCampus = ref('');
+    const filtroSeccion = ref('');
+    const filtroCategoria = ref('');
 
     const descripcion = ref("");
     const categoria = ref("");
@@ -31,6 +41,9 @@
     const categorias = ref([]);
     const incidencias = ref([]);
     const maquinas = ref([]);
+
+    // Guardar los datos originales de las incidencias para no perderlos al filtrar.
+    const incidenciasOriginal = ref([]);
 
     // Constantes reutilizables con las rutas para obtener datos.
     const API_ROUTES = {
@@ -55,6 +68,52 @@
         alert('Hubo un problema al cargar los datos de ${rutaDatos}. Inténtalo más tarde.');
       }
     }
+
+    // Función que aplica posteriormente todos los filtros seleccionados al array de incidencias.
+    function aplicarFiltros() {
+      incidencias.value = incidenciasOriginal.value.filter((incidencia) => {
+        // Filtro por estado (Pendiente, Solucionadas, Todas)
+        if (filtroEstado.value !== '1' && incidencia.abierta !== parseInt(filtroEstado.value) - 2) {
+          return false;
+        }
+
+        // Filtro por gravedad
+        if (filtroGravedad.value !== '1' && incidencia.gravedad !== filtroGravedad.value) {
+          return false;
+        }
+
+        // Filtro por prioridad de máquina
+        if (filtroPrioridad.value !== '1' && incidencia.prioridad !== parseInt(filtroPrioridad.value)) {
+          return false;
+        }
+
+        // Filtro por fecha (simplificado: más recientes o más antiguas)
+        if (filtroFecha.value === '1' && incidencia.fecha > Date.now()) {
+          return false; // Ejemplo de comparación
+        }
+        if (filtroFecha.value === '2' && incidencia.fecha < Date.now()) {
+          return false;
+        }
+
+        // Filtro por campus
+        if (filtroCampus.value && incidencia.campusId !== parseInt(filtroCampus.value)) {
+          return false;
+        }
+
+        // Filtro por sección
+        if (filtroSeccion.value && incidencia.seccionId !== parseInt(filtroSeccion.value)) {
+          return false;
+        }
+
+        // Filtro por categoría
+        if (filtroCategoria.value && incidencia.categoriaId !== parseInt(filtroCategoria.value)) {
+          return false;
+        }
+
+        return true;
+      });
+    }
+
 
     // TODO
     function validarIncidencia() {
@@ -114,7 +173,8 @@
             <div class="row gy-3">
               <div class="col-md-4">
                 <label for="filtroEstado" class="form-label text-dark">Estado de incidencia</label>
-                <select id="filtroEstado" name="filtroEstado" class="form-select">
+                <!-- Evento '@change' ~~> Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
+                <select id="filtroEstado" name="filtroEstado" class="form-select" @change="aplicarFiltros">
                   <option value="1">Todas</option>
                   <option value="2" selected>Pendientes</option>
                   <option value="3">Solucionadas</option>
@@ -122,7 +182,7 @@
               </div>
               <div class="col-md-4">
                 <label for="filtroGravedad" class="form-label text-dark">Gravedad de incidencia</label>
-                <select id="filtroGravedad" name="filtroGravedad" class="form-select">
+                <select id="filtroGravedad" name="filtroGravedad" class="form-select" @change="aplicarFiltros">
                   <option value="1" selected>No funciona</option>
                   <option value="2">Sí funciona</option>
                   <option value="3">Aviso</option>
@@ -131,7 +191,7 @@
               </div>
               <div class="col-md-4">
                 <label for="filtroPrioridad" class="form-label text-dark">Prioridad de máquina</label>
-                <select id="filtroPrioridad" name="filtroPrioridad" class="form-select">
+                <select id="filtroPrioridad" name="filtroPrioridad" class="form-select" @change="aplicarFiltros">
                   <option value="1" selected>1 - Crítica</option>
                   <option value="2">2 - Moderada</option>
                   <option value="3">3 - Baja</option>
@@ -141,14 +201,14 @@
             <div class="row gy-3">
               <div class="col-md-4">
                 <label for="filtroFecha" class="form-label text-dark">Fecha de incidencia</label>
-                <select id="filtroFecha" name="filtroFecha" class="form-select">
+                <select id="filtroFecha" name="filtroFecha" class="form-select" @change="aplicarFiltros">
                   <option value="1" selected>Más antiguas</option>
                   <option value="2">Más recientes</option>
                 </select>
               </div>
               <div class="col-md-4">
                 <label for="filtroCampus" class="form-label text-dark">Campus</label>
-                <select id="filtroCampus" name="filtroCampus" class="form-select">
+                <select id="filtroCampus" name="filtroCampus" class="form-select" @change="aplicarFiltros">
                   <option v-for="(camp, index) in campus" :key="index" :value="camp.id">
                     {{ camp.nombre }}
                   </option>
@@ -156,7 +216,7 @@
               </div>
               <div class="col-md-4">
                 <label for="filtroSeccion" class="form-label text-dark">Sección</label>
-                <select id="filtroSeccion" name="filtroSeccion" class="form-select">
+                <select id="filtroSeccion" name="filtroSeccion" class="form-select" @change="aplicarFiltros">
                   <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                     {{ secci.codigo }}
                   </option>
@@ -166,7 +226,7 @@
             <div class="row gy-3">
               <div class="col-md-4">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
-                <select id="filtroCategoria" name="filtroCategoria" class="form-select">
+                <select id="filtroCategoria" name="filtroCategoria" class="form-select" @change="aplicarFiltros">
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}
                   </option>
