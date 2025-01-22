@@ -18,6 +18,17 @@ class IncidenciaController extends Controller
         return Incidencia::all();
     }
 
+    public function detalle(Incidencia $incidencia = null){
+
+        if($incidencia){
+            return response()->json(['message' => '', 'data' =>$incidencia], 200);
+
+        }else{
+            return response()->json(['message' => 'Se ha producido un error'], 404);
+        }
+
+    }
+
     public function create(Request $request){
 
 
