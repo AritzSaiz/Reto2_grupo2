@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class MaquinaController extends Controller{
 
+    // Función para obtener todas las máquinas.
+    public function list(){
+        return Maquina::all();
+    }
+
     public function show(){
         $maquinas = Maquina::whereNull('deleted_at')->get();
         return view('Maquina.listMaquina', compact('maquinas'));

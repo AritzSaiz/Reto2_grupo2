@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
@@ -9,69 +11,23 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(AdminController::class)->group(function() {
-    Route::get('/index', 'index')->name('list.index');
-});
-
-Route::controller(MaquinaController::class)->group(function() {
-    Route::get('/index', 'show')->name('maquina.show');
-    Route::get('/createMaquina', 'create')->name('maquina.create');
-    Route::post('/saveMaquina', 'save')->name('maquina.save');
-    Route::delete('/deleteMaquina/{id}', 'delete')->name('maquina.delete');
-});
-
-Route::controller(OperarioController::class)->group(function() {
-    Route::get('/showOperario', 'show')->name('operario.show');
-    Route::get('/createOperario', 'create')->name('operario.create');
-    Route::post('/saveOperario', 'save')->name('operario.save');
-    Route::delete('/deleteOperario/{id}', 'delete')->name('operario.delete');
-});
-
-Route::controller(TecnicoController::class)->group(function() {
-    Route::get('/showTecnico', 'show')->name('tecnico.show');
-    Route::get('/createTecnico', 'create')->name('tecnico.create');
-    Route::post('/saveTecnico', 'save')->name('tecnico.save');
-    Route::post('/login', 'login')->name('tecnico.login');
-    Route::delete('/deleteTecnico/{id}', 'delete')->name('tecnico.delete');
-});
-
-Route::controller(SeccionController::class)->group(function() {
-    Route::get('/showSeccion', 'show')->name('seccion.show');
-    Route::get('/createSeccion', 'create')->name('seccion.create');
-    Route::post('/saveSeccion', 'save')->name('seccion.save');
-    Route::delete('/deleteSeccion/{id}', 'delete')->name('seccion.delete');
-});
-
-Route::controller(MantenimientoController::class)->group(function() {
-    Route::get('/showMantenimiento', 'show')->name('mantenimiento.show');
-    Route::get('/createMantenimiento', 'create')->name('mantenimiento.create');
-    Route::post('/saveMantenimiento', 'save')->name('mantenimiento.save');
-    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
-});
-
-Route::controller(CampusController::class)->group(function() {
-    Route::get('/showCampus', 'show')->name('campus.show');
-    Route::get('/createCampus', 'create')->name('campus.create');
-    Route::post('/saveCampus', 'save')->name('campus.save');
-    Route::delete('/deleteCampus/{id}', 'delete')->name('campus.delete');
-});
-
-
+// TODO
 
 /*
  * Definir rutas HTTP GET para obtener los datos de la ventana de incidencias desde
  * el controlador de Laravel y enviarlas al frontend en Vue.
 */
 
-Route::get('/campus', [\App\Http\Controllers\CampusController::class, 'list']);
-Route::get('/secciones', [\App\Http\Controllers\SeccionController::class, 'list']);
-Route::get('/categorias', [\App\Http\Controllers\CategoriaController::class, 'list']);
-Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'list']);
+Route::get('/campus', [CampusController::class, 'list']);
+Route::get('/secciones', [SeccionController::class, 'list']);
+Route::get('/categorias', [CategoriaController::class, 'list']);
+Route::get('/incidencias', [IncidenciaController::class, 'list']);
+Route::get('/maquinas', [MaquinaController::class, 'list']);
 
 
 
-//Route::get('/incidencias', [\App\Http\Controllers\IncidenciaController::class, 'show']);
-Route::get('/incidencias/{incidencia}', [\App\Http\Controllers\IncidenciaController::class, 'detalle']);
-Route::post('/createIncidencia',[\App\Http\Controllers\IncidenciaController::class, 'create']);
+//Route::get('/incidencias', [IncidenciaController::class, 'show']);
+Route::get('/incidencias/{incidencia}', [IncidenciaController::class, 'detalle']);
+Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
 
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
