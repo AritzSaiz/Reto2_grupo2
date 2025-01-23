@@ -8,9 +8,10 @@ const router = createRouter({
       path: '/',
       name: 'iniciarSesion',
       component: HomeView,
+      props: true,
     },
     {
-      path: '/operario',
+      path: '/operario/:id',
       name: 'Ventana operario',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

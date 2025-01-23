@@ -43,7 +43,7 @@ Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbi
 Route::post('/anadir',[HistorialController::class,'anadir']);
 
 
-Route::post('/login', [OperarioController::class, 'inicioSesion']);
+Route::post('/operario/{operario}', [OperarioController::class, 'inicioSesion']);
 
 
 
