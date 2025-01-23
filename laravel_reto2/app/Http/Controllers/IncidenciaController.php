@@ -18,7 +18,7 @@ class IncidenciaController extends Controller
         return view('listIncidencia', compact('incidencias'));
     }
 
-    public function detalle(Incidencia $incidencia = null){
+    public function detalle(Incidencia $incidencia){
 
         if($incidencia){
             return response()->json(['message' => '', 'data' =>$incidencia], 200);

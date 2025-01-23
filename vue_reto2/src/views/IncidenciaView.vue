@@ -1,10 +1,16 @@
 <script setup>
-    import IniciarSesion from '@/components/IniciarSesion.vue';
-    import {isVNode, ref, onMounted} from 'vue';
+    import {ref, onMounted} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
     import api from '@/plugins/axios';
+
+    const props = defineProps({
+        id: {
+            type: [String, Number],
+            required: true
+        }
+    });
 
     const descripcion = ref('')
     const categoria = ref('');
@@ -19,28 +25,26 @@
 
     async function fetchDatosIncidencia() {
       try {
-        const responseIncidencia = await api.get('/incidencias');
+        const responseIncidencia = await api.get(`/incidencias/${props.id}`);
         const responseCategoria = await api.get('/categorias');
         const responseMaquina = await api.get('/maquinas');
-        const incidencia = responseIncidencia.data.find(incidencia => incidencia.id === 1);
+        const data = responseIncidencia.data.data;
+        
+        if (data) {
+            descripcion.value = data.descripcion;
+            gravedad.value = data.gravedad;
 
-        if (incidencia) {
-            descripcion.value = incidencia.descripcion;
-            gravedad.value = incidencia.gravedad;
-
-            const categoriaData = responseCategoria.data.find(categoria => categoria.id === incidencia.categoria_id);
+            const categoriaData = responseCategoria.data.find(categoria => categoria.id === data.categoria_id);
             categoria.value = categoriaData ? categoriaData.nombre : 'Categoría no encontrada';
 
-            const maquinaData = responseMaquina.data.find(maquina => maquina.id === incidencia.maquina_id);
+            const maquinaData = responseMaquina.data.find(maquina => maquina.id === data.maquina_id);
             maquina.value = maquinaData ? maquinaData.nombre : 'Máquina no encontrada';
-
         } else {
-            console.error('No se encontró una incidencia con id 1');
             alert('No se encontró una incidencia con el ID especificado.');
         }
       } catch (error) {
-        console.error('Error al cargar las incidencias:', error);
-        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+        console.error('Error al cargar la incidencia:', error);
+        alert('Hubo un problema al cargar la incidencia. Inténtalo más tarde.');
       }
     }
 
