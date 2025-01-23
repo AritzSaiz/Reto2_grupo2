@@ -66,7 +66,40 @@
 					"name": "Detalle",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/incidencias/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"incidencias",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "misIncidencias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/incidenciasAbiertas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"incidenciasAbiertas"
+							]
+						}
 					},
 					"response": []
 				}
@@ -88,7 +121,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \"usuario\" : \"aritz\",\r\n \"contrasena\":\"aritz\"   \r\n}",
+							"raw": "{\r\n \"usuario\" : \"jperez\",\r\n \"contrasena\":\"Password1\"   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -113,6 +146,75 @@
 			]
 		},
 		{
+			"name": "historial",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"incidencia_id\":1,\r\n    \"tecnico_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/anadir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"anadir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 1,\r\n    \"detalles_trabajo\" : \"detalles\",\r\n    \"justificacion_salida\" : \"justificacion\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/actualizar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "InicioSesion",
 			"request": {
 				"method": "POST",
@@ -125,7 +227,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \"usuario\" : \"aritz\",\r\n \"contrasena\":\"aritz\"   \r\n}",
+					"raw": "{\r\n \"usuario\" : \"jperez\",\r\n \"contrasena\":\"Password1\"   \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

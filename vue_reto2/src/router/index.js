@@ -11,7 +11,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/operario/:id',
+      path: '/operario',
       name: 'Ventana operario',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

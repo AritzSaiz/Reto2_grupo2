@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('historiales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('incidencia_id');
-            $table->unsignedBigInteger('tecnico_id');
-            $table->dateTime('entrada');
-            $table->dateTime('salida')->nullable(true);
-            $table->string('detalles_trabajo', 300)->nullable(true);
-            $table->string('justificacion_salida', 300)->nullable(true);
+            $table->unsignedBigInteger('incidencia_id')->nullable(false);
+            $table->unsignedBigInteger('tecnico_id')->nullable(false);
+            $table->dateTime('entrada')->nullable(false);
+            $table->dateTime('salida');
+            $table->string('detalles_trabajo', 300);
+            $table->string('justificacion_salida', 300);
             $table->timestamps();
             $table->softDeletes();
 

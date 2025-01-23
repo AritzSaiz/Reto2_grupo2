@@ -6,31 +6,42 @@
 
     const router = useRouter();
 
-    const username = ref('')
-    const password = ref('');
+    const username = ref("");
+    const password = ref("");
     const usernameInput = ref(null);
     const passwordInput = ref(null);
 
     const datos = ref([]);
 
-    async function iniciarSesion(operarioId){
+    async function iniciarSesion(){
         try{
-            const response = await api.get(`/operario/${operarioId}`);
-            datos.value = response.data.data;
-            if (username.value != "" && password.value != ""){
-                router.push(`/operario/${operarioId}`);
+            if (username.value === "" && password.value === ""){
+              alert("Las casillas no pueden estar vacías.");
+              usernameInput.value.focus();
             }
-            else if (username.value == ""){
-                alert("El usuario no puede estar vacío");
-                usernameInput.value.focus();   
-            }
-            else if (password.value == ""){
-                alert("La contraseña no puede estar vacía");
-                passwordInput.value.focus();  
+            else {
+              if (username.value !== "" && password.value !== ""){
+                // TODO : Verificar que existe con esos 2 datos.
+                //  Habrá que mandar el user y la contra para mirar que están registrados juntos, y luego guardar el 'usuario_id' en LocalStorage (por ejemplo) para luego poder acceder a él y ver sus incidencias y demás.
+                /*
+                const response = await api.get('/operario/${usernameInput.value}/${passwordInput.value}');
+                datos.value = response.data.data;
+                 */
+                // Si existe habrá que ir a esta ventana:
+                router.push('/operario');
+              }
+              else if (username.value === ""){
+                alert("El usuario no puede estar vacío.");
+                usernameInput.value.focus();
+              }
+              else {
+                alert("La contraseña no puede estar vacía.");
+                passwordInput.value.focus();
+              }
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
-            alert('Usuario o contraseña incorrectos');
+            alert('Usuario o contraseña incorrectos.');
         }
     }
 

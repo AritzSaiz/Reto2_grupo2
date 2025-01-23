@@ -30,19 +30,12 @@
     const filtroSeccion = ref('');
     const filtroCategoria = ref('');
 
-    const descripcion = ref("");
-    const categoria = ref("");
-    const gravedad = ref("");
-    const maquina = ref("");
-
-    // Listas reactivas que contienen los datos obtenidos de la API.
+    // Listas reactivas que contienen los datos obtenidos de la API para luego poder gestionar los filtros.
     const campus = ref([]);
     const secciones = ref([]);
     const categorias = ref([]);
     const incidencias = ref([]);
     const maquinas = ref([]);
-    
-    const detalles = ref([]);
 
     // Guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
@@ -55,6 +48,13 @@
       INCIDENCIAS: '/incidencias',
       MAQUINAS: '/maquinas',
     };
+
+    const descripcion = ref("");
+    const categoria = ref("");
+    const gravedad = ref("");
+    const maquina = ref("");
+
+    const detalles = ref([]);
 
     // Función para obtener los datos desde el backend.
     // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
@@ -102,6 +102,7 @@
         });
       }
 
+      // TODO : Hay que filtrarlo de tal manetra que solamente se ordenen como 'desc' o 'asc' (o sea que no se descarte ninguna).
       // Filtrar por fecha
       if (filtroFecha.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.sort((a, b) => {
@@ -167,7 +168,8 @@
     }
 
 
-    // TODO
+    // TODO : Hacer lo correspondiente de "Crear incidencia".
+
     function validarIncidencia() {
       if (!descripcion.value) return 'La descripción está vacía.';
       if (!categoria.value) return 'La categoría no está seleccionada.';

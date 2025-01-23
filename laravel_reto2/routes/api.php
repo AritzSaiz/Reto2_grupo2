@@ -12,13 +12,10 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 
-// TODO
-
 /*
  * Definir rutas HTTP GET para obtener los datos de la ventana de incidencias desde
  * el controlador de Laravel y enviarlas al frontend en Vue.
 */
-
 Route::get('/campus', [CampusController::class, 'list']);
 Route::get('/secciones', [SeccionController::class, 'list']);
 Route::get('/categorias', [CategoriaController::class, 'list']);
@@ -26,10 +23,10 @@ Route::get('/incidencias', [IncidenciaController::class, 'list']);
 Route::get('/maquinas', [MaquinaController::class, 'list']);
 
 
-
 //Route::get('/incidencias', [IncidenciaController::class, 'show']);
 Route::get('/incidencias/{incidencia}', [IncidenciaController::class, 'detalle']);
 Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
+
 
 //Sacar solo las incidencias solucionadas del usuario que inicie sesion
 Route::get('/misIncidenciasSolucionadas/{id}', [IncidenciaController::class, 'misIncidenciasSolucionadas']);
@@ -41,13 +38,13 @@ Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbi
 
 
 Route::post('/anadir',[HistorialController::class,'anadir']);
+
 Route::post('/actualizar', [HistorialController::class, 'actualizar']);
 
 
-Route::post('/operario/{operario}', [OperarioController::class, 'inicioSesion']);
+Route::post('/operario/{usernameInput}/{passwordInput}', [OperarioController::class, 'inicioSesion']);
 
 
+Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
-
-
-
+Route::post('/login', [OperarioController::class, 'inicioSesion']);
