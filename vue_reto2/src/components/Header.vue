@@ -14,8 +14,7 @@
 
         <div>
             <a href="/" id="botonCerrarSesion">
-              <!-- TODO : Igual poner el CSS en su archivo correspondiente. -->
-                <img class="cerrarSesion" src="../assets/cerrarSesion2.png" style="width: 40px" alt="Icono de cerrar sesión">
+                <img class="cerrarSesion" src="../assets/cerrarSesion2.png" alt="Icono de cerrar sesión">
             </a>
         </div>
         
