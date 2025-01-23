@@ -47,4 +47,49 @@ class HistorialController extends Controller
         return response()->json(['message' => 'Historial creado exitosamente', 'data' => $historial], 200);
     }
 
+
+
+    public function actualizar(Request $request)
+    {
+        // Validar los campos requeridos
+        $validator = Validator::make($request->all(), [
+            "id" => "required|integer", // Usamos 'id' tanto para validar como para buscar
+            "detalles_trabajo" => "nullable|string",
+            "justificacion_salida" => "nullable|string",
+            "salida" => "nullable|date" // Añadimos la validación de fecha para 'salida'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
+
+        // Buscar el registro del historial por ID
+        $historial = Historial::find($request->get('id')); // Usamos find y 'id'
+
+
+        if (!$historial) {
+            return response()->json(['message' => 'No se encontró un historial con ese ID'], 404);
+        }
+
+        // Actualizar los campos del historial
+        if ($request->has('salida')) {
+            $historial->salida = $request->get('salida');
+        } else {
+            $historial->salida = now();
+        }
+
+        if ($request->has('detalles_trabajo')) {
+            $historial->detalles_trabajo = $request->get('detalles_trabajo');
+        }
+
+        if ($request->has('justificacion_salida')) {
+            $historial->justificacion_salida = $request->get('justificacion_salida');
+        }
+
+        $historial->save();
+
+        // Retornar el registro actualizado
+        return response()->json(['message' => 'Historial actualizado correctamente', 'data' => $historial], 200);
+    }
+
 }
