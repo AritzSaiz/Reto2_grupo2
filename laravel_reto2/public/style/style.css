@@ -1,0 +1,199 @@
+@charset "UTF-8";
+/* estilos css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#login {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.container {
+  min-height: 100vh;
+  min-width: unset;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: normal;
+  color: #333333;
+}
+
+.incidents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Adjust margins to account for the sidebar on the left */
+  margin-left: 250px; /* Sidebar width */
+  margin-right: 0; /* No need for right margin now */
+  padding: 20px; /* Add padding to space from the top */
+}
+
+.incident {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid #0A3D62;
+}
+
+a:active {
+  color: #FFFFFF;
+}
+
+#navbarNav ul li a:hover {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+button {
+  padding: 8px 24px;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover, select:hover {
+  background-color: #FFC300;
+}
+
+option {
+  background-color: #FFFFFF;
+}
+
+.detail-btn {
+  background-color: #0A3D62;
+  color: #FFFFFF;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.detail-btn:hover {
+  background-color: #FF5733;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+input, #descripcion {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  font-size: 14px;
+}
+
+input[type=radio] {
+  width: 7%;
+}
+
+#adminSiNo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#adminSiNo p {
+  margin: auto;
+  margin-left: 0.5em;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #000000; /* Black background */
+  color: white;
+  position: fixed;
+  top: 56px; /* Assuming your header height is 56px, adjust if different */
+  left: 0; /* Position on the left */
+  height: calc(100% - 56px); /* Full height minus header height */
+  z-index: 999;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: #495057;
+  border-radius: 4px;
+}
+
+.containerListOperario {
+  min-width: unset;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-messages {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; /* Ajusta el ancho según lo que necesites */
+  position: relative;
+  top: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,22 @@
+@use "sass:map";
+@use "variables" as *;
+
+.incidents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Adjust margins to account for the sidebar on the left */
+    margin-left: 250px; /* Sidebar width */
+    margin-right: 0; /* No need for right margin now */
+    padding: 20px; /* Add padding to space from the top */
+}
+
+.incident {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-white;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid $color-primary;
+}

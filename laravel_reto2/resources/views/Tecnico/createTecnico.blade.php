@@ -1,48 +1,7 @@
 @extends('layouts.plublic')
 @section('content')
 
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #FFFFFF;
-        }
-
-
-        .sidebar {
-            width: 250px;
-            background-color: #000; /* Black background */
-            color: white;
-            position: fixed;
-            top: 56px; /* Assuming your header height is 56px, adjust if different */
-            left: 0; /* Position on the left */
-            height: calc(100% - 56px); /* Full height minus header height */
-        }
-
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background-color: #495057;
-            border-radius: 4px;
-        }
-
-
-    </style>
-
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 
     <div class="row">
 
@@ -102,9 +61,9 @@
 
                         <div class="mb-3 row" id="div-admin">
                             <label class="col-sm-3 col-form-label">Admin:</label>
-                            <div class="col-sm-6">
-                                <input type="radio" name="administrador" value="0" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> Sí
-                                <input type="radio" name="administrador" value="1" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
+                            <div class="col-sm-6" id="adminSiNo">
+                                <input type="radio" name="administrador" value="0" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> <p>Sí</p>
+                                <input type="radio" name="administrador" value="1" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} checked> <p>No</p>
                             </div>
                         </div>
 

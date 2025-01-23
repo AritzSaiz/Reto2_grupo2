@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
 {
-    use Illuminate\Support\Facades\Hash;
 
     public function inicioSesion(Request $request)
     {
@@ -30,7 +29,7 @@ class OperarioController extends Controller
         }
 
         // Comprobar la contraseña
-        if (Hash::check($request->contrasena, $operario->contrasena)) { 
+        if (Hash::check($request->contrasena, $operario->contrasena)) {
             return response()->json([
                 'message' => 'Inicio de sesión exitoso',
                 'data' => $operario
