@@ -2,26 +2,38 @@
     import {isVNode, ref} from 'vue';
     import { useRouter } from 'vue-router';
 
+    import api from '@/plugins/axios';
+
     const router = useRouter();
 
-    const username = ref("");
-    const password = ref("");
+    const username = ref('')
+    const password = ref('');
     const usernameInput = ref(null);
     const passwordInput = ref(null);
 
-    function iniciarSesion(){
-        if (username.value != "" && password.value != ""){
-            router.push('/operario');
-        }
-        else if (username.value == ""){
-            alert("El usuario no puede estar vacío");
-            usernameInput.value.focus();   
-        }
-        else if (password.value == ""){
-            alert("La contraseña no puede estar vacía");
-            passwordInput.value.focus();  
+    const datos = ref([]);
+
+    async function iniciarSesion(operarioId){
+        try{
+            const response = await api.get(`/operario/${operarioId}`);
+            datos.value = response.data.data;
+            if (username.value != "" && password.value != ""){
+                router.push(`/operario/${operarioId}`);
+            }
+            else if (username.value == ""){
+                alert("El usuario no puede estar vacío");
+                usernameInput.value.focus();   
+            }
+            else if (password.value == ""){
+                alert("La contraseña no puede estar vacía");
+                passwordInput.value.focus();  
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            alert('Usuario o contraseña incorrectos');
         }
     }
+
 </script>
 
 <template>

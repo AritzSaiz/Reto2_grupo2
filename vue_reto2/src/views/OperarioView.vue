@@ -41,6 +41,8 @@
     const categorias = ref([]);
     const incidencias = ref([]);
     const maquinas = ref([]);
+    
+    const detalles = ref([]);
 
     // Guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
@@ -185,8 +187,15 @@
       router.push('/operario');
     }
 
-    function detalle(){
-      router.push('/incidencia');
+    async function detalle(incidenciaId) {
+      try {
+        const response = await api.get(`/incidencias/${incidenciaId}`);
+        detalles.value = response.data.data;
+        router.push(`/incidencias/${incidenciaId}`);
+      } catch (error) {
+        console.error('Error al cargar las incidencias:', error);
+        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+      }
     }
 
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
@@ -307,7 +316,7 @@
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
                 <p class="mb-0">{{ incidencia.descripcion }}</p>
-                <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
+                <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 <!--
                 <button class="btn btn-resolver">Resolver</button>
                 -->
