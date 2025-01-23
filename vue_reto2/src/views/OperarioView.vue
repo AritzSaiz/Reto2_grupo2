@@ -69,7 +69,7 @@
       }
     }
 
-    // Función que aplica posteriormente todos los filtros seleccionados al array de incidencias.
+    // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
       incidencias.value = incidenciasOriginal.value.filter((incidencia) => {
         // Filtro por estado (Pendiente, Solucionadas, Todas)
@@ -114,6 +114,20 @@
       });
     }
 
+    function resetearFiltros() {
+      // Restablecer las variables reactivas de los filtros.
+      filtroEstado.value = '2'; // Pendientes
+      filtroGravedad.value = '1'; // No funciona
+      filtroPrioridad.value = '1'; // 1 - Crítica
+      filtroFecha.value = '1'; // Más antiguas
+      filtroCampus.value = '1';
+      filtroSeccion.value = '1';
+      filtroCategoria.value = '1';
+
+      // Aplicar los filtros para actualizar la lista de incidencias con los valores restablecidos.
+      aplicarFiltros();
+    }
+
 
     // TODO
     function validarIncidencia() {
@@ -155,7 +169,9 @@
 </script>
 
 <template>
+
     <Header />
+
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
           <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
@@ -168,81 +184,92 @@
 
           <form class="ver" v-show="mostrarCrear">
 
-            <h2 class="mt-3">Filtros</h2>
+            <h2 class="mt-5">Filtros</h2>
+
+            <!-- Habrá 2 filas de 4 filtros cada una, en este orden. -->
+
+            <!-- TODO : Mejorar que sea responsivo en diferentes tamaños de pantallas. -->
 
             <div class="row gy-3">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroEstado" class="form-label text-dark">Estado de incidencia</label>
                 <!-- Evento '@change' ~~> Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
-                <select id="filtroEstado" name="filtroEstado" class="form-select" @change="aplicarFiltros">
+                <select id="filtroEstado" name="filtroEstado" class="form-select" v-model="filtroEstado" @change="aplicarFiltros">
                   <option value="1">Todas</option>
                   <option value="2" selected>Pendientes</option>
                   <option value="3">Solucionadas</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroGravedad" class="form-label text-dark">Gravedad de incidencia</label>
-                <select id="filtroGravedad" name="filtroGravedad" class="form-select" @change="aplicarFiltros">
+                <select id="filtroGravedad" name="filtroGravedad" class="form-select" v-model="filtroGravedad" @change="aplicarFiltros">
                   <option value="1" selected>No funciona</option>
                   <option value="2">Sí funciona</option>
                   <option value="3">Aviso</option>
                   <option value="4">Mantenimiento preventivo</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroPrioridad" class="form-label text-dark">Prioridad de máquina</label>
-                <select id="filtroPrioridad" name="filtroPrioridad" class="form-select" @change="aplicarFiltros">
+                <select id="filtroPrioridad" name="filtroPrioridad" class="form-select" v-model="filtroPrioridad" @change="aplicarFiltros">
                   <option value="1" selected>1 - Crítica</option>
                   <option value="2">2 - Moderada</option>
                   <option value="3">3 - Baja</option>
                 </select>
               </div>
-            </div>
-            <div class="row gy-3">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroFecha" class="form-label text-dark">Fecha de incidencia</label>
-                <select id="filtroFecha" name="filtroFecha" class="form-select" @change="aplicarFiltros">
+                <select id="filtroFecha" name="filtroFecha" class="form-select" v-model="filtroFecha" @change="aplicarFiltros">
                   <option value="1" selected>Más antiguas</option>
                   <option value="2">Más recientes</option>
                 </select>
               </div>
-              <div class="col-md-4">
+            </div>
+            <div class="row gy-3 mb-5">
+              <div class="col-md-3">
                 <label for="filtroCampus" class="form-label text-dark">Campus</label>
-                <select id="filtroCampus" name="filtroCampus" class="form-select" @change="aplicarFiltros">
+                <select id="filtroCampus" name="filtroCampus" class="form-select" v-model="filtroCampus" @change="aplicarFiltros">
+                  <option value="" disabled selected>-- Elige un campus --</option>
                   <option v-for="(camp, index) in campus" :key="index" :value="camp.id">
                     {{ camp.nombre }}
                   </option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroSeccion" class="form-label text-dark">Sección</label>
-                <select id="filtroSeccion" name="filtroSeccion" class="form-select" @change="aplicarFiltros">
+                <select id="filtroSeccion" name="filtroSeccion" class="form-select" v-model="filtroSeccion" @change="aplicarFiltros">
+                  <option value="" disabled selected>-- Elige una sección --</option>
                   <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                     {{ secci.codigo }}
                   </option>
                 </select>
               </div>
-            </div>
-            <div class="row gy-3">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
-                <select id="filtroCategoria" name="filtroCategoria" class="form-select" @change="aplicarFiltros">
+                <select id="filtroCategoria" name="filtroCategoria" class="form-select" v-model="filtroCategoria" @change="aplicarFiltros">
+                  <option value="" disabled selected>-- Elige una categoría --</option>
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}
                   </option>
                 </select>
               </div>
+              <!-- Botón para resetear filtros. -->
+              <div class="col-md-3 d-flex align-items-end">
+                <button type="button" class="btn w-100" @click="resetearFiltros">Resetear filtros</button>
+              </div>
             </div>
 
             <!-- Acceder a las incidencias obtenidas para mostrar el número total y sus datos. -->
 
-            <p class="cantIncidencias mb-0">Se han encontrado <b>{{ incidencias.length }}</b> incidencias.</p>
+            <p class="cantIncidencias mb-0">Se han encontrado <span class="badge estiloBadge">{{ incidencias.length }}</span> incidencias con los filtros especificados.</p>
 
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
                 <p class="mb-0">{{ incidencia.descripcion }}</p>
                 <button @click="detalle" type="button" class="btn btn-detalle">Detalle</button>
+                <!--
                 <button class="btn btn-resolver">Resolver</button>
+                -->
               </div>
             </div>
 
@@ -311,4 +338,17 @@
           </form>
         </div>
     </div>
+
 </template>
+
+<style scoped>
+
+/* TODO : Poner donde corresponde. */
+.estiloBadge{
+  background-color: #FFFFFF;
+  color: green !important;
+  font-size: 14px;
+  /* font-weight: normal; */
+}
+
+</style>
