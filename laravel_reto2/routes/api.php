@@ -41,6 +41,7 @@ Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbi
 
 
 Route::post('/anadir',[HistorialController::class,'anadir']);
+Route::post('/actualizar', [HistorialController::class, 'actualizar']);
 
 
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
