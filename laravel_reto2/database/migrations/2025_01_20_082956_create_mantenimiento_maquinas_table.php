@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('mantenimientos_maquinas', function (Blueprint $table) {
             $table->unsignedBigInteger('mantenimiento_id');
             $table->unsignedBigInteger('maquina_id');
-            /* TODO : ¿Más atributos? */
             $table->timestamps();
             $table->softDeletes();
 
