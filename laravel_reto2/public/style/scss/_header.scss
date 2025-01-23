@@ -1,0 +1,11 @@
+@use "sass:map";
+@use "variables" as *;
+
+a:active{
+    color:$color-white;
+}
+
+#navbarNav ul li a:hover{
+    color:$color-white;
+    font-weight: bold;
+}

@@ -1,47 +1,7 @@
 @extends('layouts.plublic')
 @section('content')
 
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #FFFFFF;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #000; /* Black background */
-            color: white;
-            position: fixed;
-            top: 56px; /* Assuming your header height is 56px, adjust if different */
-            left: 0; /* Position on the left */
-            height: calc(100% - 56px); /* Full height minus header height */
-        }
-
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background-color: #495057;
-            border-radius: 4px;
-        }
-
-
-    </style>
-
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 
     <div class="row">
 

@@ -1,0 +1,10 @@
+@use "sass:map";
+
+.error-messages {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%; /* Ajusta el ancho según lo que necesites */
+    position: relative;
+    top: 10px;
+}
