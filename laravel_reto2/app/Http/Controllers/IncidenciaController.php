@@ -29,6 +29,54 @@ class IncidenciaController extends Controller
 
     }
 
+    public function misIncidenciasSolucionadas($id = null)
+    {
+        if (is_null($id)) {
+            return response()->json(['message' => 'ID no proporcionado'], 400);
+        }
+
+        $incidencias = Incidencia::where("operario_id", $id)
+            ->where("abierta", 0)
+            ->get();
+
+        if ($incidencias->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron incidencias solucionadas'], 404);
+        }
+
+        return response()->json(['message' => '', 'data' => $incidencias], 200);
+    }
+
+
+
+    public function misIncidenciasAbiertas($id = null)
+    {
+        if (is_null($id)) {
+            return response()->json(['message' => 'ID no proporcionado'], 400);
+        }
+
+        $incidencias = Incidencia::where("operario_id", $id)
+            ->where("abierta", 1)
+            ->get();
+
+        if ($incidencias->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron incidencias abiertas'], 404);
+        }
+
+        return response()->json(['message' => '', 'data' => $incidencias], 200);
+    }
+
+    public function incidenciasAbiertas()
+    {
+
+        $incidencias = Incidencia::where("abierta", 1)->get();
+
+        if ($incidencias->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron incidencias abiertas'], 404);
+        }
+
+        return response()->json(['message' => '', 'data' => $incidencias], 200);
+    }
+
     public function create(Request $request){
 
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\OperarioController;
@@ -30,4 +31,22 @@ Route::get('/maquinas', [MaquinaController::class, 'list']);
 Route::get('/incidencias/{incidencia}', [IncidenciaController::class, 'detalle']);
 Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
 
+//Sacar solo las incidencias solucionadas del usuario que inicie sesion
+Route::get('/misIncidenciasSolucionadas/{id}', [IncidenciaController::class, 'misIncidenciasSolucionadas']);
+//Sacar solo las incidencias sin solucionar del usuario que inicie sesion
+Route::get('/misIncidenciasAbiertas/{id}', [IncidenciaController::class, 'misIncidenciasAbiertas']);
+
+//Sacar todas las incidencias sin resolver
+Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbiertas']);
+
+
+Route::post('/anadir',[HistorialController::class,'anadir']);
+
+
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
+
+
+
+
+
+
