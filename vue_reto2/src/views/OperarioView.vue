@@ -42,7 +42,7 @@
     const incidencias = ref([]);
     const maquinas = ref([]);
 
-    // Guardar los datos originales de las incidencias para no perderlos al filtrar.
+    // Guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
 
     // Constantes reutilizables con las rutas para obtener datos.
@@ -71,47 +71,82 @@
 
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
-      incidencias.value = incidenciasOriginal.value.filter((incidencia) => {
-        // Filtro por estado (Pendiente, Solucionadas, Todas)
-        if (filtroEstado.value !== '1' && incidencia.abierta !== parseInt(filtroEstado.value) - 2) {
-          return false;
-        }
+      let incidenciasFiltradas = [...incidenciasOriginal.value]; // Empezamos con todas las incidencias originales
 
-        // Filtro por gravedad
-        if (filtroGravedad.value !== '1' && incidencia.gravedad !== filtroGravedad.value) {
-          return false;
-        }
+      // Filtrar por estado
+      if (filtroEstado.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          if (filtroEstado.value === '2') {
+            return incidencia.abierta; // Solo abiertas
+          } else if (filtroEstado.value === '3') {
+            return !incidencia.abierta; // Solo cerradas
+          }
+          return true;
+        });
+      }
 
-        // Filtro por prioridad de máquina
-        if (filtroPrioridad.value !== '1' && incidencia.prioridad !== parseInt(filtroPrioridad.value)) {
-          return false;
-        }
+      // Filtrar por gravedad
+      if (filtroGravedad.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.gravedad === getGravedadById(filtroGravedad.value);
+        });
+      }
 
-        // Filtro por fecha (simplificado: más recientes o más antiguas)
-        if (filtroFecha.value === '1' && incidencia.fecha > Date.now()) {
-          return false; // Ejemplo de comparación
-        }
-        if (filtroFecha.value === '2' && incidencia.fecha < Date.now()) {
-          return false;
-        }
+      // TODO : Poner que la prioridad (1,2,3) es un atributo de la maquina asociada a la incidencia; así que hay que buscar a traves del 'maquina_id' en 'incidencias'.
+      // Filtrar por prioridad
+      if (filtroPrioridad.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.prioridad === filtroPrioridad.value;
+        });
+      }
 
-        // Filtro por campus
-        if (filtroCampus.value && incidencia.campusId !== parseInt(filtroCampus.value)) {
-          return false;
-        }
+      // Filtrar por fecha
+      if (filtroFecha.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.sort((a, b) => {
+          if (filtroFecha.value === '2') {
+            return new Date(b.created_at) - new Date(a.created_at); // Más recientes primero
+          }
+          return new Date(a.created_at) - new Date(b.created_at); // Más antiguas primero
+        });
+      }
 
-        // Filtro por sección
-        if (filtroSeccion.value && incidencia.seccionId !== parseInt(filtroSeccion.value)) {
-          return false;
-        }
+      // TODO : Poner que el campus ("Arriaga", "Mendizorroza", etc) se accede a traves de 'campus_id' en 'secciones' y de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
+      // Filtrar por campus
+      if (filtroCampus.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.campus_id === filtroCampus.value;
+        });
+      }
 
-        // Filtro por categoría
-        if (filtroCategoria.value && incidencia.categoriaId !== parseInt(filtroCategoria.value)) {
-          return false;
-        }
+      // TODO : Poner que la seccion ("5010", "5011", etc) se accede a traves de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
+      // Filtrar por sección
+      if (filtroSeccion.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.seccion_id === filtroSeccion.value;
+        });
+      }
 
-        return true;
-      });
+      // TODO : Poner que la categoria ("Eléctrica", "Mecánica", etc) se accede a traves de 'categoria_id' de 'incidencias'.
+      // Filtrar por categoría
+      if (filtroCategoria.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.categoria_id === filtroCategoria.value;
+        });
+      }
+
+      // Actualizar el array de incidencias con las incidencias filtradas
+      incidencias.value = incidenciasFiltradas;
+    }
+
+    // Función para obtener la gravedad en base a su ID
+    function getGravedadById(id) {
+      const gravedades = {
+        '1': 'No funciona',
+        '2': 'Sí funciona',
+        '3': 'Aviso',
+        '4': 'Mantenimiento preventivo'
+      };
+      return gravedades[id] || '';
     }
 
     function resetearFiltros() {
@@ -120,12 +155,13 @@
       filtroGravedad.value = '1'; // No funciona
       filtroPrioridad.value = '1'; // 1 - Crítica
       filtroFecha.value = '1'; // Más antiguas
-      filtroCampus.value = '1';
-      filtroSeccion.value = '1';
-      filtroCategoria.value = '1';
+      filtroCampus.value = '';
+      filtroSeccion.value = '';
+      filtroCategoria.value = '';
 
-      // Aplicar los filtros para actualizar la lista de incidencias con los valores restablecidos.
-      aplicarFiltros();
+      // Restaurar todas las incidencias desde la lista original.
+      // El operador de propagación '...' crea una nueva lista (array) basada en "incidenciasOriginal.value" (lo rellena con los datos del original).
+      incidencias.value = [...incidenciasOriginal.value];
     }
 
 
@@ -155,6 +191,11 @@
 
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
     onMounted(() => {
+      // Guardar una copia completa de las incidencias obtenidas desde la API.
+      fetchDatos(API_ROUTES.INCIDENCIAS, incidencias).then(() => {
+        incidenciasOriginal.value = [...incidencias.value];
+      });
+
       const rutasApi = [
         { ruta: API_ROUTES.CAMPUS, variable: campus },
         { ruta: API_ROUTES.SECCIONES, variable: secciones },
