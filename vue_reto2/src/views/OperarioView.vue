@@ -71,6 +71,7 @@
       }
     }
 
+    // TODO : Que salga ya filtrado por lo de default de primeras (por los valores con selected de los filtros)
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
       let incidenciasFiltradas = [...incidenciasOriginal.value]; // Empezamos con todas las incidencias originales
@@ -87,6 +88,7 @@
         });
       }
 
+      // TODO : NO FUNCIONAN ALGUNAS OPCIONES
       // Filtrar por gravedad
       if (filtroGravedad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -95,45 +97,48 @@
       }
 
       // TODO : Poner que la prioridad (1,2,3) es un atributo de la maquina asociada a la incidencia; así que hay que buscar a traves del 'maquina_id' en 'incidencias'.
-      // Filtrar por prioridad
+      // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
       if (filtroPrioridad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.prioridad === filtroPrioridad.value;
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          return maquinaAsociada && maquinaAsociada.prioridad === parseInt(filtroPrioridad.value, 10);
         });
       }
 
-      // TODO : Hay que filtrarlo de tal manetra que solamente se ordenen como 'desc' o 'asc' (o sea que no se descarte ninguna).
-      // Filtrar por fecha
+      // TODO : Hay que filtrarlo de tal manetra que solamente se ordenen como 'desc' o 'asc' (o sea que sigan apareciendo todas y no se descarte ninguna).
+      // Filtrar por fecha (descendente o ascendente, sin descartar elementos)
       if (filtroFecha.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.sort((a, b) => {
-          if (filtroFecha.value === '2') {
-            return new Date(b.created_at) - new Date(a.created_at); // Más recientes primero
-          }
-          return new Date(a.created_at) - new Date(b.created_at); // Más antiguas primero
+          const fechaA = new Date(a.created_at);
+          const fechaB = new Date(b.created_at);
+          return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
         });
       }
 
       // TODO : Poner que el campus ("Arriaga", "Mendizorroza", etc) se accede a traves de 'campus_id' en 'secciones' y de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
-      // Filtrar por campus
+      // Filtrar por campus (acceso mediante relaciones entre tablas)
       if (filtroCampus.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.campus_id === filtroCampus.value;
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          const seccionAsociada = secciones.value.find(seccion => seccion.id === maquinaAsociada?.seccion_id);
+          return seccionAsociada?.campus_id === parseInt(filtroCampus.value, 10);
         });
       }
 
       // TODO : Poner que la seccion ("5010", "5011", etc) se accede a traves de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
-      // Filtrar por sección
+      // Filtrar por sección (a través de relaciones)
       if (filtroSeccion.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.seccion_id === filtroSeccion.value;
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          return maquinaAsociada?.seccion_id === parseInt(filtroSeccion.value, 10);
         });
       }
 
       // TODO : Poner que la categoria ("Eléctrica", "Mecánica", etc) se accede a traves de 'categoria_id' de 'incidencias'.
-      // Filtrar por categoría
+      // Filtrar por categoría (basada en el atributo `categoria_id` de la incidencia)
       if (filtroCategoria.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.categoria_id === filtroCategoria.value;
+          return incidencia.categoria_id === parseInt(filtroCategoria.value, 10);
         });
       }
 
@@ -245,7 +250,7 @@
             <div class="row gy-3">
               <div class="col-md-3">
                 <label for="filtroEstado" class="form-label text-dark">Estado de incidencia</label>
-                <!-- Evento '@change' ~~> Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
+                <!-- Evento '@change': Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
                 <select id="filtroEstado" name="filtroEstado" class="form-select" v-model="filtroEstado" @change="aplicarFiltros">
                   <option value="1">Todas</option>
                   <option value="2" selected>Pendientes</option>

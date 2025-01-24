@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\IncidenciaController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SeccionController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /*
  * Definir rutas HTTP GET para obtener los datos de la ventana de incidencias desde
@@ -47,4 +49,22 @@ Route::post('/operario/{usernameInput}/{passwordInput}', [OperarioController::cl
 
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
-Route::post('/login', [OperarioController::class, 'inicioSesion']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// TODO : Repasar
+
+Route::middleware('jwt.auth')->group(function () {
+    Route::get('/operario', [OperarioController::class, 'index']);
+    // Otras rutas protegidas...
+});
+
+Route::middleware(['auth.jwt'])->group(function () {
+    Route::get('/user', [UserController::class, 'getUser']);
+});
+
+Route::post('/refresh', function () {
+    $newToken = JWTAuth::parseToken()->refresh();
+    return response()->json(['token' => $newToken]);
+});
+
+Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.refresh');

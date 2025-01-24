@@ -16,6 +16,5 @@ class Operario extends Model
     public function tecnico()
     {
         return $this->hasOne(Tecnico::class);
-
     }
 }
