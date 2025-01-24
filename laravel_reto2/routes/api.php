@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\MaquinaMantenimientoController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\SeccionController;
@@ -50,6 +51,8 @@ Route::post('/operario/{usernameInput}/{passwordInput}', [OperarioController::cl
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/createMantenimientoMaquina', [MaquinaMantenimientoController::class, 'create']);
 
 // TODO : Repasar
 
