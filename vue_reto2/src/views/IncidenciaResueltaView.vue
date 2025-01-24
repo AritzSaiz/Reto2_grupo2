@@ -1,13 +1,26 @@
 <script setup>
     import IniciarSesion from '@/components/IniciarSesion.vue';
     import {isVNode, ref} from 'vue';
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
+    const props = defineProps({
+        id: {
+            type: [String, Number],
+            required: true
+        }
+    });
+
     const router = useRouter();
+    const route = useRoute();
 
     function volver(){
-        router.push('/operario');
+        const operarioId = localStorage.getItem('operarioId');
+        if (operarioId) {
+            router.push(`/operario/${operarioId}`);
+        } else {
+            console.error("No se encontró el ID del operario.");
+        }
     }
 </script>
 

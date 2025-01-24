@@ -1,23 +1,51 @@
 <script setup>
-    import { ref } from 'vue';
+    import { useRoute, useRouter } from 'vue-router';
 
+    const route = useRoute();
+    const router = useRouter();
+
+    const props = defineProps({
+        id: {
+            type: [String, Number],
+            required: false
+        }
+    });
+
+    const operarioId = localStorage.getItem('operarioId');
+
+    function volver(){
+        if (operarioId) {
+            router.push(`/operario/${operarioId}`);
+        } else {
+            console.error("No se encontró el ID del operario.");
+        }
+    }
+
+    function cerrarSesion(){
+        localStorage.removeItem('operarioId');
+
+        router.push('/');
+    }
+
+    function incidenciasResueltas(){
+        router.push(`/incidenciasResueltas/${operarioId}`);
+    }
+
+    function incidenciasParticipa(){
+        router.push(`/incidenciasParticipa/${operarioId}`);
+    }
 </script>
 
 <template>
     <header class="header">
-        <a href="/operario">
-            <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide">
-        </a>
 
-        <a href="/incidenciasResueltas" class="text-white text-decoration-none">Incidencias Resueltas</a>
-        <a href="/incidenciasParticipa" class="text-white text-decoration-none">Incidencias NO Resueltas</a>
+        <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide" @click="volver" style="cursor: pointer;">
 
-        <div>
-            <a href="/" id="botonCerrarSesion">
-                <img class="cerrarSesion" src="../assets/cerrarSesion2.png" alt="Icono de cerrar sesión">
-            </a>
-        </div>
-        
+        <a @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">Incidencias Resueltas</a>
+        <a @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">Incidencias NO Resueltas</a>
+            
+        <img class="cerrarSesion" src="../assets/cerrarSesion2.png" alt="Icono de cerrar sesión" @click="cerrarSesion" style="cursor: pointer;">
+            
     </header>
 </template>
 

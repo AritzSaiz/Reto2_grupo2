@@ -45,14 +45,14 @@ Route::post('/anadir',[HistorialController::class,'anadir']);
 Route::post('/actualizar', [HistorialController::class, 'actualizar']);
 
 
-Route::post('/operario/{usernameInput}/{passwordInput}', [OperarioController::class, 'inicioSesion']);
-
+Route::post('/login', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/createMantenimientoMaquina', [MaquinaMantenimientoController::class, 'create']);
+
 
 // TODO : Repasar
 

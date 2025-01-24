@@ -1,6 +1,6 @@
 <script setup>
     import {ref, onMounted} from 'vue';
-    import { useRouter } from 'vue-router';
+    import { useRouter, useRoute } from 'vue-router';
     import Header from '../components/Header.vue';
 
     import api from '@/plugins/axios';
@@ -18,9 +18,15 @@
     const maquina = ref('');
 
     const router = useRouter();
+    const route = useRoute();
 
     function volver(){
-        router.push('/operario');
+        const operarioId = localStorage.getItem('operarioId');
+        if (operarioId) {
+            router.push(`/operario/${operarioId}`);
+        } else {
+            console.error("No se encontró el ID del operario.");
+        }
     }
 
     async function fetchDatosIncidencia() {
