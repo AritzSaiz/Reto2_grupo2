@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('maquinas', function (Blueprint $table) {
             $table->id();
-            $table->integer('codigo')->nullable(false);
+            $table->integer('codigo')->nullable(false)->unique();
             $table->string('nombre', 60)->nullable(false);
             $table->string('modelo', 60)->nullable(false);
             $table->char('prioridad', 1)->nullable(false);

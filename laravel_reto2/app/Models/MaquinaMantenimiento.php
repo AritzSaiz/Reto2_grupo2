@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use App\Models\Mantenimiento;
-use App\Models\Maquina;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use function Laravel\Prompts\alert;
-use Illuminate\Support\Facades\Artisan;
-class MantenimientoController extends Controller{
+use Illuminate\Database\Eloquent\Model;
+
+class MaquinaMantenimiento extends Model {
 
 
 
 
+    protected $table = 'mantenimientos_maquinas';
 
+    protected $fillable = [
+        "mantenimiento_id",
+        "maquina_id",
+    ];
 
 
 

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mantenimientos_maquinas', function (Blueprint $table) {
-            $table->unsignedBigInteger('mantenimiento_id');
-            $table->unsignedBigInteger('maquina_id');
+            $table->id();
+            $table->unsignedBigInteger('mantenimiento_id')->nullable(false);
+            $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary(['mantenimiento_id', 'maquina_id']);
             $table->foreign('mantenimiento_id')->references('id')->on('mantenimientos_preventivos');
             $table->foreign('maquina_id')->references('id')->on('maquinas');
         });
