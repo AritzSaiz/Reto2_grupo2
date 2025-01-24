@@ -23,7 +23,7 @@ return new class extends Migration
             $table->softDeletes();
 
             // Crear un índice compuesto para las columnas 'usuario' y 'contrasena'.
-            // Este índice puede ser útil para las consultas frecuentes usando ambos campos a la vez; es decir, en el login.
+            // Este índice sirve para las consultas frecuentes usando ambos campos a la vez; en el login.
             $table->index(['usuario', 'contrasena'], 'index_login');
 
             // Crear un índice único para la columna 'usuario' para asegurar que no haya usuarios duplicados.

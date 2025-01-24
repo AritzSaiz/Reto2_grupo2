@@ -224,6 +224,10 @@
       <path value="$PROJECT_DIR$/laravel_reto2/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/laravel_reto2/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/laravel_reto2/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/laravel_reto2/vendor/tymon/jwt-auth" />
+      <path value="$PROJECT_DIR$/laravel_reto2/vendor/stella-maris/clock" />
+      <path value="$PROJECT_DIR$/laravel_reto2/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/laravel_reto2/vendor/lcobucci/jwt" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

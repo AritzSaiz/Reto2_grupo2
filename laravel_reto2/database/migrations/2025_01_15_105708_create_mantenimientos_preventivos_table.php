@@ -17,11 +17,9 @@ return new class extends Migration
             $table->integer('dias')->nullable(false);
             $table->dateTime('ultima_revision')->nullable(false);
             $table->dateTime('siguiente_revision')->nullable(false);
-            $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('maquina_id')->references('id')->on('maquinas');
         });
     }
 

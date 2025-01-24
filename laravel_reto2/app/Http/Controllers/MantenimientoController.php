@@ -34,7 +34,6 @@ class MantenimientoController extends Controller
                 'descripcion' => 'required',
                 'dias' => 'required|regex:/^[0-9]+$/',
                 'primera_revision' => 'required|date',
-                'maquina_id' => 'required',
             ],[
                 'dias.regex' => 'El campo dias solo puede tener numeros',
             ]);
@@ -54,7 +53,6 @@ class MantenimientoController extends Controller
             $mantenimiento->dias = $dias;
             $mantenimiento->ultima_revision = $primeraRevision;
             $mantenimiento->siguiente_revision = $siguienteRevision;
-            $mantenimiento->maquina_id = $input['maquina_id'];
             $mantenimiento->save();
 
 

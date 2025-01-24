@@ -37,7 +37,8 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            //'driver' => 'session',
+            'driver' => 'jwt', // Que el guard API esté configurado para usar JWT (mecanismo para verificar propietario de datos JSON).
             'provider' => 'users',
         ],
     ],

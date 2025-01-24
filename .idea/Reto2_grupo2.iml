@@ -144,6 +144,10 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpdocumentor/type-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpstan/phpdoc-parser" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/ta-tikoma/phpunit-architecture-test" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/stella-maris/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/tymon/jwt-auth" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

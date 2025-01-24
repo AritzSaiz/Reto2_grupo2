@@ -30,21 +30,14 @@
     const filtroSeccion = ref('');
     const filtroCategoria = ref('');
 
-    const descripcion = ref("");
-    const categoria = ref("");
-    const gravedad = ref("");
-    const maquina = ref("");
-
-    // Listas reactivas que contienen los datos obtenidos de la API.
+    // Listas reactivas que contienen los datos obtenidos de la API para luego poder gestionar los filtros.
     const campus = ref([]);
     const secciones = ref([]);
     const categorias = ref([]);
     const incidencias = ref([]);
     const maquinas = ref([]);
-    
-    const detalles = ref([]);
 
-    // Guardar los datos originales de las incidencias para no perderlos al filtrar.
+    // Guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
 
     // Constantes reutilizables con las rutas para obtener datos.
@@ -55,6 +48,13 @@
       INCIDENCIAS: '/incidencias',
       MAQUINAS: '/maquinas',
     };
+
+    const descripcion = ref("");
+    const categoria = ref("");
+    const gravedad = ref("");
+    const maquina = ref("");
+
+    const detalles = ref([]);
 
     // Función para obtener los datos desde el backend.
     // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
@@ -71,49 +71,90 @@
       }
     }
 
+    // TODO : Que salga ya filtrado por lo de default de primeras (por los valores con selected de los filtros)
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
-      incidencias.value = incidenciasOriginal.value.filter((incidencia) => {
-        // Filtro por estado (Pendiente, Solucionadas, Todas)
-        if (filtroEstado.value !== '1' && incidencia.abierta !== parseInt(filtroEstado.value) - 2) {
-          return false;
-        }
+      let incidenciasFiltradas = [...incidenciasOriginal.value]; // Empezamos con todas las incidencias originales
 
-        // Filtro por gravedad
-        if (filtroGravedad.value !== '1' && incidencia.gravedad !== filtroGravedad.value) {
-          return false;
-        }
+      // Filtrar por estado
+      if (filtroEstado.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          if (filtroEstado.value === '2') {
+            return incidencia.abierta; // Solo abiertas
+          } else if (filtroEstado.value === '3') {
+            return !incidencia.abierta; // Solo cerradas
+          }
+          return true;
+        });
+      }
 
-        // Filtro por prioridad de máquina
-        if (filtroPrioridad.value !== '1' && incidencia.prioridad !== parseInt(filtroPrioridad.value)) {
-          return false;
-        }
+      // TODO : NO FUNCIONAN ALGUNAS OPCIONES
+      // Filtrar por gravedad
+      if (filtroGravedad.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.gravedad === getGravedadById(filtroGravedad.value);
+        });
+      }
 
-        // Filtro por fecha (simplificado: más recientes o más antiguas)
-        if (filtroFecha.value === '1' && incidencia.fecha > Date.now()) {
-          return false; // Ejemplo de comparación
-        }
-        if (filtroFecha.value === '2' && incidencia.fecha < Date.now()) {
-          return false;
-        }
+      // TODO : Poner que la prioridad (1,2,3) es un atributo de la maquina asociada a la incidencia; así que hay que buscar a traves del 'maquina_id' en 'incidencias'.
+      // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
+      if (filtroPrioridad.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          return maquinaAsociada && maquinaAsociada.prioridad === parseInt(filtroPrioridad.value, 10);
+        });
+      }
 
-        // Filtro por campus
-        if (filtroCampus.value && incidencia.campusId !== parseInt(filtroCampus.value)) {
-          return false;
-        }
+      // TODO : Hay que filtrarlo de tal manetra que solamente se ordenen como 'desc' o 'asc' (o sea que sigan apareciendo todas y no se descarte ninguna).
+      // Filtrar por fecha (descendente o ascendente, sin descartar elementos)
+      if (filtroFecha.value !== '1') {
+        incidenciasFiltradas = incidenciasFiltradas.sort((a, b) => {
+          const fechaA = new Date(a.created_at);
+          const fechaB = new Date(b.created_at);
+          return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
+        });
+      }
 
-        // Filtro por sección
-        if (filtroSeccion.value && incidencia.seccionId !== parseInt(filtroSeccion.value)) {
-          return false;
-        }
+      // TODO : Poner que el campus ("Arriaga", "Mendizorroza", etc) se accede a traves de 'campus_id' en 'secciones' y de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
+      // Filtrar por campus (acceso mediante relaciones entre tablas)
+      if (filtroCampus.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          const seccionAsociada = secciones.value.find(seccion => seccion.id === maquinaAsociada?.seccion_id);
+          return seccionAsociada?.campus_id === parseInt(filtroCampus.value, 10);
+        });
+      }
 
-        // Filtro por categoría
-        if (filtroCategoria.value && incidencia.categoriaId !== parseInt(filtroCategoria.value)) {
-          return false;
-        }
+      // TODO : Poner que la seccion ("5010", "5011", etc) se accede a traves de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
+      // Filtrar por sección (a través de relaciones)
+      if (filtroSeccion.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+          return maquinaAsociada?.seccion_id === parseInt(filtroSeccion.value, 10);
+        });
+      }
 
-        return true;
-      });
+      // TODO : Poner que la categoria ("Eléctrica", "Mecánica", etc) se accede a traves de 'categoria_id' de 'incidencias'.
+      // Filtrar por categoría (basada en el atributo `categoria_id` de la incidencia)
+      if (filtroCategoria.value) {
+        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+          return incidencia.categoria_id === parseInt(filtroCategoria.value, 10);
+        });
+      }
+
+      // Actualizar el array de incidencias con las incidencias filtradas
+      incidencias.value = incidenciasFiltradas;
+    }
+
+    // Función para obtener la gravedad en base a su ID
+    function getGravedadById(id) {
+      const gravedades = {
+        '1': 'No funciona',
+        '2': 'Sí funciona',
+        '3': 'Aviso',
+        '4': 'Mantenimiento preventivo'
+      };
+      return gravedades[id] || '';
     }
 
     function resetearFiltros() {
@@ -122,16 +163,18 @@
       filtroGravedad.value = '1'; // No funciona
       filtroPrioridad.value = '1'; // 1 - Crítica
       filtroFecha.value = '1'; // Más antiguas
-      filtroCampus.value = '1';
-      filtroSeccion.value = '1';
-      filtroCategoria.value = '1';
+      filtroCampus.value = '';
+      filtroSeccion.value = '';
+      filtroCategoria.value = '';
 
-      // Aplicar los filtros para actualizar la lista de incidencias con los valores restablecidos.
-      aplicarFiltros();
+      // Restaurar todas las incidencias desde la lista original.
+      // El operador de propagación '...' crea una nueva lista (array) basada en "incidenciasOriginal.value" (lo rellena con los datos del original).
+      incidencias.value = [...incidenciasOriginal.value];
     }
 
 
-    // TODO
+    // TODO : Hacer lo correspondiente de "Crear incidencia".
+
     function validarIncidencia() {
       if (!descripcion.value) return 'La descripción está vacía.';
       if (!categoria.value) return 'La categoría no está seleccionada.';
@@ -164,6 +207,11 @@
 
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
     onMounted(() => {
+      // Guardar una copia completa de las incidencias obtenidas desde la API.
+      fetchDatos(API_ROUTES.INCIDENCIAS, incidencias).then(() => {
+        incidenciasOriginal.value = [...incidencias.value];
+      });
+
       const rutasApi = [
         { ruta: API_ROUTES.CAMPUS, variable: campus },
         { ruta: API_ROUTES.SECCIONES, variable: secciones },
@@ -202,7 +250,7 @@
             <div class="row gy-3">
               <div class="col-md-3">
                 <label for="filtroEstado" class="form-label text-dark">Estado de incidencia</label>
-                <!-- Evento '@change' ~~> Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
+                <!-- Evento '@change': Cada vez que cambie el valor de un filtro, se ejecutará la función 'aplicarFiltros'. -->
                 <select id="filtroEstado" name="filtroEstado" class="form-select" v-model="filtroEstado" @change="aplicarFiltros">
                   <option value="1">Todas</option>
                   <option value="2" selected>Pendientes</option>
