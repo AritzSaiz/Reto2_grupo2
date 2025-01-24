@@ -1,7 +1,7 @@
 <script setup>
 
     import IniciarSesion from '@/components/IniciarSesion.vue';
-    import {onMounted, ref} from 'vue';
+    import {onMounted, ref, watch} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
@@ -10,6 +10,7 @@
     Axios permite realizar solicitudes HTTP a la API de Laravel.
      */
     import api from '@/plugins/axios';
+
     import alert from "bootstrap/js/src/alert.js";
 
     // TODO
@@ -30,14 +31,14 @@
     const filtroSeccion = ref('');
     const filtroCategoria = ref('');
 
-    // Listas reactivas que contienen los datos obtenidos de la API para luego poder gestionar los filtros.
+    // Listas reactivas con datos obtenidos de la API.
     const campus = ref([]);
     const secciones = ref([]);
     const categorias = ref([]);
     const incidencias = ref([]);
     const maquinas = ref([]);
 
-    // Guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
+    // Copia de las incidencias originales. Hay que guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
 
     // Constantes reutilizables con las rutas para obtener datos.
@@ -49,6 +50,7 @@
       MAQUINAS: '/maquinas',
     };
 
+    // Variables para crear incidencias
     const descripcion = ref("");
     const categoria = ref("");
     const gravedad = ref("");
@@ -71,10 +73,11 @@
       }
     }
 
-    // TODO : Que salga ya filtrado por lo de default de primeras (por los valores con selected de los filtros)
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
-      let incidenciasFiltradas = [...incidenciasOriginal.value]; // Empezamos con todas las incidencias originales
+
+      // Empezar con todas las incidencias originales
+      let incidenciasFiltradas = [...incidenciasOriginal.value];
 
       // Filtrar por estado
       if (filtroEstado.value !== '1') {
@@ -88,7 +91,7 @@
         });
       }
 
-      // TODO : NO FUNCIONAN ALGUNAS OPCIONES
+      // TODO : NO FUNCIONAN LAS OPCIONES DE "No funciona" (SACA INCIDENCIAS DE MÁS) Y "Mantenimiento preventivo" (SACA INCIDENCIAS DE MENOS)
       // Filtrar por gravedad
       if (filtroGravedad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -96,7 +99,7 @@
         });
       }
 
-      // TODO : Poner que la prioridad (1,2,3) es un atributo de la maquina asociada a la incidencia; así que hay que buscar a traves del 'maquina_id' en 'incidencias'.
+      // TODO : NO FUNCIONA (SE PONEN TODAS COMO "1 - Crítica")
       // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
       if (filtroPrioridad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -105,17 +108,16 @@
         });
       }
 
-      // TODO : Hay que filtrarlo de tal manetra que solamente se ordenen como 'desc' o 'asc' (o sea que sigan apareciendo todas y no se descarte ninguna).
-      // Filtrar por fecha (descendente o ascendente, sin descartar elementos)
+      // TODO : NO FUNCIONA (no se ordena de ninguna manera; no cambia)
+      // Filtrar por fecha (ascendente o descendente, sin descartar elementos)
       if (filtroFecha.value !== '1') {
-        incidenciasFiltradas = incidenciasFiltradas.sort((a, b) => {
+        incidenciasFiltradas.sort((a, b) => {
           const fechaA = new Date(a.created_at);
           const fechaB = new Date(b.created_at);
           return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
         });
       }
 
-      // TODO : Poner que el campus ("Arriaga", "Mendizorroza", etc) se accede a traves de 'campus_id' en 'secciones' y de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
       // Filtrar por campus (acceso mediante relaciones entre tablas)
       if (filtroCampus.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -125,7 +127,7 @@
         });
       }
 
-      // TODO : Poner que la seccion ("5010", "5011", etc) se accede a traves de 'seccion_id' en 'maquinas' y de 'maquina_id' en 'incidencias'.
+      // TODO : TIENE QUE RELLENARSE CON LAS SECCIONES DEL CAMPUS SELECCIONADO (Y SI NO HAY CAMPUS SELECCIONADO QUE SE QUEDE EN LA DEFAULT DE "-- Elige...")
       // Filtrar por sección (a través de relaciones)
       if (filtroSeccion.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -134,7 +136,6 @@
         });
       }
 
-      // TODO : Poner que la categoria ("Eléctrica", "Mecánica", etc) se accede a traves de 'categoria_id' de 'incidencias'.
       // Filtrar por categoría (basada en el atributo `categoria_id` de la incidencia)
       if (filtroCategoria.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -144,6 +145,7 @@
 
       // Actualizar el array de incidencias con las incidencias filtradas
       incidencias.value = incidenciasFiltradas;
+
     }
 
     // Función para obtener la gravedad en base a su ID
@@ -157,6 +159,7 @@
       return gravedades[id] || '';
     }
 
+    // Función para restablecer los filtros
     function resetearFiltros() {
       // Restablecer las variables reactivas de los filtros.
       filtroEstado.value = '2'; // Pendientes
@@ -170,11 +173,15 @@
       // Restaurar todas las incidencias desde la lista original.
       // El operador de propagación '...' crea una nueva lista (array) basada en "incidenciasOriginal.value" (lo rellena con los datos del original).
       incidencias.value = [...incidenciasOriginal.value];
+
+      // Aplicarlos ya que la opción por default puede que no sea la primera en la lista (como en "Estado" que está en "Pendiente" en vez de "Todas").
+      aplicarFiltros();
     }
 
 
     // TODO : Hacer lo correspondiente de "Crear incidencia".
 
+    // Validación de la creación de incidencia
     function validarIncidencia() {
       if (!descripcion.value) return 'La descripción está vacía.';
       if (!categoria.value) return 'La categoría no está seleccionada.';
@@ -194,33 +201,43 @@
       router.push('/operario');
     }
 
+    // Función para obtener detalles de una incidencia
     async function detalle(incidenciaId) {
       try {
         const response = await api.get(`/incidencias/${incidenciaId}`);
         detalles.value = response.data.data;
         router.push(`/incidencias/${incidenciaId}`);
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Error al cargar las incidencias:', error);
         alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
       }
     }
 
-    // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend.
-    onMounted(() => {
-      // Guardar una copia completa de las incidencias obtenidas desde la API.
-      fetchDatos(API_ROUTES.INCIDENCIAS, incidencias).then(() => {
-        incidenciasOriginal.value = [...incidencias.value];
-      });
+    // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend y controlar los filtros.
+    onMounted(async () => {
 
-      const rutasApi = [
-        { ruta: API_ROUTES.CAMPUS, variable: campus },
-        { ruta: API_ROUTES.SECCIONES, variable: secciones },
-        { ruta: API_ROUTES.CATEGORIAS, variable: categorias },
-        { ruta: API_ROUTES.INCIDENCIAS, variable: incidencias },
-        { ruta: API_ROUTES.MAQUINAS, variable: maquinas },
-      ];
+      // Cargar datos de la API
+      await Promise.all([
+        fetchDatos(API_ROUTES.CAMPUS, campus),
+        fetchDatos(API_ROUTES.SECCIONES, secciones),
+        fetchDatos(API_ROUTES.CATEGORIAS, categorias),
+        fetchDatos(API_ROUTES.INCIDENCIAS, incidencias),
+        fetchDatos(API_ROUTES.MAQUINAS, maquinas),
+      ]);
 
-      rutasApi.forEach(({ ruta, variable }) => fetchDatos(ruta, variable));
+      // Guardar una copia de las incidencias originales
+      incidenciasOriginal.value = [...incidencias.value];
+
+      // Aplicar los filtros iniciales
+      aplicarFiltros();
+    });
+
+    // Observar los filtros para aplicar cambios
+    watch([filtroEstado, filtroGravedad, filtroPrioridad, filtroFecha, filtroCampus, filtroSeccion,
+      filtroCategoria], () => {
+      aplicarFiltros();
+
     });
 
 </script>
@@ -318,7 +335,11 @@
 
             <!-- Acceder a las incidencias obtenidas para mostrar el número total y sus datos. -->
 
-            <p class="cantIncidencias mb-0">Se han encontrado <span class="badge estiloBadge">{{ incidencias.length }}</span> incidencias con los filtros especificados.</p>
+            <p class="cantIncidencias mb-0">
+              Se ha{{ (incidencias.length === 0 || incidencias.length > 1) ? 'n' : '' }} encontrado
+              <span class="badge estiloBadge">{{ incidencias.length }}</span>
+              incidencia{{ (incidencias.length === 0 || incidencias.length > 1) ? 's' : '' }} con los filtros especificados.
+            </p>
 
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
