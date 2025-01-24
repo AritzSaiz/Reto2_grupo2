@@ -26,6 +26,7 @@ class OperarioController extends Controller
             // Comprobar si tiene un técnico asociado
             return response()->json([
                 'message' => 'Inicio de sesión exitoso',
+                'operarioId' => $operario->id,
                 'data' => $operario
             ], 200);
         } else {
@@ -33,7 +34,6 @@ class OperarioController extends Controller
                 'message' => 'Usuario o contraseña incorrectos'
             ], 401);
         }
-
     }
 
 

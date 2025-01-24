@@ -13,20 +13,33 @@
 
     const datos = ref([]);
 
-    async function iniciarSesion(operarioId){
+    async function iniciarSesion(){
+        if (username.value == ""){
+            alert("El usuario no puede estar vacío");
+            usernameInput.value.focus();
+            return;
+        }
+
+        if (password.value == ""){
+            alert("La contraseña no puede estar vacía");
+            passwordInput.value.focus();
+            return;
+        }
+
         try{
-            const response = await api.get(`/operario/${operarioId}`);
-            datos.value = response.data.data;
-            if (username.value != "" && password.value != ""){
+            const response = await api.post(`/login`, {
+                usuario: username.value,
+                contrasena: password.value,
+            });
+
+            const { operarioId } = response.data;
+
+            if (operarioId){
+                localStorage.setItem('operarioId', operarioId);
+                
                 router.push(`/operario/${operarioId}`);
-            }
-            else if (username.value == ""){
-                alert("El usuario no puede estar vacío");
-                usernameInput.value.focus();   
-            }
-            else if (password.value == ""){
-                alert("La contraseña no puede estar vacía");
-                passwordInput.value.focus();  
+            } else {
+                alert('Usuario o contraseña incorrectos');
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);

@@ -25,7 +25,7 @@ const router = createRouter({
       props: true,  // Pasa la ID como una prop al componente
     },
     {
-      path: '/incidenciasResueltas',
+      path: '/incidenciasResueltas/:id',
       name: 'Ventana incidencias resueltas',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -33,7 +33,7 @@ const router = createRouter({
       component: () => import('../views/IncidenciaResuelta.vue'),
     },
     {
-      path: '/incidenciasParticipa',
+      path: '/incidenciasParticipa/:id',
       name: 'Ventana incidencias participadas',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

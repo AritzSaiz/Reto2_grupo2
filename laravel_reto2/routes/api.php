@@ -44,7 +44,7 @@ Route::post('/anadir',[HistorialController::class,'anadir']);
 Route::post('/actualizar', [HistorialController::class, 'actualizar']);
 
 
-Route::post('/operario/{operario}', [OperarioController::class, 'inicioSesion']);
+Route::post('/login', [OperarioController::class, 'inicioSesion']);
 
 
 

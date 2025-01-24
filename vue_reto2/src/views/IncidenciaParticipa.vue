@@ -1,16 +1,29 @@
 <script setup>
     import Header from '@/components/Header.vue';
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import {onMounted, ref} from 'vue';
 
     import api from '@/plugins/axios';
 
+    const props = defineProps({
+        id: {
+            type: [String, Number],
+            required: true
+        }
+    });
+
     const incidencias = ref([]);
 
     const router = useRouter();
+    const route = useRoute();
 
     function volver(){
-        router.push('/operario');
+        const operarioId = localStorage.getItem('operarioId');
+        if (operarioId) {
+            router.push(`/operario/${operarioId}`);
+        } else {
+            console.error("No se encontró el ID del operario.");
+        }
     }
 
     function detalle(){
