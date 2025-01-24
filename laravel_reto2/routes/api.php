@@ -48,6 +48,8 @@ Route::post('/login', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
+Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
+
 // TODO : Repasar
 
 Route::middleware('jwt.auth')->group(function () {

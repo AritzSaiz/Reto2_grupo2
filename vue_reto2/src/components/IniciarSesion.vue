@@ -36,6 +36,8 @@
 
             if (operarioId){
                 localStorage.setItem('operarioId', operarioId);
+
+                await verificarTecnico(operarioId);
                 
                 router.push(`/operario/${operarioId}`);
             } else {
@@ -44,6 +46,21 @@
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             alert('Usuario o contraseña incorrectos');
+        }
+    }
+
+    async function verificarTecnico(operarioId) {
+        try {
+            const response = await api.get(`/tecnico/${operarioId}`);
+
+            if (response.data) {
+                localStorage.setItem('tiene_tecnico', true); // El operario tiene técnico
+            } else {
+                localStorage.setItem('tiene_tecnico', false); // El operario no tiene técnico
+            }
+        } catch (error) {
+            console.error('Error al verificar el técnico:', error);
+            localStorage.setItem('tiene_tecnico', false); // En caso de error, lo consideramos sin técnico
         }
     }
 

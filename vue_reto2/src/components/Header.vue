@@ -1,8 +1,13 @@
 <script setup>
-    import { useRoute, useRouter } from 'vue-router';
+    import { onMounted, ref } from 'vue';
+    import { useRouter } from 'vue-router';
+    import api from '@/plugins/axios';
 
-    const route = useRoute();
     const router = useRouter();
+
+    const inciResueltas = ref('');
+    const inciNoResueltas = ref('');
+    const tecnicoExitoso = ref(false);
 
     const props = defineProps({
         id: {
@@ -12,6 +17,37 @@
     });
 
     const operarioId = localStorage.getItem('operarioId');
+
+    async function verificarTecnico() {
+        try {
+            const response = await api.get(`/tecnico/${operarioId}`);
+
+            if (response.data) {
+                tecnicoExitoso.value = true;
+                inciResueltas.value = 'Incidencias Resueltas';
+                inciNoResueltas.value = 'Incidencias NO Resueltas';
+                localStorage.setItem('tiene_tecnico', true);
+            } else {
+                tecnicoExitoso.value = false;
+                inciResueltas.value = '';
+                inciNoResueltas.value = '';
+                localStorage.setItem('tiene_tecnico', false);
+            }
+        } catch (error) {
+            console.error('Error al verificar el técnico:', error);
+            tecnicoExitoso.value = false;
+            inciResueltas.value = '';
+            inciNoResueltas.value = '';
+        }
+    }
+
+    onMounted(() => {
+        if(operarioId){
+            verificarTecnico();
+        } else {
+            console.error("No se encontró el ID del operario en localStorage.");
+        }
+    });
 
     function volver(){
         if (operarioId) {
@@ -23,7 +59,7 @@
 
     function cerrarSesion(){
         localStorage.removeItem('operarioId');
-
+        localStorage.removeItem('tiene_tecnico');
         router.push('/');
     }
 
@@ -41,8 +77,8 @@
 
         <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide" @click="volver" style="cursor: pointer;">
 
-        <a @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">Incidencias Resueltas</a>
-        <a @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">Incidencias NO Resueltas</a>
+        <a v-if="tecnicoExitoso" @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciResueltas }}</a>
+        <a v-if="tecnicoExitoso" @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciNoResueltas }}</a>
             
         <img class="cerrarSesion" src="../assets/cerrarSesion2.png" alt="Icono de cerrar sesión" @click="cerrarSesion" style="cursor: pointer;">
             

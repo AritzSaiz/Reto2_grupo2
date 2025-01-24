@@ -101,4 +101,36 @@ class TecnicoController extends Controller
         }
     }
 
+    public function verificarTecnico($operarioId)
+    {
+        // Buscar el operario por su ID
+        $operario = Operario::find($operarioId);
+
+        // Si el operario no se encuentra, devolver un error 404
+        if (!$operario) {
+            return response()->json([
+                'existe' => false,
+                'message' => 'Operario no encontrado.'
+            ], 404); // 404 Not Found
+        }
+
+        // Buscar si el operario tiene un técnico asociado
+        $tecnico = $operario->tecnico;
+
+        // Si el operario tiene un técnico asociado
+        if ($tecnico) {
+            return response()->json([
+                'existe' => true,
+                'tecnico' => $tecnico
+            ], 200); // 200 OK
+        }
+
+        // Si el operario no tiene técnico asociado, devolver un error 404
+        return response()->json([
+            'existe' => false,
+            'message' => 'No se encontró un técnico asociado al operario.'
+        ], 404); // 404 Not Found
+    }
+
+
 }

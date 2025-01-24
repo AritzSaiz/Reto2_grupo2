@@ -49,6 +49,9 @@
       MAQUINAS: '/maquinas',
     };
 
+    const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
+    const operarioId = Number(localStorage.getItem('operarioId'));
+
     const descripcion = ref("");
     const categoria = ref("");
     const gravedad = ref("");
@@ -321,12 +324,20 @@
             <p class="cantIncidencias mb-0">Se han encontrado <span class="badge estiloBadge">{{ incidencias.length }}</span> incidencias con los filtros especificados.</p>
 
             <div class="listaIncidencias">
-              <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
-                <p class="mb-0">{{ incidencia.descripcion }}</p>
-                <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
-                <!--
-                <button class="btn btn-resolver">Resolver</button>
-                -->
+              <div v-if="tiene_tecnico === false">
+                <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
+                  <div v-if="incidencia.operario_id === operarioId" class="incidencia mb-3">
+                    <p class="mb-0">{{ incidencia.descripcion }}</p>
+                    <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="tiene_tecnico === true">
+                <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
+                  <p class="mb-0">{{ incidencia.descripcion }}</p>
+                  <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                </div>
               </div>
             </div>
 
