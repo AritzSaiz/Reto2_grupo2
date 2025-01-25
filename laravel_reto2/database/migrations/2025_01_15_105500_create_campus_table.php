@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('campus', function (Blueprint $table) {
             $table->id(); // Autoincremental y PK.
-            $table->string('codigo', 2)->nullable(false);
+            $table->string('codigo', 3)->nullable(false);
             $table->string('nombre', 50)->nullable(false);
             $table->string('direccion', 100)->nullable(false);
             $table->string('codigo_postal', 5)->nullable(false);
