@@ -6,6 +6,7 @@ use App\Models\Operario;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class TecnicoController extends Controller
