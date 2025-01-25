@@ -64,15 +64,9 @@
 
                         <div class="mb-3 row" id="div-admin">
                             <label class="col-sm-3 col-form-label">Admin:</label>
-<<<<<<< Updated upstream
-                            <div class="col-sm-6" id="adminSiNo">
-                                <input type="radio" name="administrador" value="0" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> <p>Sí</p>
-                                <input type="radio" name="administrador" value="1" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} checked> <p>No</p>
-=======
                             <div class="col-sm-6">
-                                <input type="radio" name="administrador" value="si" id="admin_si" {{ old('administrador') == 'si' ? 'checked' : '' }}> Sí
-                                <input type="radio" name="administrador" value="no" id="admin_no" {{ old('administrador') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
->>>>>>> Stashed changes
+                                <input type="radio" name="admin" value="si" id="admin_si" {{ old('admin') == 'si' ? 'checked' : '' }}> Sí
+                                <input type="radio" name="admin" value="no" id="admin_no" {{ old('admin') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
                             </div>
                         </div>
 

@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 
 
-use App\Models\MaquinaMantenimiento;
+use App\Models\MantenimientoMaquina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class MaquinaMantenimientoController extends Controller{
+class MantenimientoMaquinaController extends Controller{
 
 
     //Pasaremos el codigo de la maquina y el id y descripcion del mantenimiento
@@ -25,7 +25,7 @@ class MaquinaMantenimientoController extends Controller{
             return response()->json(['message' => $validator->errors()], 400);
         }else{
             //dd($request->get("maquina_id"));
-            $relacion = MaquinaMantenimiento::create([
+            $relacion = MantenimientoMaquina::create([
                 "mantenimiento_id" => $request->get("mantenimiento_id"),
                 "maquina_id" => $request->get("maquina_id")
             ]);

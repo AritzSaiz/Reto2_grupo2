@@ -5,13 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seccion extends Model
 {
+    protected $table = 'secciones';
+
     protected $fillable = [
         'codigo',
         'nombre',
         'campus_id',
     ];
-
-    protected $table = 'secciones';
 
     public function maquinas(){
         return $this->hasMany(Maquina::class);

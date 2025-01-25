@@ -6,7 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\MaquinaController;
-use App\Http\Controllers\MaquinaMantenimientoController;
+use App\Http\Controllers\MantenimientoMaquinaController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\SeccionController;

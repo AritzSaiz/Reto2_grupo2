@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Operario extends Model
 {
+    protected $table = 'operarios';
+
     protected $fillable = [
         'nombre',
         'apellidos',
@@ -13,8 +15,5 @@ class Operario extends Model
         'contrasena',
     ];
 
-    public function tecnico()
-    {
-        return $this->hasOne(Tecnico::class);
-    }
+    // TODO : ¿Poner un HasOne de tecnico?
 }
