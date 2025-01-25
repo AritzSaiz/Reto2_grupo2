@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 23-01-2025 a las 18:36:00
+-- Tiempo de generación: 25-01-2025 a las 13:48:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -28,7 +28,7 @@ USE `laravel_reto2`;
 --
 -- Estructura de tabla para la tabla `cache`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `cache`;
@@ -47,7 +47,7 @@ CREATE TABLE `cache` (
 --
 -- Estructura de tabla para la tabla `cache_locks`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `cache_locks`;
@@ -66,8 +66,8 @@ CREATE TABLE `cache_locks` (
 --
 -- Estructura de tabla para la tabla `campus`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:05
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:13
 --
 
 DROP TABLE IF EXISTS `campus`;
@@ -93,19 +93,19 @@ CREATE TABLE `campus` (
 --
 
 INSERT INTO `campus` (`id`, `codigo`, `nombre`, `direccion`, `codigo_postal`, `telefono`, `email`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '01', 'Arriaga', 'C/ Pozoa s/n', '01013', '945010110', 'arriaga@egibide.org', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(2, '02', 'Mendizorroza', 'Plaza Amadeo García Salazar, 2 (Frontones)', '01007', '945010140', 'mendizorrotza@egibide.org', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(3, '03', 'Molinuevo', 'C/ San Ignacio, 6', '01001', '945010120', 'molinuevo@egibide.org', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(4, '04', 'Nieves Cano', 'C/ Nieves Cano, 10', '01006', '945010130', 'nievescano@egibide.org', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(5, '05', 'Jesús Obrero', 'C/ Francia, 32', '01002', '945000333', 'jesusobrero@egibide.org', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL);
+(1, '01', 'Arriaga', 'C/ Pozoa s/n', '01013', '945010110', 'arriaga@egibide.org', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(2, '02', 'Mendizorroza', 'Plaza Amadeo García Salazar, 2 (Frontones)', '01007', '945010140', 'mendizorrotza@egibide.org', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(3, '03', 'Molinuevo', 'C/ San Ignacio, 6', '01001', '945010120', 'molinuevo@egibide.org', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(4, '04', 'Nieves Cano', 'C/ Nieves Cano, 10', '01006', '945010130', 'nievescano@egibide.org', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(5, '05', 'Jesús Obrero', 'C/ Francia, 32', '01002', '945000333', 'jesusobrero@egibide.org', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `categorias`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:05
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `categorias`;
@@ -126,20 +126,20 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Mecánica', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(2, 'Eléctrica', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(3, 'Neumática', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(4, 'Hidráulica', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(5, 'Informática', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(6, 'Instalaciones generales', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(7, 'Otra', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL);
+(1, 'Mecánica', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(2, 'Eléctrica', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(3, 'Neumática', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(4, 'Hidráulica', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(5, 'Informática', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(6, 'Instalaciones generales', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(7, 'Otra', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `failed_jobs`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -162,7 +162,7 @@ CREATE TABLE `failed_jobs` (
 --
 -- Estructura de tabla para la tabla `historiales`
 --
--- Creación: 21-01-2025 a las 18:06:06
+-- Creación: 25-01-2025 a las 12:46:22
 --
 
 DROP TABLE IF EXISTS `historiales`;
@@ -171,9 +171,9 @@ CREATE TABLE `historiales` (
   `incidencia_id` bigint(20) UNSIGNED NOT NULL,
   `tecnico_id` bigint(20) UNSIGNED NOT NULL,
   `entrada` datetime NOT NULL,
-  `salida` datetime DEFAULT NULL,
-  `detalles_trabajo` varchar(300) DEFAULT NULL,
-  `justificacion_salida` varchar(300) DEFAULT NULL,
+  `salida` datetime NOT NULL,
+  `detalles_trabajo` varchar(300) NOT NULL,
+  `justificacion_salida` varchar(300) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -192,8 +192,8 @@ CREATE TABLE `historiales` (
 --
 -- Estructura de tabla para la tabla `incidencias`
 --
--- Creación: 21-01-2025 a las 18:06:06
--- Última actualización: 23-01-2025 a las 17:24:06
+-- Creación: 25-01-2025 a las 12:46:22
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `incidencias`;
@@ -201,8 +201,8 @@ CREATE TABLE `incidencias` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `descripcion` varchar(300) NOT NULL,
   `abierta` tinyint(1) NOT NULL DEFAULT 1,
-  `categoria_id` bigint(20) UNSIGNED NOT NULL,
   `gravedad` varchar(255) NOT NULL,
+  `categoria_id` bigint(20) UNSIGNED NOT NULL,
   `operario_id` bigint(20) UNSIGNED NOT NULL,
   `maquina_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -224,24 +224,25 @@ CREATE TABLE `incidencias` (
 -- Volcado de datos para la tabla `incidencias`
 --
 
-INSERT INTO `incidencias` (`id`, `descripcion`, `abierta`, `categoria_id`, `gravedad`, `operario_id`, `maquina_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'El torno no se calibra correctamente.', 1, 1, 'No funciona', 1, 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(2, 'Vibraciones excesivas durante el uso del torno.', 1, 2, 'Sí funciona', 2, 2, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(3, 'Error en la lectura del panel de control del torno.', 1, 3, 'No funciona', 3, 3, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(4, 'El torno se detiene inesperadamente al programar giros.', 1, 4, 'No funciona', 4, 4, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(5, 'Fallas en el motor principal del torno.', 0, 5, 'Mantenimiento preventivo', 5, 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(6, 'El motor de la fresadora emite ruidos anormales.', 1, 1, 'Sí funciona', 1, 2, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(7, 'La sierra automática no corta uniformemente.', 1, 2, 'Aviso', 1, 3, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(8, 'El sistema hidráulico de la prensa tiene fugas.', 0, 3, 'Mantenimiento preventivo', 2, 4, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(9, 'El compresor de aire no alcanza la presión requerida.', 1, 4, 'No funciona', 2, 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(10, 'La cinta transportadora se detiene de manera intermitente.', 1, 5, 'Sí funciona', 3, 2, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL);
+INSERT INTO `incidencias` (`id`, `descripcion`, `abierta`, `gravedad`, `categoria_id`, `operario_id`, `maquina_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Problema de arranque del torno', 1, 'No funciona', 1, 1, 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(2, 'Fallo en el eje Z de la fresadora', 1, 'No funciona', 2, 2, 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(3, 'La impresora 3D no calienta la base', 1, 'Sí funciona', 1, 3, 3, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(4, 'El cortador láser no enciende', 1, 'No funciona', 2, 1, 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(5, 'El PC se reinicia constantemente', 1, 'Aviso', 3, 2, 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(6, 'Estantería en mal estado', 0, 'Aviso', 3, 3, 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(7, 'El PC no enciende', 0, 'No funciona', 3, 4, 3, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(8, 'La taladradora no tiene potencia', 0, 'Aviso', 4, 4, 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(9, 'La sierra no corta recto', 0, 'Sí funciona', 5, 4, 5, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(10, 'Router no se conecta a la red', 0, 'Aviso', 5, 4, 5, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(11, 'Limpieza rutinaria de la máquina', 1, 'Mantenimiento preventivo', 5, 1, 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `jobs`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `jobs`;
@@ -264,7 +265,7 @@ CREATE TABLE `jobs` (
 --
 -- Estructura de tabla para la tabla `job_batches`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `job_batches`;
@@ -290,41 +291,55 @@ CREATE TABLE `job_batches` (
 --
 -- Estructura de tabla para la tabla `mantenimientos_maquinas`
 --
--- Creación: 21-01-2025 a las 18:06:06
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `mantenimientos_maquinas`;
 CREATE TABLE `mantenimientos_maquinas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `mantenimiento_id` bigint(20) UNSIGNED NOT NULL,
   `maquina_id` bigint(20) UNSIGNED NOT NULL,
+  `ultima_revision` datetime NOT NULL,
+  `siguiente_revision` datetime NOT NULL,
+  `incidencia_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
 --
 -- RELACIONES PARA LA TABLA `mantenimientos_maquinas`:
+--   `incidencia_id`
+--       `incidencias` -> `id`
 --   `mantenimiento_id`
 --       `mantenimientos_preventivos` -> `id`
 --   `maquina_id`
 --       `maquinas` -> `id`
 --
 
+--
+-- Volcado de datos para la tabla `mantenimientos_maquinas`
+--
+
+INSERT INTO `mantenimientos_maquinas` (`id`, `mantenimiento_id`, `maquina_id`, `ultima_revision`, `siguiente_revision`, `incidencia_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 1, '2025-02-25 11:00:00', '2025-03-25 11:00:00', 11, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `mantenimientos_preventivos`
 --
--- Creación: 21-01-2025 a las 18:06:06
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `mantenimientos_preventivos`;
 CREATE TABLE `mantenimientos_preventivos` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `titulo` varchar(255) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `dias` int(11) NOT NULL,
-  `ultima_revision` datetime NOT NULL,
-  `siguiente_revision` datetime NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -334,13 +349,26 @@ CREATE TABLE `mantenimientos_preventivos` (
 -- RELACIONES PARA LA TABLA `mantenimientos_preventivos`:
 --
 
+--
+-- Volcado de datos para la tabla `mantenimientos_preventivos`
+--
+
+INSERT INTO `mantenimientos_preventivos` (`id`, `titulo`, `descripcion`, `dias`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Limpieza General', 'Limpieza rutinaria de la máquina', 30, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(2, 'Engrasado', 'Engrasado de las partes móviles', 60, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(3, 'Ajuste de Componentes', 'Revisión y ajuste de tornillos y piezas', 90, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(4, 'Calibración', 'Calibración de la máquina', 120, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(5, 'Revisión Eléctrica', 'Revisión de los cables y conexiones eléctricas', 120, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(6, 'Actualización Software', 'Actualización del software de la máquina', 180, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(7, 'Revisión Neumática', 'Revisión de los elementos neumáticos de la máquina', 180, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `maquinas`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:06
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `maquinas`;
@@ -367,19 +395,26 @@ CREATE TABLE `maquinas` (
 --
 
 INSERT INTO `maquinas` (`id`, `codigo`, `nombre`, `modelo`, `prioridad`, `seccion_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 5000001, 'Torno Pinacho 0001', 'Serie SH', '1', 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(2, 5000002, 'Torno Pinacho 0002', 'Serie ST', '1', 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(3, 5000003, 'Torno Pinacho 0003', 'Serie SE', '1', 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(4, 5000004, 'Torno Pinacho 0004', 'Serie SL', '2', 2, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(5, 5000005, 'Torno Pinacho 0005', 'Serie ML', '3', 3, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL);
+(1, 1001, 'Torno CNC', 'TM-2000', '1', 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(2, 1002, 'Fresadora', 'FR-300', '1', 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(3, 2001, 'Impresora 3D', 'PR-500', '1', 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(4, 2002, 'Cortadora Láser', 'CL-100', '1', 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(5, 3001, 'Ordenador Principal', 'HP-200', '2', 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(6, 4001, 'Estantería de Almacén', 'E-230', '2', 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(7, 5001, 'PC de Oficina', 'HP-100', '2', 2, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(8, 1003, 'Taladradora', 'TA-330', '2', 3, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(9, 1004, 'Sierra', 'SI-200', '3', 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(10, 3002, 'Router', 'RT-10', '3', 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(11, 4002, 'Carretilla', 'CA-100', '3', 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(12, 5002, 'Impresora', 'PR-100', '3', 4, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `migrations`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:05
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:13
 --
 
 DROP TABLE IF EXISTS `migrations`;
@@ -407,10 +442,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2025_01_15_105600_create_tecnicos_table', 1),
 (8, '2025_01_15_105631_create_maquinas_table', 1),
 (9, '2025_01_15_105640_create_categorias_table', 1),
-(10, '2025_01_15_105648_create_incidencias_table', 1),
-(11, '2025_01_15_105708_create_mantenimientos_preventivos_table', 1),
-(12, '2025_01_15_105728_create_historiales_table', 1),
-(13, '2025_01_20_082956_create_mantenimiento_maquinas_table', 1),
+(10, '2025_01_15_105645_create_mantenimientos_preventivos_table', 1),
+(11, '2025_01_15_105648_create_incidencias_table', 1),
+(12, '2025_01_15_105655_create_mantenimientos_maquinas_table', 1),
+(13, '2025_01_15_105728_create_historiales_table', 1),
 (14, '2025_01_20_192630_create_personal_access_tokens_table', 1);
 
 -- --------------------------------------------------------
@@ -418,8 +453,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 -- Estructura de tabla para la tabla `operarios`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:06
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `operarios`;
@@ -444,18 +479,18 @@ CREATE TABLE `operarios` (
 --
 
 INSERT INTO `operarios` (`id`, `nombre`, `apellidos`, `email`, `usuario`, `contrasena`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Juan', 'Pérez López', 'juan.perez@egibide.org', 'jperez', '$2y$12$EzLQ.2jJP0FArx0etuIJfOypyIlxUtF9MmjvQL6v8liPgAlqMmxeK', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(2, 'María', 'González Díaz', 'maria.gonzalez@egibide.org', 'mgonzalez', '$2y$12$hfDqJjzTImzPojxl3RTILOUlh4DSrl9yA75dc3DeoRsNR7jQZjSRm', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(3, 'Luis', 'Martínez Ruiz', 'luis.martinez@egibide.org', 'lmartinez', '$2y$12$YYZ4jNTlkIw6ulHLdhzVCerunnPSgp0LTeJA76Gy/VNztF.xOyWmi', '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(4, 'Ana', 'Hernández Gómez', 'ana.hernandez@ikasle.egibide.org', 'ahernandez', '$2y$12$LuKrx3XUCrwOGPac3jZRXO5SYHgV3m7WDpNVNbuZT.a4Qo4BnGlCa', '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(5, 'Paco', 'Sánchez Torres', 'paco.sanchez@ikasle.egibide.org', 'psanchez', '$2y$12$Bx/T5/jVHOzeFAZRABGpoOTq8mCGRLf4O5C7eCvaXM/LxT/jM6Wy.', '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL);
+(1, 'Juan', 'Pérez López', 'juan.perez@egibide.org', 'jperez', '$2y$12$mWULbWumaLHr0Rud7101dOM6XLm5I9dSwmsO58wk0r2fLf9ESQvuq', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(2, 'María', 'González Díaz', 'maria.gonzalez@egibide.org', 'mgonzalez', '$2y$12$RjWOdj4s/6g4Y1gQMAtNLeoI94/XLVov6IOvnVravPFpy7JW0mXBm', '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(3, 'Luis', 'Martínez Ruiz', 'luis.martinez@egibide.org', 'lmartinez', '$2y$12$8tFMLIPoSvDG85TbGigzRuUiL0y5FKF5zxQlzkAB8PmOftTpatF26', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(4, 'Ana', 'Hernández Gómez', 'ana.hernandez@ikasle.egibide.org', 'ahernandez', '$2y$12$1BK3Ajp/z6t/bb6fcxf8LuYJ3zQzvS7cU2gvk8gUJNS.qs4A1BkDe', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(5, 'Paco', 'Sánchez Torres', 'paco.sanchez@ikasle.egibide.org', 'psanchez', '$2y$12$oHLC2kQnTkm0fdXeFPm8KeTXWg5DUJAYqZiAEtVPgxe0Z4gULHcmK', '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `password_reset_tokens`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `password_reset_tokens`;
@@ -474,7 +509,7 @@ CREATE TABLE `password_reset_tokens` (
 --
 -- Estructura de tabla para la tabla `personal_access_tokens`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 12:46:22
 --
 
 DROP TABLE IF EXISTS `personal_access_tokens`;
@@ -500,8 +535,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 -- Estructura de tabla para la tabla `secciones`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:05
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:13
 --
 
 DROP TABLE IF EXISTS `secciones`;
@@ -526,18 +561,18 @@ CREATE TABLE `secciones` (
 --
 
 INSERT INTO `secciones` (`id`, `codigo`, `nombre`, `campus_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '5010', 'Taller Mecánico 1  010', 1, '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(2, '5011', 'Taller Aurrera XXI', 2, '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(3, '5012', 'Taller Mecánico 2  012', 3, '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(4, '5014', 'Taller Control Numérico 014', 4, '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL),
-(5, '5017', 'Taller Mecánico 3  017', 5, '2025-01-23 17:24:05', '2025-01-23 17:24:05', NULL);
+(1, '5010', 'Taller Mecánico 1  010', 1, '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(2, '5011', 'Taller Aurrera XXI', 1, '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(3, '5012', 'Taller Mecánico 2  012', 1, '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(4, '5014', 'Taller Control Numérico 014', 2, '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL),
+(5, '5017', 'Taller Mecánico 3  017', 3, '2025-01-25 12:47:13', '2025-01-25 12:47:13', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `sessions`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `sessions`;
@@ -559,8 +594,8 @@ CREATE TABLE `sessions` (
 --
 -- Estructura de tabla para la tabla `tecnicos`
 --
--- Creación: 21-01-2025 a las 18:06:05
--- Última actualización: 23-01-2025 a las 17:24:06
+-- Creación: 25-01-2025 a las 11:12:52
+-- Última actualización: 25-01-2025 a las 12:47:14
 --
 
 DROP TABLE IF EXISTS `tecnicos`;
@@ -585,16 +620,16 @@ CREATE TABLE `tecnicos` (
 --
 
 INSERT INTO `tecnicos` (`id`, `operario_id`, `especialidad`, `administrador`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Electricidad', 1, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(2, 2, 'Mecánica', 0, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL),
-(3, 5, 'Electrónica', 0, '2025-01-23 17:24:06', '2025-01-23 17:24:06', NULL);
+(1, 1, 'Electricidad', 1, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(2, 2, 'Mecánica', 0, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL),
+(3, 5, 'Electrónica', 0, '2025-01-25 12:47:14', '2025-01-25 12:47:14', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `users`
 --
--- Creación: 21-01-2025 a las 18:06:05
+-- Creación: 25-01-2025 a las 11:12:52
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -682,8 +717,10 @@ ALTER TABLE `job_batches`
 -- Indices de la tabla `mantenimientos_maquinas`
 --
 ALTER TABLE `mantenimientos_maquinas`
-  ADD PRIMARY KEY (`mantenimiento_id`,`maquina_id`),
-  ADD KEY `mantenimientos_maquinas_maquina_id_foreign` (`maquina_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mantenimientos_maquinas_mantenimiento_id_foreign` (`mantenimiento_id`),
+  ADD KEY `mantenimientos_maquinas_maquina_id_foreign` (`maquina_id`),
+  ADD KEY `mantenimientos_maquinas_incidencia_id_foreign` (`incidencia_id`);
 
 --
 -- Indices de la tabla `mantenimientos_preventivos`
@@ -696,6 +733,7 @@ ALTER TABLE `mantenimientos_preventivos`
 --
 ALTER TABLE `maquinas`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `maquinas_codigo_unique` (`codigo`),
   ADD KEY `maquinas_seccion_id_foreign` (`seccion_id`);
 
 --
@@ -796,10 +834,16 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `mantenimientos_maquinas`
+--
+ALTER TABLE `mantenimientos_maquinas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `mantenimientos_preventivos`
 --
 ALTER TABLE `mantenimientos_preventivos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas`
@@ -866,6 +910,7 @@ ALTER TABLE `incidencias`
 -- Filtros para la tabla `mantenimientos_maquinas`
 --
 ALTER TABLE `mantenimientos_maquinas`
+  ADD CONSTRAINT `mantenimientos_maquinas_incidencia_id_foreign` FOREIGN KEY (`incidencia_id`) REFERENCES `incidencias` (`id`),
   ADD CONSTRAINT `mantenimientos_maquinas_mantenimiento_id_foreign` FOREIGN KEY (`mantenimiento_id`) REFERENCES `mantenimientos_preventivos` (`id`),
   ADD CONSTRAINT `mantenimientos_maquinas_maquina_id_foreign` FOREIGN KEY (`maquina_id`) REFERENCES `maquinas` (`id`);
 
