@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Operario;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Log;
 
 class TecnicoController extends Controller
@@ -74,7 +74,8 @@ class TecnicoController extends Controller
         $tecnico = new Tecnico();
         $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
-        $tecnico->administrador = ($validatedData['administrador'] === '0'); // Convertir a booleano (1 para sí, 0 para no)
+
+        $tecnico->administrador = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
 
 
         try {
@@ -85,6 +86,7 @@ class TecnicoController extends Controller
             Log::error('Error al crear técnico: ' . $e->getMessage()); // Registrar el error en el log
             return redirect()->route('tecnico.show')->with('error', 'No se pudo crear el técnico.');
         }
+
 
     }
 

@@ -24,6 +24,10 @@
                     <span data-feather="plus-circle"></span>
                     Añadir
                 </a>
+                <a type="button" href="{{ route('mantenimiento.cargarDatos') }}" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="plus-circle"></span>
+                    Asociar
+                </a>
             </div>
         </div>
     </div>

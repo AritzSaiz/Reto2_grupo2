@@ -51,6 +51,7 @@ Route::controller(SeccionController::class)->group(function() {
 Route::controller(MantenimientoController::class)->group(function() {
     Route::get('/showMantenimiento', 'show')->name('mantenimiento.show');
     Route::get('/createMantenimiento', 'create')->name('mantenimiento.create');
+    Route::get('/asociarMantenimiento', 'cargarDatos')->name('mantenimiento.cargarDatos');
     Route::post('/saveMantenimiento', 'save')->name('mantenimiento.save');
     Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
 });

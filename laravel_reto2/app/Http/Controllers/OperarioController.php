@@ -105,6 +105,7 @@ class OperarioController extends Controller
                 return redirect()->route('operario.show')->with('error', 'El operario está relacionado con un técnico');
             }
         } catch (\Exception $e) {
+            dd($e->getMessage()); // Muestra el mensaje del error
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }

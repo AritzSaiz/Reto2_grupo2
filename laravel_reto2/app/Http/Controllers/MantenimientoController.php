@@ -97,4 +97,15 @@ class MantenimientoController extends Controller
             return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento.');
         }
     }
+
+
+    public function cargarDatos(){
+
+        $maquinas = Maquina::all();
+        $mantenimientos = Mantenimiento::all();
+
+
+        return view("Mantenimiento.asociarMantenimiento", compact('maquinas', 'mantenimientos'));
+
+    }
 }

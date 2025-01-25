@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('mantenimientos_preventivos', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion')->nullable(false)->default("");
-            $table->integer('dias')->nullable(false)->default(1);
-            $table->dateTime('ultima_revision')->nullable(false)->default("2025-01-29 10:06:00");
-            $table->dateTime('siguiente_revision')->nullable(false)->default("2025-03-29 10:06:00");
+            $table->string('titulo')->nullable(false);
+            $table->string('descripcion')->nullable(false);
+            $table->string->integer('dias')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 

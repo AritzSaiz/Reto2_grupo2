@@ -22,7 +22,8 @@ class SeccionController extends Controller{
     }
 
     public function create(){
-        $campuses = Campus::whereNull('deleted_at')->get();
+
+        $campuses = Campus::all();
 
         return view('Seccion.createSeccion',compact('campuses'));
 
@@ -47,10 +48,11 @@ class SeccionController extends Controller{
         $input = $request->all();
 
         try {
+
+            // Crear la nueva sección
             $seccion = new Seccion();
-            $seccion->codigo = $input['codigo'];
-            $seccion->nombre = $input['nombre'];
-            $seccion->campus_id = $input['campus_id'];
+            $seccion->codigo = $input['codigo']; // Asignar el código
+            $seccion->operario_id = $input['operario_id']; // Asignar el ID del operario (campus)
             $seccion->save();
 
         } catch (\Exception $exception) {

@@ -3,6 +3,7 @@
 
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 
+
     <div class="row">
 
         <div class="col-4">

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mantenimiento_id')->nullable(false);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
+            $table->dateTime('ultima_revision')->nullable(false);
+            $table->dateTime('siguiente_revision')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 
