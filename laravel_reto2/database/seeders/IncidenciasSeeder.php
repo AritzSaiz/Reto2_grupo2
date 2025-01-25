@@ -14,17 +14,20 @@ class IncidenciasSeeder extends Seeder
     {
         DB::table('incidencias')->insert([
             [
-                'descripcion' => 'Problema de arranque del torno',
+                'titulo' => 'Problema de arranque del torno',
+                'descripcion' => 'El torno no arranca y aparece "Error" en la pantalla lateral informativa.',
                 'abierta' => true,
                 'gravedad' => 'No funciona',
                 'categoria_id' => 1,
                 'operario_id' => 1,
                 'maquina_id' => 1,
+                // TODO : Poner fechas con --> Carbon::create('2025-01-25 10:00:00')
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'Fallo en el eje Z de la fresadora',
+                'titulo' => 'Fallo en el eje Z de la fresadora',
+                'descripcion' => 'El eje Z de la fresadora ha dado un fallo y no sé por qué.',
                 'abierta' => true,
                 'gravedad' => 'No funciona',
                 'categoria_id' => 2,
@@ -34,7 +37,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'La impresora 3D no calienta la base',
+                'titulo' => 'Base de impresora 3D no calienta',
+                'descripcion' => 'A la impresora 3D no se le calienta la base por motivo desconocido.',
                 'abierta' => true,
                 'gravedad' => 'Sí funciona',
                 'categoria_id' => 1,
@@ -44,7 +48,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'El cortador láser no enciende',
+                'titulo' => 'Cortador láser no enciende',
+                'descripcion' => 'El cortador láser no enciende desde esta mañana.',
                 'abierta' => true,
                 'gravedad' => 'No funciona',
                 'categoria_id' => 2,
@@ -54,7 +59,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'El PC se reinicia constantemente',
+                'titulo' => 'PC se reinicia constantemente',
+                'descripcion' => 'El PC se reinicia constantemente sin haber lanzado ningún comando.',
                 'abierta' => true,
                 'gravedad' => 'Aviso',
                 'categoria_id' => 3,
@@ -64,7 +70,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'Estantería en mal estado',
+                'titulo' => 'Mal estado en estantería',
+                'descripcion' => 'Estantería en mal estado, una balda se tambalea.',
                 'abierta' => false,
                 'gravedad' => 'Aviso',
                 'categoria_id' => 3,
@@ -74,7 +81,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'El PC no enciende',
+                'titulo' => 'PC no enciende',
+                'descripcion' => 'El PC no se enciende ni da señales de actividad.',
                 'abierta' => false,
                 'gravedad' => 'No funciona',
                 'categoria_id' => 3,
@@ -84,7 +92,8 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'La taladradora no tiene potencia',
+                'titulo' => 'Taladradora sin potencia',
+                'descripcion' => 'La taladradora no tiene potencia y funciona despacio.',
                 'abierta' => false,
                 'gravedad' => 'Aviso',
                 'categoria_id' => 4,
@@ -94,16 +103,18 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'descripcion' => 'La sierra no corta recto',
+                'titulo' => 'Sierra no corta recto',
+                'descripcion' => 'La sierra no corta recto y se desvía en las placas finas de madera.',
                 'abierta' => false,
                 'gravedad' => 'Sí funciona',
-                'categoria_id' => 5,
+                'categoria_id' => 7,
                 'operario_id' => 4,
                 'maquina_id' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'titulo' => 'Router sin conexión a red',
                 'descripcion' => 'Router no se conecta a la red',
                 'abierta' => false,
                 'gravedad' => 'Aviso',
@@ -114,11 +125,12 @@ class IncidenciasSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'titulo' => 'Limpieza General',
                 'descripcion' => 'Limpieza rutinaria de la máquina',
                 'abierta' => true,
                 'gravedad' => 'Mantenimiento preventivo',
-                'categoria_id' => 5,
-                'operario_id' => 1,
+                'categoria_id' => 7,
+                'operario_id' => null,
                 'maquina_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
