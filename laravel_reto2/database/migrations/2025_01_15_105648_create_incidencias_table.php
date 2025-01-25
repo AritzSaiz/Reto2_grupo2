@@ -19,14 +19,14 @@ return new class extends Migration
             $table->boolean('abierta')->default(true)->nullable(false);
             $table->unsignedBigInteger('categoria_id')->nullable(false);
             $table->string('gravedad')->nullable(false);
-            /*TODO HACER FK*/
-            $table->unsignedBigInteger('mantenimientoMaquina_id')->nullable(false);
+            $table->unsignedBigInteger('mantenimiento_maquina_id')->nullable(false);
             $table->unsignedBigInteger('operario_id')->nullable(false);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->foreign('mantenimiento_maquina_id')->references('id')->on('mantenimientos_maquinas');
             $table->foreign('operario_id')->references('id')->on('operarios');
             $table->foreign('maquina_id')->references('id')->on('maquinas');
         });

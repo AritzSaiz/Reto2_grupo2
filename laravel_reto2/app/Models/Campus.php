@@ -16,13 +16,8 @@ class Campus extends Model
         "email",
     ];
 
-<<<<<<< Updated upstream
     public function secciones(){
         return $this->hasMany(Seccion::class);
     }
-
-=======
-    protected $table = 'campus';
->>>>>>> Stashed changes
 
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo')->nullable(false);
             $table->string('descripcion')->nullable(false);
-            $table->string->integer('dias')->nullable(false);
+            $table->integer('dias')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 
