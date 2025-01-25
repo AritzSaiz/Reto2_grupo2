@@ -18,6 +18,7 @@ class MaquinaMantenimientoController extends Controller{
         $validator = Validator::make($request->all(), [
             "mantenimiento_id" => "required|integer",
             "maquina_id"=> "required|integer",
+            ""
         ]);
 
         if ($validator->fails()) {
