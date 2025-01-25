@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion', 300)->nullable(false);
             $table->boolean('abierta')->default(true)->nullable(false);
-            $table->unsignedBigInteger('categoria_id')->nullable(false);
             $table->string('gravedad')->nullable(false);
-            /*TODO HACER FK*/
-            $table->unsignedBigInteger('mantenimientoMaquina_id')->nullable(false);
+            $table->unsignedBigInteger('categoria_id')->nullable(false);
             $table->unsignedBigInteger('operario_id')->nullable(false);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
