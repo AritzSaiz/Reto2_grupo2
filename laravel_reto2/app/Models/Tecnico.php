@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tecnico extends Model
 {
+    protected $table = 'tecnicos';
+
     protected $fillable = [
-        'nombre',
-        'apellidos',
-        'email',
-        'usuario',
-        'contrasena',
-        'disponibilidad',
+        'operario_id',
         'especialidad',
         'admin',
         'operario_id'

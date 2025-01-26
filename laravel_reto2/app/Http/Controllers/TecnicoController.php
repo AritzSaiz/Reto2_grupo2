@@ -27,11 +27,11 @@ class TecnicoController extends Controller
             $tecnico = $operario->tecnico;
 
             if ($tecnico) {
-                if ($tecnico->administrador){
+                if ($tecnico->admin){
                     // Guardar información del técnico en la sesión
                     session([
                         'tecnico_id' => $tecnico->id,
-                        'tecnico_nombre' => $tecnico->nombre,
+                        //'tecnico_nombre' => $tecnico->nombre,
                     ]);
 
                     return redirect()->route('maquina.show')->with('success', 'Inicio de sesión exitoso');
@@ -67,7 +67,7 @@ class TecnicoController extends Controller
         $validatedData = $request->validate([
             'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id', // Asegura que el operario no esté ya en la tabla
             'especialidad' => 'required|string|max:255',
-            'administrador' => 'required|in:0,1',
+            'admin' => 'required|in:0,1',
         ]);
 
 
@@ -76,7 +76,7 @@ class TecnicoController extends Controller
         $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
 
-        $tecnico->administrador = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
+        $tecnico->admin = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
 
 
         try {

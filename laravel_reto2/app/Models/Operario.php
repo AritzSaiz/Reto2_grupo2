@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Operario extends Model
 {
+    protected $table = 'operarios';
+
     protected $fillable = [
         'nombre',
         'apellidos',

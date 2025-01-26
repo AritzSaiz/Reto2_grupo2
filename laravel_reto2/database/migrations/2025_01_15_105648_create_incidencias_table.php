@@ -15,11 +15,16 @@ return new class extends Migration
 
         Schema::create('incidencias', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo', 100)->nullable(false);
             $table->string('descripcion', 300)->nullable(false);
             $table->boolean('abierta')->default(true)->nullable(false);
             $table->string('gravedad')->nullable(false);
             $table->unsignedBigInteger('categoria_id')->nullable(false);
-            $table->unsignedBigInteger('operario_id')->nullable(false);
+            /*
+             * Ya que puede que una incidencia sea creada por un mantenimiento que se le tiene que hacer a
+             * una máquina, la columna "operario_id" puede ser nula ya que no ha sido reportada directamente.
+             * */
+            $table->unsignedBigInteger('operario_id')->nullable(true);
             $table->unsignedBigInteger('maquina_id')->nullable(false);
             $table->timestamps();
             $table->softDeletes();

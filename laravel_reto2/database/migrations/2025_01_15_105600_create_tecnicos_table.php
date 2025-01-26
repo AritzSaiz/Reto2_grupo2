@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('operario_id')->nullable(false); // FK a la tabla operarios para obtener los demás datos del técnico.
             $table->string('especialidad', 50)->nullable(false);
-            $table->boolean('administrador')->nullable(false);
+            $table->boolean('admin')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
 

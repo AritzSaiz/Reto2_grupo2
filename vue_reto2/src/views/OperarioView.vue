@@ -13,11 +13,11 @@
 
     import alert from "bootstrap/js/src/alert.js";
 
+    const router = useRouter();
+
     // TODO
     // Mejorar el manejo de errores con SweetAlert2 u otra cosa (es una biblioteca de notificaciones).
     //import Swal from 'sweetalert2';
-
-    const router = useRouter();
 
     // Variable que controla el contenido de la ventana (para listar incidencias o crear una)
     const mostrarCrear = ref(true);
