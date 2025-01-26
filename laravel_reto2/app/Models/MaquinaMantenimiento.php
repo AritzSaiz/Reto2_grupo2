@@ -14,6 +14,9 @@ class MaquinaMantenimiento extends Model {
     protected $fillable = [
         "mantenimiento_id",
         "maquina_id",
+        "ultima_revision",
+        "siguiente_revision",
+        "incidencia_id"
     ];
 
 

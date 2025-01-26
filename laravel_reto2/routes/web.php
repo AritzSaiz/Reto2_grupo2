@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\MaquinaMantenimientoController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\SeccionController;
@@ -61,4 +62,11 @@ Route::controller(CampusController::class)->group(function() {
     Route::get('/createCampus', 'create')->name('campus.create');
     Route::post('/saveCampus', 'save')->name('campus.save');
     Route::delete('/deleteCampus/{id}', 'delete')->name('campus.delete');
+});
+
+
+Route::controller(MaquinaMantenimientoController::class)->group(function() {
+    Route::get('/showMaquinaMantenimmiento', 'verLista')->name('maquinaMantenimiento.verLista');
+    Route::post('/saveMaquinaMantenimiento', 'save')->name('maquinaMantenimiento.save');
+    //Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
 });

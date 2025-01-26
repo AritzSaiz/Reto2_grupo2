@@ -108,4 +108,7 @@ class MantenimientoController extends Controller
         return view("Mantenimiento.asociarMantenimiento", compact('maquinas', 'mantenimientos'));
 
     }
+
+
+
 }
