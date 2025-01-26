@@ -11,8 +11,6 @@
      */
     import api from '@/plugins/axios';
 
-    import alert from "bootstrap/js/src/alert.js";
-
     const router = useRouter();
 
     const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
@@ -106,13 +104,15 @@
         return maquinaAsociada && maquinaAsociada.prioridad === filtroPrioridad.value;
       });
 
-      // TODO : NO FUNCIONA (no cambia nada)
       // Filtrar por fecha ("ORDER BY" ascendente o descendente, sin descartar elementos)
-      incidenciasFiltradas.sort((a, b) => {
-        const fechaA = new Date(a.created_at);
-        const fechaB = new Date(b.created_at);
-        return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
-      });
+      if (filtroFecha.value === '1') {
+        // Más antiguas primero
+        incidenciasFiltradas.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)); // Ascendente
+      }
+      else {
+        // Más recientes primero
+        incidenciasFiltradas.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Descendente
+      }
 
       // Filtrar por campus (acceso mediante relaciones entre tablas)
       if (filtroCampus.value) {
@@ -188,8 +188,12 @@
           // TODO : Crear (registrar en BD pasándole los valores de las casillas)...
           //router.push(`/createIncidencia`);
 
-          router.push(`/operario/${operarioId}`);
+          console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
 
+          // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
+          mostrarCrear.value = true;
+
+          // TODO : Corregir para que se vea.
           // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
           const overlay = document.getElementById('dOverlay');
           overlay.style.display = 'flex';
@@ -458,8 +462,6 @@
             </div>
 
             <div>
-              <!-- TODO
-              <button id="crearIncidencia" @click="crearIncidencia" class="btn btn-warning">Crear incidencia</button> -->
               <input type="submit" class="btn btn-warning" value="Crear incidencia">
             </div>
           </form>
