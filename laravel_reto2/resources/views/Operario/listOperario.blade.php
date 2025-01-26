@@ -23,6 +23,7 @@
                     <span data-feather="plus-circle"></span>
                     Añadir
                 </a>
+                <!-- TODO : Reubicar y estilizar este botón. -->
                 <a href="{{ url('/exportar-datos') }}" class="btn btn-primary">Descargar el Excel de prueba</a>
             </div>
         </div>

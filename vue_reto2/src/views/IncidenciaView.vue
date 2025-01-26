@@ -1,77 +1,156 @@
 <script setup>
-    import {ref, onMounted} from 'vue';
-    import { useRouter, useRoute } from 'vue-router';
-    import Header from '../components/Header.vue';
 
-    import api from '@/plugins/axios';
+import {onMounted, ref} from 'vue';
+import {useRouter} from 'vue-router';
+import Header from '../components/Header.vue';
 
-    const props = defineProps({
-        id: {
-            type: [String, Number],
-            required: true
+import api from '@/plugins/axios';
+
+const router = useRouter();
+//const route = useRoute();
+
+const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
+const operarioId = Number(localStorage.getItem('operarioId'));
+
+const props = defineProps({
+  id: {
+    type: [String, Number],
+    required: true
+  }
+});
+
+const operario = ref('')
+const fecha = ref('')
+const titulo = ref('')
+const descripcion = ref('')
+const categoria = ref('');
+const gravedad = ref('');
+const maquina = ref('');
+const seccion = ref('');
+const campus = ref('');
+
+// Variable que permite saber si la incidencia está abierta o no, para poder mostrar el botón para participar en ella.
+const incidenciaAbierta = ref('');
+
+function volver(){
+  const operarioId = localStorage.getItem('operarioId');
+  if (operarioId) {
+    router.push(`/operario/${operarioId}`);
+  }
+  else {
+    console.error("La sesión se ha cerrado inesperadamente. Inténtalo más tarde.");
+  }
+}
+
+function participar(){
+  if (confirm("¿Quieres participar en esta incidencia?")) {
+    // TODO : Asignar (crear fila en historial)
+    /*
+    Se quedará en esta ventana (semi-bloqueada) con solo accesible el botón de
+    "Dejar de participar en esta incidencia" (que se habrá hecho visible).
+
+    Al clicarlo saldrá una confirmación y al darle que sí saldrá un pop-up con datos
+    a rellenar ("detalles_trabajo" {lo que ha hecho en ese tiempo} y
+    "justificacion_salida" {si se ha salido por haber solucionado completamente la
+    incidencia {para cerrarla o no}, por falta de material/herramientas, por acabar turno,
+    por cambiar de incidencia… u otro (a especificar en input)}) y al aceptar ahí se
+    recargará la página (para q deje de mostrarse el botón de "Participar") + crear fila en
+    historial, quizás cerrar incidencia...
+     */
+  }
+}
+
+async function fetchDatosIncidencia() {
+  try {
+    const responseIncidencia = await api.get(`/incidencias/${props.id}`);
+    const responseOperarios = await api.get('/operarios');
+    const responseCategoria = await api.get('/categorias');
+    const responseMaquina = await api.get('/maquinas');
+    const responseSeccion = await api.get('/secciones');
+    const responseCampus = await api.get('/campus');
+    const dataIncidencia = responseIncidencia.data.data;
+
+    if (dataIncidencia) {
+
+      let timestampCreacion = dataIncidencia.created_at;
+      let dateCreacion = new Date(timestampCreacion);
+      // Formatear la fecha y la hora
+      fecha.value = `${dateCreacion.toISOString().split('T')[0]} · ${dateCreacion.toTimeString().split(' ')[0]}`;
+
+      titulo.value = dataIncidencia.titulo;
+      descripcion.value = dataIncidencia.descripcion;
+      gravedad.value = dataIncidencia.gravedad;
+      incidenciaAbierta.value = dataIncidencia.abierta;
+
+      const operarioData = responseOperarios.data.find(operario => operario.id === dataIncidencia.operario_id);
+      operario.value = operarioData ? operarioData.email : 'Operario no encontrado';
+
+      const categoriaData = responseCategoria.data.find(categoria => categoria.id === dataIncidencia.categoria_id);
+      categoria.value = categoriaData ? categoriaData.nombre : 'Categoría no encontrada';
+
+      const maquinaData = responseMaquina.data.find(maquina => maquina.id === dataIncidencia.maquina_id);
+      maquina.value = maquinaData ? maquinaData.codigo : 'Máquina no encontrada';
+
+      // Obtener la sección de la máquina
+      if (maquinaData && maquinaData.seccion_id) {
+        const seccionData = responseSeccion.data.find(seccion => seccion.id === maquinaData.seccion_id);
+        seccion.value = seccionData ? seccionData.codigo : 'Sección no encontrada';
+
+        // Obtener el campus de la sección
+        if (seccionData.campus_id) {
+          const campusData = responseCampus.data.find(campus => campus.id === seccionData.campus_id);
+          campus.value = campusData ? campusData.nombre : 'Campus no encontrado';
         }
-    });
-
-    const descripcion = ref('')
-    const categoria = ref('');
-    const gravedad = ref('');
-    const maquina = ref('');
-
-    const router = useRouter();
-    const route = useRoute();
-
-    function volver(){
-        const operarioId = localStorage.getItem('operarioId');
-        if (operarioId) {
-            router.push(`/operario/${operarioId}`);
-        } else {
-            console.error("No se encontró el ID del operario.");
-        }
-    }
-
-    async function fetchDatosIncidencia() {
-      try {
-        const responseIncidencia = await api.get(`/incidencias/${props.id}`);
-        const responseCategoria = await api.get('/categorias');
-        const responseMaquina = await api.get('/maquinas');
-        const data = responseIncidencia.data.data;
-        
-        if (data) {
-            descripcion.value = data.descripcion;
-            gravedad.value = data.gravedad;
-
-            const categoriaData = responseCategoria.data.find(categoria => categoria.id === data.categoria_id);
-            categoria.value = categoriaData ? categoriaData.nombre : 'Categoría no encontrada';
-
-            const maquinaData = responseMaquina.data.find(maquina => maquina.id === data.maquina_id);
-            maquina.value = maquinaData ? maquinaData.nombre : 'Máquina no encontrada';
-        } else {
-            alert('No se encontró una incidencia con el ID especificado.');
-        }
-      } catch (error) {
-        console.error('Error al cargar la incidencia:', error);
-        alert('Hubo un problema al cargar la incidencia. Inténtalo más tarde.');
       }
-    }
 
-    onMounted(() => {
-      fetchDatosIncidencia();
-    });
+    }
+    else {
+      alert('No se encontró una incidencia con el ID especificado.');
+    }
+  }
+  catch (error) {
+    console.error('Error al cargar la incidencia:', error);
+    alert('Hubo un problema al cargar la incidencia. Inténtalo más tarde.');
+  }
+}
+
+onMounted(() => {
+  fetchDatosIncidencia();
+});
+
 </script>
 
 <template>
     <Header />
+
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="incidencia-form">
 
             <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
-            <div class="mb-4">
-                <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
+            <div class="mb-4 d-flex justify-content-between">
+              <button @click="volver" type="button" class="btn text-white border-light mb-4">Volver</button>
+              <button v-if="es_tecnico && incidenciaAbierta" @click="participar" type="button" class="btn btn-warning border-dark mb-4">Participar</button>
             </div>
             
             <form>
                 <div class="form-group mb-4">
+                  <div class="datos d-flex mb-4">
+                    <div class="col me-2">
+                      <label for="operario" class="form-label">Operario que reportó</label>
+                      <input id="operario" name="operario" readonly v-model="operario">
+                    </div>
+
+                    <div class="col me-2">
+                      <label for="fecha" class="form-label">Fecha de reporte</label>
+                      <input id="fecha" name="fecha" readonly v-model="fecha">
+                    </div>
+                  </div>
+                    <div class="descripcion mb-4">
+                        <label for="titulo" class="form-label">Título</label>
+                        <textarea id="titulo" name="titulo" class="form-control" readonly v-model="titulo"></textarea>
+                    </div>
+
                     <div class="descripcion">
                         <label for="descripcion" class="form-label">Descripción</label>
                         <textarea id="descripcion" name="descripcion" class="form-control" readonly v-model="descripcion"></textarea>
@@ -87,11 +166,23 @@
                             <label for="gravedad" class="form-label">Gravedad</label>
                             <input id="gravedad" name="gravedad" readonly v-model="gravedad">
                         </div>
+                    </div>
 
-                        <div class="col">
-                            <label for="máquina" class="form-label">Máquina</label>
-                            <input id="máquina" name="máquina" readonly v-model="maquina">
-                        </div>
+                    <div class="datos d-flex">
+                      <div class="col me-2">
+                        <label for="maquina" class="form-label">Máquina</label>
+                        <input id="maquina" name="maquina" readonly v-model="maquina">
+                      </div>
+
+                      <div class="col me-2">
+                        <label for="seccion" class="form-label">Sección</label>
+                        <input id="seccion" name="seccion" readonly v-model="seccion">
+                      </div>
+
+                      <div class="col me-2">
+                        <label for="campus" class="form-label">Campus</label>
+                        <input id="Campus" name="Campus" readonly v-model="campus">
+                      </div>
                     </div>
                 </div>
             </form>

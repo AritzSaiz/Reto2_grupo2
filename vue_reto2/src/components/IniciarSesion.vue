@@ -14,39 +14,47 @@
     const datos = ref([]);
 
     async function iniciarSesion(){
-        if (username.value == ""){
-            alert("El usuario no puede estar vacío");
-            usernameInput.value.focus();
-            return;
+
+      // Validar que los campos no estén vacíos
+      if (username.value === "" && password.value === "") {
+        alert("Las casillas no pueden estar vacías.");
+        usernameInput.value.focus();
+        return;
+      }
+      else if (username.value === "") {
+        alert("El usuario no puede estar vacío.");
+        usernameInput.value.focus();
+        return;
+      }
+      else if (password.value === "") {
+        alert("La contraseña no puede estar vacía.");
+        passwordInput.value.focus();
+        return;
+      }
+
+      try{
+        const response = await api.post(`/login`, {
+          usuario: username.value,
+          contrasena: password.value,
+        });
+
+        const { operarioId } = response.data;
+
+        if (operarioId){
+          localStorage.setItem('operarioId', operarioId);
+
+          await verificarTecnico(operarioId);
+
+          router.push(`/operario/${operarioId}`);
         }
-
-        if (password.value == ""){
-            alert("La contraseña no puede estar vacía");
-            passwordInput.value.focus();
-            return;
+        else {
+          alert('Error al iniciar sesión. Inténtalo más tarde.');
         }
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        alert('Usuario o contraseña incorrectos.');
+      }
 
-        try{
-            const response = await api.post(`/login`, {
-                usuario: username.value,
-                contrasena: password.value,
-            });
-
-            const { operarioId } = response.data;
-
-            if (operarioId){
-                localStorage.setItem('operarioId', operarioId);
-
-                await verificarTecnico(operarioId);
-                
-                router.push(`/operario/${operarioId}`);
-            } else {
-                alert('Usuario o contraseña incorrectos');
-            }
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            alert('Usuario o contraseña incorrectos');
-        }
     }
 
     async function verificarTecnico(operarioId) {
@@ -54,13 +62,13 @@
             const response = await api.get(`/tecnico/${operarioId}`);
 
             if (response.data) {
-                localStorage.setItem('tiene_tecnico', true); // El operario tiene técnico
+                localStorage.setItem('es_tecnico', true); // El operario es técnico
             } else {
-                localStorage.setItem('tiene_tecnico', false); // El operario no tiene técnico
+                localStorage.setItem('es_tecnico', false); // El operario no es técnico
             }
         } catch (error) {
             console.error('Error al verificar el técnico:', error);
-            localStorage.setItem('tiene_tecnico', false); // En caso de error, lo consideramos sin técnico
+            localStorage.setItem('es_tecnico', false); // En caso de error, lo consideramos un operario no técnico
         }
     }
 

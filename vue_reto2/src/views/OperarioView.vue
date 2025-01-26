@@ -15,6 +15,9 @@
 
     const router = useRouter();
 
+    const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
+    const operarioId = Number(localStorage.getItem('operarioId'));
+
     // TODO
     // Mejorar el manejo de errores con SweetAlert2 u otra cosa (es una biblioteca de notificaciones).
     //import Swal from 'sweetalert2';
@@ -50,15 +53,13 @@
       MAQUINAS: '/maquinas',
     };
 
-    const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
-    const operarioId = Number(localStorage.getItem('operarioId'));
-
-    const descripcion = ref("");
-    const categoria = ref("");
-    const gravedad = ref("");
-    const maquina = ref("");
-
-    const detalles = ref([]);
+    // Valores de las casillas al crear una incidencia.
+    const descripcionCrear = ref("");
+    const campusCrear = ref("");
+    const seccionCrear = ref("");
+    const maquinaCrear = ref("");
+    const categoriaCrear = ref("");
+    const gravedadCrear = ref("");
 
     // Función para obtener los datos desde el backend.
     // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
@@ -93,7 +94,7 @@
         });
       }
 
-      // TODO : NO FUNCIONAN LAS OPCIONES DE "No funciona" (SACA INCIDENCIAS DE MÁS) Y "Mantenimiento preventivo" (SACA INCIDENCIAS DE MENOS)
+      // TODO : NO FUNCIONA SOLO LA OPCIÓN DE "No funciona" (SACA TODAS LAS INCIDENCIAS)
       // Filtrar por gravedad
       if (filtroGravedad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -101,17 +102,17 @@
         });
       }
 
-      // TODO : NO FUNCIONA (SE PONEN TODAS COMO "1 - Crítica")
+      // TODO : NO FUNCIONA SOLO LA OPCIÓN DE "1 - Crítica" (SACA TODAS LAS INCIDENCIAS)
       // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
       if (filtroPrioridad.value !== '1') {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
           const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
-          return maquinaAsociada && maquinaAsociada.prioridad === parseInt(filtroPrioridad.value, 10);
+          return maquinaAsociada && maquinaAsociada.prioridad === filtroPrioridad.value;
         });
       }
 
-      // TODO : NO FUNCIONA (no se ordena de ninguna manera; no cambia)
-      // Filtrar por fecha (ascendente o descendente, sin descartar elementos)
+      // TODO : NO FUNCIONA (solo se ordenan 2 registros; los demás no)
+      // Filtrar por fecha ("ORDER BY" ascendente o descendente, sin descartar elementos)
       if (filtroFecha.value !== '1') {
         incidenciasFiltradas.sort((a, b) => {
           const fechaA = new Date(a.created_at);
@@ -206,8 +207,6 @@
     // Función para obtener detalles de una incidencia
     async function detalle(incidenciaId) {
       try {
-        const response = await api.get(`/incidencias/${incidenciaId}`);
-        detalles.value = response.data.data;
         router.push(`/incidencias/${incidenciaId}`);
       }
       catch (error) {
@@ -344,18 +343,9 @@
             </p>
 
             <div class="listaIncidencias">
-              <div v-if="tiene_tecnico === false">
-                <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                  <div v-if="incidencia.operario_id === operarioId" class="incidencia mb-3">
-                    <p class="mb-0">{{ incidencia.descripcion }}</p>
-                    <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
-                  </div>
-                </div>
-              </div>
-
-              <div v-if="tiene_tecnico === true">
-                <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
-                  <p class="mb-0">{{ incidencia.descripcion }}</p>
+              <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
+                <div v-if="es_tecnico || (!es_tecnico && incidencia.operario_id === operarioId)" class="incidencia mb-3">
+                  <p class="mb-0">{{ incidencia.titulo }}</p>
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>
               </div>
@@ -366,15 +356,15 @@
           <form class="crear" v-show="!mostrarCrear">
             <div class="form-group mb-3">
               <div class="descripcion">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea id="descripcion" name="descripcion" class="form-control" v-model="descripcion" rows="3"></textarea>
+                <label for="descripcionCrear" class="form-label">Descripción</label>
+                <textarea id="descripcionCrear" name="descripcionCrear" class="form-control" v-model="descripcionCrear" rows="3"></textarea>
               </div>
 
               <!-- TODO : Poner los 3 primeros filtros en una fila, y abajo los otros 2 en otra fila. -->
               <div class="datos d-flex mt-3">
                 <div class="col mb-3 me-1">
-                  <label for="campus" class="form-label">Campus</label>
-                  <select name="campus" class="form-select">
+                  <label for="campusCrear" class="form-label">Campus</label>
+                  <select name="campusCrear" class="form-select" v-model="campusCrear">
                     <option v-for="(camp, index) in campus" :key="index" :value="camp.id">
                       {{ camp.nombre }}
                     </option>
@@ -382,8 +372,8 @@
                 </div>
 
                 <div class="col mb-3 me-1">
-                  <label for="seccion" class="form-label">Sección</label>
-                  <select name="seccion" class="form-select">
+                  <label for="seccionCrear" class="form-label">Sección</label>
+                  <select name="seccionCrear" class="form-select" v-model="seccionCrear">
                     <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                       {{ secci.codigo }}
                     </option>
@@ -391,8 +381,8 @@
                 </div>
 
                 <div class="col mb-3 me-1">
-                  <label for="maquina" class="form-label">Máquina</label>
-                  <select name="maquina" class="form-select">
+                  <label for="maquinaCrear" class="form-label">Máquina</label>
+                  <select name="maquinaCrear" class="form-select" v-model="maquinaCrear">
                     <option v-for="(maqui, index) in maquinas" :key="index" :value="maqui.id">
                       {{ maqui.nombre }}
                     </option>
@@ -400,8 +390,8 @@
                 </div>
 
                 <div class="col mb-3 me-1">
-                  <label for="categoria" class="form-label">Categoría</label>
-                  <select name="categoria" class="form-select">
+                  <label for="categoriaCrear" class="form-label">Categoría</label>
+                  <select name="categoriaCrear" class="form-select" v-model="categoriaCrear">
                     <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                       {{ cate.nombre }}
                     </option>
@@ -409,8 +399,8 @@
                 </div>
 
                 <div class="col mb-3 me-1">
-                  <label for="gravedad" class="form-label">Gravedad</label>
-                  <select name="gravedad" class="form-select">
+                  <label for="gravedadCrear" class="form-label">Gravedad</label>
+                  <select name="gravedadCrear" class="form-select" v-model="gravedadCrear">
                     <option value="no">No funciona</option>
                     <option value="si">Sí funciona</option>
                     <option value="aviso">Aviso</option>

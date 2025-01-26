@@ -18,6 +18,7 @@
 
     const operarioId = localStorage.getItem('operarioId');
 
+    // TODO : Repasar esto (cambiar nombres...)
     async function verificarTecnico() {
         try {
             const response = await api.get(`/tecnico/${operarioId}`);
@@ -26,12 +27,10 @@
                 tecnicoExitoso.value = true;
                 inciResueltas.value = 'Incidencias Resueltas';
                 inciNoResueltas.value = 'Incidencias NO Resueltas';
-                localStorage.setItem('tiene_tecnico', true);
             } else {
                 tecnicoExitoso.value = false;
                 inciResueltas.value = '';
                 inciNoResueltas.value = '';
-                localStorage.setItem('tiene_tecnico', false);
             }
         } catch (error) {
             console.error('Error al verificar el técnico:', error);
@@ -59,7 +58,7 @@
 
     function cerrarSesion(){
         localStorage.removeItem('operarioId');
-        localStorage.removeItem('tiene_tecnico');
+        localStorage.removeItem('es_tecnico');
         router.push('/');
     }
 
@@ -75,12 +74,12 @@
 <template>
     <header class="header">
 
-        <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide" @click="volver" style="cursor: pointer;">
+      <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide" @click="volver" style="cursor: pointer;">
 
-        <a v-if="tecnicoExitoso" @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciResueltas }}</a>
-        <a v-if="tecnicoExitoso" @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciNoResueltas }}</a>
-            
-        <img class="cerrarSesion" src="../assets/cerrarSesion2.png" alt="Icono de cerrar sesión" @click="cerrarSesion" style="cursor: pointer;">
+      <a v-if="tecnicoExitoso" @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciResueltas }}</a>
+      <a v-if="tecnicoExitoso" @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciNoResueltas }}</a>
+
+      <img class="cerrarSesion" src="../assets/cerrarSesion.png" alt="Icono de cerrar sesión" @click="cerrarSesion" style="cursor: pointer;">
             
     </header>
 </template>

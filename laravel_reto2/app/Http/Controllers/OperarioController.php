@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 class OperarioController extends Controller
 {
 
+    // Función para obtener todos los operarios.
+    public function list(){
+        return Operario::all();
+    }
+
     public function inicioSesion(Request $request)
     {
 
