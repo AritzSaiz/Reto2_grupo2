@@ -54,6 +54,7 @@
     };
 
     // Valores de las casillas al crear una incidencia.
+    const tituloCrear = ref("");
     const descripcionCrear = ref("");
     const campusCrear = ref("");
     const seccionCrear = ref("");
@@ -94,32 +95,24 @@
         });
       }
 
-      // TODO : NO FUNCIONA SOLO LA OPCIÓN DE "No funciona" (SACA TODAS LAS INCIDENCIAS)
       // Filtrar por gravedad
-      if (filtroGravedad.value !== '1') {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.gravedad === getGravedadById(filtroGravedad.value);
-        });
-      }
+      incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+        return incidencia.gravedad === getGravedadById(filtroGravedad.value);
+      });
 
-      // TODO : NO FUNCIONA SOLO LA OPCIÓN DE "1 - Crítica" (SACA TODAS LAS INCIDENCIAS)
       // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
-      if (filtroPrioridad.value !== '1') {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
-          return maquinaAsociada && maquinaAsociada.prioridad === filtroPrioridad.value;
-        });
-      }
+      incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+        const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+        return maquinaAsociada && maquinaAsociada.prioridad === filtroPrioridad.value;
+      });
 
-      // TODO : NO FUNCIONA (solo se ordenan 2 registros; los demás no)
+      // TODO : NO FUNCIONA (no cambia nada)
       // Filtrar por fecha ("ORDER BY" ascendente o descendente, sin descartar elementos)
-      if (filtroFecha.value !== '1') {
-        incidenciasFiltradas.sort((a, b) => {
-          const fechaA = new Date(a.created_at);
-          const fechaB = new Date(b.created_at);
-          return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
-        });
-      }
+      incidenciasFiltradas.sort((a, b) => {
+        const fechaA = new Date(a.created_at);
+        const fechaB = new Date(b.created_at);
+        return filtroFecha.value === '2' ? fechaB - fechaA : fechaA - fechaB;
+      });
 
       // Filtrar por campus (acceso mediante relaciones entre tablas)
       if (filtroCampus.value) {
@@ -130,7 +123,6 @@
         });
       }
 
-      // TODO : TIENE QUE RELLENARSE CON LAS SECCIONES DEL CAMPUS SELECCIONADO (Y SI NO HAY CAMPUS SELECCIONADO QUE SE QUEDE EN LA DEFAULT DE "-- Elige...")
       // Filtrar por sección (a través de relaciones)
       if (filtroSeccion.value) {
         incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
@@ -181,27 +173,60 @@
       aplicarFiltros();
     }
 
+    function crearIncidencia() {
+      try {
 
-    // TODO : Hacer lo correspondiente de "Crear incidencia".
+        const error = validarIncidencia();
+        if (error) {
+          alert(error);
+          return;
+        }
 
-    // Validación de la creación de incidencia
-    function validarIncidencia() {
-      if (!descripcion.value) return 'La descripción está vacía.';
-      if (!categoria.value) return 'La categoría no está seleccionada.';
-      if (!gravedad.value) return 'La gravedad no está seleccionada.';
-      if (!maquina.value) return 'La máquina no está seleccionada.';
-      // Sin errores, devolver null.
-      return null;
+        // Si es válido habrá que crear, redirigir y mostrar una imagen.
+        const operarioId = localStorage.getItem('operarioId');
+        if (operarioId) {
+          // TODO : Crear (registrar en BD pasándole los valores de las casillas)...
+          //router.push(`/createIncidencia`);
+
+          router.push(`/operario/${operarioId}`);
+
+          // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
+          const overlay = document.getElementById('dOverlay');
+          overlay.style.display = 'flex';
+          // Ocultar la capa después de 3 segundos
+          setTimeout(() => {
+            overlay.style.display = 'none';
+          }, 3000);
+        }
+        else {
+          console.error("La sesión se ha cerrado inesperadamente y no se ha podido realizar la operación. Inténtalo más tarde.");
+        }
+
+      }
+      catch (error) {
+        console.error("Error en la creación de una incidencia:", error);
+      }
     }
 
-    function crearIncidencia() {
-      const error = validarIncidencia();
-      if (error) {
-        alert(error);
-        return;
+    // Validación de los datos de creación de incidencia
+    function validarIncidencia() {
+      let mensajeError = "";
+
+      if (!tituloCrear.value) mensajeError += 'El título está vacío.\n';
+      if (!descripcionCrear.value) mensajeError += 'La descripción está vacía.\n';
+      if (!campusCrear.value) mensajeError += 'El campus no está seleccionado.\n';
+      if (!seccionCrear.value) mensajeError += 'La sección no está seleccionada.\n';
+      if (!maquinaCrear.value) mensajeError += 'La máquina no está seleccionada.\n';
+      if (!categoriaCrear.value) mensajeError += 'La categoría no está seleccionada.\n';
+      if (!gravedadCrear.value) mensajeError += 'La gravedad no está seleccionada.\n';
+
+      if (mensajeError !== ""){
+        return mensajeError;
       }
-      // Si es válido, redirigir.
-      router.push('/operario');
+      else{
+        // Sin errores, devolver null.
+        return null;
+      }
     }
 
     // Función para obtener detalles de una incidencia
@@ -249,6 +274,12 @@
 
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
+
+          <!-- Icono de un tick que inicialmente estará invisible y solo aparecerá temporalmente al crear exitosamente una incidencia.-->
+          <div id="dOverlay" class="d-flex justify-content-center align-items-center d-none">
+            <img src="../assets/tick.png" alt="Icono de tick-correcto" class="iOverlay img-fluid">
+          </div>
+
           <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
           <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
@@ -313,6 +344,7 @@
               <div class="col-md-3">
                 <label for="filtroSeccion" class="form-label text-dark">Sección</label>
                 <select id="filtroSeccion" name="filtroSeccion" class="form-select" v-model="filtroSeccion" @change="aplicarFiltros">
+                  <!-- TODO : TIENE QUE RELLENARSE CON LAS SECCIONES DEL CAMPUS SELECCIONADO (Y SI NO HAY CAMPUS SELECCIONADO QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una sección --</option>
                   <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                     {{ secci.codigo }}
@@ -353,18 +385,23 @@
 
           </form>
 
-          <form class="crear" v-show="!mostrarCrear">
+          <form @submit.prevent="crearIncidencia" class="crear" v-show="!mostrarCrear">
             <div class="form-group mb-3">
-              <div class="descripcion">
-                <label for="descripcionCrear" class="form-label">Descripción</label>
-                <textarea id="descripcionCrear" name="descripcionCrear" class="form-control" v-model="descripcionCrear" rows="3"></textarea>
+              <div class="descripcion mb-4">
+                <label for="tituloCrear" class="form-label">Título</label>
+                <textarea id="tituloCrear" name="tituloCrear" class="form-control" style="height: 60px" v-model="tituloCrear" rows="3"></textarea>
               </div>
 
-              <!-- TODO : Poner los 3 primeros filtros en una fila, y abajo los otros 2 en otra fila. -->
+              <div class="descripcion">
+                <label for="descripcionCrear" class="form-label">Descripción</label>
+                <textarea id="descripcionCrear" name="descripcionCrear" class="form-control" style="height: 120px" v-model="descripcionCrear" rows="3"></textarea>
+              </div>
+
               <div class="datos d-flex mt-3">
                 <div class="col mb-3 me-1">
                   <label for="campusCrear" class="form-label">Campus</label>
                   <select name="campusCrear" class="form-select" v-model="campusCrear">
+                    <option value="" disabled selected>-- Elige un campus --</option>
                     <option v-for="(camp, index) in campus" :key="index" :value="camp.id">
                       {{ camp.nombre }}
                     </option>
@@ -374,6 +411,7 @@
                 <div class="col mb-3 me-1">
                   <label for="seccionCrear" class="form-label">Sección</label>
                   <select name="seccionCrear" class="form-select" v-model="seccionCrear">
+                    <option value="" disabled selected>-- Elige una sección --</option>
                     <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                       {{ secci.codigo }}
                     </option>
@@ -383,15 +421,19 @@
                 <div class="col mb-3 me-1">
                   <label for="maquinaCrear" class="form-label">Máquina</label>
                   <select name="maquinaCrear" class="form-select" v-model="maquinaCrear">
+                    <option value="" disabled selected>-- Elige una máquina --</option>
                     <option v-for="(maqui, index) in maquinas" :key="index" :value="maqui.id">
-                      {{ maqui.nombre }}
+                      {{ maqui.codigo }}
                     </option>
                   </select>
                 </div>
+              </div>
 
+              <div class="datos d-flex mt-3">
                 <div class="col mb-3 me-1">
                   <label for="categoriaCrear" class="form-label">Categoría</label>
                   <select name="categoriaCrear" class="form-select" v-model="categoriaCrear">
+                    <option value="" disabled selected>-- Elige una categoría --</option>
                     <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                       {{ cate.nombre }}
                     </option>
@@ -401,17 +443,24 @@
                 <div class="col mb-3 me-1">
                   <label for="gravedadCrear" class="form-label">Gravedad</label>
                   <select name="gravedadCrear" class="form-select" v-model="gravedadCrear">
+                    <option value="" disabled selected>-- Elige una gravedad --</option>
                     <option value="no">No funciona</option>
                     <option value="si">Sí funciona</option>
                     <option value="aviso">Aviso</option>
-                    <option value="mantenimiento">Mantenimiento preventivo</option>
+                    <!--
+                    No hay que poner la opción de "Mantenimiento preventivo" ya que solo se puede asignar
+                    ese tipo de gravedad cuando un admin relaciona un mantenimiento con una máquina.
+                    -->
+                    <!-- <option value="mantenimiento">Mantenimiento preventivo</option> -->
                   </select>
                 </div>
               </div>
             </div>
 
             <div>
-              <button id="crearIncidencia" @click="crearIncidencia" class="btn btn-warning">Crear incidencia</button>
+              <!-- TODO
+              <button id="crearIncidencia" @click="crearIncidencia" class="btn btn-warning">Crear incidencia</button> -->
+              <input type="submit" class="btn btn-warning" value="Crear incidencia">
             </div>
           </form>
         </div>
@@ -419,14 +468,27 @@
 
 </template>
 
+<!-- TODO : Poner donde corresponde. -->
 <style scoped>
 
-/* TODO : Poner donde corresponde. */
 .estiloBadge{
   background-color: #FFFFFF;
   color: green !important;
   font-size: 14px;
   /* font-weight: normal; */
+}
+
+#dOverlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.iOverlay{
+  width: 20%;
 }
 
 </style>

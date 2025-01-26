@@ -14,7 +14,7 @@ class OperarioController extends Controller
 
     // Función para obtener todos los operarios.
     public function list(){
-        return Operario::all();
+        return Operario::whereNull('deleted_at')->get();
     }
 
     public function inicioSesion(Request $request)

@@ -10,7 +10,7 @@ class IncidenciaController extends Controller
 {
     // Función para obtener todas las incidencias.
     public function list(){
-        return Incidencia::all();
+        return Incidencia::whereNull('deleted_at')->get();
     }
 
     public function show(){
@@ -77,23 +77,21 @@ class IncidenciaController extends Controller
         return response()->json(['message' => '', 'data' => $incidencias], 200);
     }
 
-    public function create(Request $request){
-
+    public function create(Request $request) {
 
         $validator = Validator::make($request->all(), [
-
             "descripcion" => "required",
             "categoria_id" => "required",
             "abierta" => "required",
             "gravedad" => "required",
             "operario_id" => "required",
             "maquina_id" => "required",
-
         ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
-        }else{
+        }
+        else{
 
             $incidencia = Incidencia::create([
                 "descripcion" => $request->get("descripcion"),
