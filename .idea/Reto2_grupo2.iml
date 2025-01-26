@@ -148,6 +148,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/stella-maris/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/tymon/jwt-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/maatwebsite/excel" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel_reto2/vendor/phpoffice/phpexcel" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

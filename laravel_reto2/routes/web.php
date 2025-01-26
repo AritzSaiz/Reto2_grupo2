@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
@@ -62,3 +63,7 @@ Route::controller(CampusController::class)->group(function() {
     Route::post('/saveCampus', 'save')->name('campus.save');
     Route::delete('/deleteCampus/{id}', 'delete')->name('campus.delete');
 });
+
+
+// Ruta para la exportación de un Excel con datos de las tablas.
+Route::get('/exportar-datos', [ExportController::class, 'exportar']);

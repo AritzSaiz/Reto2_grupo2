@@ -31,7 +31,7 @@ class TecnicoController extends Controller
                     // Guardar información del técnico en la sesión
                     session([
                         'tecnico_id' => $tecnico->id,
-                        'tecnico_nombre' => $tecnico->nombre,
+                        //'tecnico_nombre' => $tecnico->nombre,
                     ]);
 
                     return redirect()->route('maquina.show')->with('success', 'Inicio de sesión exitoso');

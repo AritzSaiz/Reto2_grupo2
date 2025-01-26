@@ -15,5 +15,8 @@ class Operario extends Model
         'contrasena',
     ];
 
-    // TODO : ¿Poner un HasOne de tecnico?
+    public function tecnico()
+    {
+        return $this->hasOne(Tecnico::class);
+    }
 }
