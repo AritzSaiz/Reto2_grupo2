@@ -45,7 +45,10 @@
 
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
+
+                <span>{{$seccion->codigo}}</span>
                 <span>{{$seccion->nombre}}</span>
+                <span>{{$seccion->campus->nombre}}</span>
 
                 <form action="{{ route('seccion.delete', $seccion->id) }}" method="POST" style="display:inline;">
                     @csrf

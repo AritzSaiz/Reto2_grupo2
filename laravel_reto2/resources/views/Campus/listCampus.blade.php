@@ -44,7 +44,10 @@
     @foreach ($campus as $camp)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+                <span>{{ $camp->codigo }}</span>
                 <span>{{ $camp->nombre }}</span>
+                <span>{{ $camp->telefono }}</span>
+
                 <form action="{{ route('campus.delete', $camp->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

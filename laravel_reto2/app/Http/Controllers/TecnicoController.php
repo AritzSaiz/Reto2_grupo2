@@ -18,8 +18,8 @@ class TecnicoController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Buscar al operario por usuario
-        $operario = Operario::where('usuario', $request->username)->first();
+        // Buscar al operario por usuario y que no este la columna 'deleted_at' llena
+        $operario = Operario::where('usuario', $request->username)->whereNull('deleted_at')->first();
 
         // Verificar si el operario existe y si la contraseña es válida
         if ($operario && Hash::check($request->password, $operario->contrasena)) {
