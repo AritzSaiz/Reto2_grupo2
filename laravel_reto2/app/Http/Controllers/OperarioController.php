@@ -11,15 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
 {
-
     // Función para obtener todos los operarios.
-    public function list(){
+    public function list()
+    {
         return Operario::whereNull('deleted_at')->get();
     }
 
     public function inicioSesion(Request $request)
     {
-
         $usuario = $request->input('usuario');
         $contrasena = $request->input('contrasena');
 
@@ -32,23 +31,23 @@ class OperarioController extends Controller
             return response()->json([
                 'message' => 'Inicio de sesión exitoso',
                 'operarioId' => $operario->id,
-                'data' => $operario
+                'data' => $operario,
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Usuario o contraseña incorrectos'
+                'message' => 'Usuario o contraseña incorrectos',
             ], 401);
         }
     }
 
-
-    public function show(){
+    public function show()
+    {
         $operarios = Operario::whereNull('deleted_at')->get();
         return view('Operario.listOperario', compact('operarios'));
     }
 
-
-    public function create(){
+    public function create()
+    {
         return view('Operario.createOperario');
     }
 
@@ -71,8 +70,6 @@ class OperarioController extends Controller
                 'contrasena.min' => 'La contraseña debe tener al menos 6 caracteres.',
             ]);
 
-
-
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -85,13 +82,11 @@ class OperarioController extends Controller
             $operario->usuario = $input['usuario'];
             $operario->contrasena = Hash::make($input['contrasena']);
             $operario->save();
-
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()])->withInput();
         }
         return redirect()->route('operario.show');
     }
-
 
     public function delete($id)
     {
@@ -114,4 +109,46 @@ class OperarioController extends Controller
         }
     }
 
+    public function detalle($id)
+    {
+        $operario = Operario::find($id);
+        return view('operario.detalle', compact('operario'));
+    }
+
+
+    public function editForm(Request $request, $id)
+    {
+        $operario = Operario::findOrFail($id);
+        return view('operario.edit', compact('operario'));
+
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $operario = Operario::findOrFail($id);
+
+
+        if ($request->isMethod('get')) {
+            // Handle GET request (display the form)
+            return view('operario.edit', compact('operario'));
+
+        } elseif ($request->isMethod('put')) {
+            // Handle PUT request (form submission)
+            $validator = Validator::make($request->all(), [
+                'contrasena' => 'required|min:6|confirmed',
+            ],[
+                'contrasena.min' => 'La contraseña debe tener al menos 6 caracteres.',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $operario->contrasena = Hash::make($request->input('contrasena'));
+            $operario->save();
+
+
+            return redirect()->route('operario.show')->with('success', 'Contraseña actualizada exitosamente.');
+        }
+    }
 }
+

@@ -33,17 +33,6 @@
             </ul>
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <div class="sidebar" id="sidebar">
-            <a href="{{route("operario.show")}}">Operarios</a>
-            <a href="{{route("tecnico.show")}}">Tecnicos</a>
-            <a href="{{route("maquina.show")}}">Maquinas</a>
-            <a href="{{route("seccion.show")}}">Secciones</a>
-            <a href="{{route("mantenimiento.show")}}">Mantenimientos preventivos</a>
-            <a href="{{route("campus.show")}}">Campus</a>
-        </div>
-    </div>
-
 </nav>
 
 @yield('content')

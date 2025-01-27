@@ -55,14 +55,8 @@
                     @method('DELETE')
                     <button type="submit" class="detail-btn">Borrar</button>
                 </form>
+                <a href="{{ route('operario.detalle', $operario->id) }}" class="detail-btn">Ver/Editar</a>
             </div>
         </div>
     @endforeach
-
-
-
 @endsection
-
-
-
-
