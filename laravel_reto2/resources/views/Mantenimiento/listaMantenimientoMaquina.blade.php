@@ -44,8 +44,8 @@
     @foreach ($maquinaMantenimientos as $maquinaMantenimiento)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
-                <span>{{ $maquinaMantenimiento->mantenimiento_id }}</span>
-                <span>{{ $maquinaMantenimiento->maquina_id }}</span>
+                <span>{{ $maquinaMantenimiento->mantenimiento->titulo }}</span>
+                <span>{{ $maquinaMantenimiento->maquina->codigo }}</span>
                 <span>{{ $maquinaMantenimiento->siguiente_revision }}</span>
                 <form action="{{ route('maquinaMantenimiento.delete', $maquinaMantenimiento->id) }}" method="POST" style="display:inline;">
                     @csrf

@@ -47,6 +47,8 @@
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
                 <span>{{$maquina->codigo}}</span>
                 <span>{{$maquina->nombre}}</span>
+                <span>{{$maquina->modelo}}</span>
+
                 <form action="{{ route('maquina.delete', $maquina->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
