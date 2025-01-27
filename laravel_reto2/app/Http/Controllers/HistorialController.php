@@ -102,6 +102,9 @@ class HistorialController extends Controller
 
     public function registrarEntrada(Request $request)
     {
+        $datos = $request->header('datos');
+
+        dump("registrarEntrada a");
 
         $request->validate([
             'incidencia_id' => 'required|exists:incidencias,id',
@@ -109,6 +112,8 @@ class HistorialController extends Controller
             'entrada' => 'required|date',
 
         ]);
+
+        dump("registrarEntrada b");
 
         $historial = Historial::create([
             "incidencia_id" => $request->get("incidencia_id"),
@@ -118,6 +123,8 @@ class HistorialController extends Controller
             "detalles_trabajo" => $request->get("detalles_trabajo", null),
             "justificacion_salida" => $request->get("justificacion_salida", null),
         ]);
+
+        dump("registrarEntrada c");
         /*
         $historial = new Historial();
         $historial->incidencia_id = $request->input('incidencia_id');

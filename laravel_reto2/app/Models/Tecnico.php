@@ -18,4 +18,8 @@ class Tecnico extends Model
     public function operario(){
         return $this->belongsTo(Operario::class);
     }
+
+    public function historial(){
+        return $this->hasMany(Historial::class);
+    }
 }

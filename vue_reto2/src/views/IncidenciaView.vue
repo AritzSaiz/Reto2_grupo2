@@ -11,6 +11,7 @@ const router = useRouter();
 
 const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
 const operarioId = Number(localStorage.getItem('operarioId'));
+const tecnicoId = Number(localStorage.getItem('tecnicoId'));
 
 const props = defineProps({
   id: {
@@ -51,7 +52,7 @@ async function participar(){
     try {
       const data = {
         incidencia_id: props.id, // ID de la incidencia actual
-        tecnico_id: operarioId,  // ID del técnico (del localStorage)
+        tecnico_id: tecnicoId,  // ID del técnico (del localStorage)
         entrada: new Date().toISOString(), // Fecha/hora actual
         detalles_trabajo: '',  // Si no hay detalles, que esté vacío
         justificacion_salida: null,  // Puede ser null si no es necesario
@@ -59,7 +60,11 @@ async function participar(){
       };
 
       console.log(data);
-      const response = await api.post('/historial/entrada', data);
+
+      const response = await api.post('/historial/entrada', {
+        headers: { 'datos': data }
+      });
+
       console.log(response.data);
 
       if (response.status === 201) {
@@ -154,6 +159,7 @@ async function fetchDatosIncidencia() {
 
 onMounted(() => {
   fetchDatosIncidencia();
+
 });
 
 </script>
