@@ -5,6 +5,10 @@ a:active{
     color:$color-white;
 }
 
+#navbarNav{
+    position: sticky;
+}
+
 #navbarNav ul li a:hover{
     color:$color-white;
     font-weight: bold;
