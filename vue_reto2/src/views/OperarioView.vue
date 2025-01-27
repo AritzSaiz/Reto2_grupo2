@@ -273,11 +273,6 @@
       if (!es_tecnico){
         incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS_PROPIAS;
       }
-      /* todo : quitar
-      else {
-        incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS;
-      }
-       */
 
       // Cargar datos de la API
       await Promise.all([
