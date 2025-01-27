@@ -24,6 +24,7 @@ Route::get('/secciones', [SeccionController::class, 'list']);
 Route::get('/categorias', [CategoriaController::class, 'list']);
 Route::get('/incidencias', [IncidenciaController::class, 'list']);
 Route::get('/maquinas', [MaquinaController::class, 'list']);
+Route::get('/operarios', [OperarioController::class, 'list']);
 
 
 //Route::get('/incidencias', [IncidenciaController::class, 'show']);
@@ -48,6 +49,8 @@ Route::post('/actualizar', [HistorialController::class, 'actualizar']);
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
+
+Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
 
 /* REPASAR ESTAS 3
 Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);

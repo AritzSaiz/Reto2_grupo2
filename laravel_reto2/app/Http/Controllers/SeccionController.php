@@ -11,7 +11,7 @@ class SeccionController extends Controller{
 
     // Función para obtener todas las secciones.
     public function list(){
-        return Seccion::all();
+        return Seccion::whereNull('deleted_at')->get();
     }
 
     public function show()

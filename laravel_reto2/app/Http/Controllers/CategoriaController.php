@@ -9,6 +9,6 @@ class CategoriaController extends Controller
 {
     // Función para obtener todas las categorias.
     public function list(){
-        return Categoria::all();
+        return Categoria::whereNull('deleted_at')->get();
     }
 }

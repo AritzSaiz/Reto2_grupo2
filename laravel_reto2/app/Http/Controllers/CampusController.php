@@ -13,7 +13,7 @@ class CampusController extends Controller{
 
     // Función para obtener todos los campus.
     public function list(){
-        return Campus::all();
+        return Campus::whereNull('deleted_at')->get();
     }
 
     public function show(){

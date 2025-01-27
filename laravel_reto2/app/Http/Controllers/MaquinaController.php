@@ -13,7 +13,7 @@ class MaquinaController extends Controller{
 
     // Función para obtener todas las máquinas.
     public function list(){
-        return Maquina::all();
+        return Maquina::whereNull('deleted_at')->get();
     }
 
     public function show(){
