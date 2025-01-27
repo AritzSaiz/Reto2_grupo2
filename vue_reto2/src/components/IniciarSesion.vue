@@ -62,13 +62,13 @@
             const response = await api.get(`/tecnico/${operarioId}`);
 
             if (response.data) {
-                localStorage.setItem('es_tecnico', true); // El operario es técnico
+                localStorage.setItem('tiene_tecnico', true); // El operario es técnico
             } else {
-                localStorage.setItem('es_tecnico', false); // El operario no es técnico
+                localStorage.setItem('tiene_tecnico', false); // El operario no es técnico
             }
         } catch (error) {
             console.error('Error al verificar el técnico:', error);
-            localStorage.setItem('es_tecnico', false); // En caso de error, lo consideramos un operario no técnico
+            localStorage.setItem('tiene_tecnico', false); // En caso de error, lo consideramos un operario no técnico
         }
     }
 

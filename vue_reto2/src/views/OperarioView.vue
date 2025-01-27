@@ -13,7 +13,7 @@
 
     const router = useRouter();
 
-    const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
+    const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
     const operarioId = Number(localStorage.getItem('operarioId'));
 
     // TODO
@@ -380,7 +380,7 @@
 
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                <div v-if="es_tecnico || (!es_tecnico && incidencia.operario_id === operarioId)" class="incidencia mb-3">
+                <div v-if="tiene_tecnico || (!tiene_tecnico && incidencia.operario_id === operarioId)" class="incidencia mb-3">
                   <p class="mb-0">{{ incidencia.titulo }}</p>
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>

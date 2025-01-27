@@ -40,11 +40,10 @@ Route::get('/misIncidenciasAbiertas/{id}', [IncidenciaController::class, 'misInc
 //Sacar todas las incidencias sin resolver
 Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbiertas']);
 
-
+//Rutas del historial
 Route::post('/anadir',[HistorialController::class,'anadir']);
-
 Route::post('/actualizar', [HistorialController::class, 'actualizar']);
-
+Route::post('/historial/entrada', [HistorialController::class, 'registrarEntrada']);
 
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
 

@@ -18,4 +18,11 @@ class Historial extends Model
     ];
 
     // TODO : ¿Poner dos BelongsTo de incidencias y de tecnicos?
+    public function incidencia(){
+        return $this->belongsTo(Incidencia::class, 'incidencia_id');
+    }
+
+    public function tecnico(){
+        return $this->belongsTo(Tecnico::class, 'tecnico_id');
+    }
 }
