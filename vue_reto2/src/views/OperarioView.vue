@@ -48,6 +48,7 @@
       SECCIONES: '/secciones',
       CATEGORIAS: '/categorias',
       INCIDENCIAS: '/incidencias',
+      INCIDENCIAS_PROPIAS: '/incidenciasPropias',
       MAQUINAS: '/maquinas',
     };
 
@@ -61,13 +62,32 @@
     const gravedadCrear = ref("");
 
     // Función para obtener los datos desde el backend.
-    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
+    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/rutaDatos'.
     async function fetchDatos(rutaDatos, variableRef) {
       try {
-        // Realiza la solicitud GET a la ruta proporcionada.
-        const response = await api.get(rutaDatos);
-        //  Guardar los datos recibidos en la variable reactiva correspondiente.
-        variableRef.value = response.data;
+
+        let response;
+
+        // Si se quieran obtener las incidencias que han sido creadas por el usuario logueado, habrá que pasarle el valor del localStorage "operarioId".
+        if (rutaDatos === API_ROUTES.INCIDENCIAS_PROPIAS){
+          response = await api.get(rutaDatos, {
+            headers: { 'Operario-Id': operarioId }
+          });
+        }
+        else {
+          // Realiza la solicitud GET a la ruta proporcionada.
+          response = await api.get(rutaDatos);
+        }
+
+        // Verificar si la respuesta fue exitosa (código 200)
+        if (response.status === 200) {
+          //  Guardar los datos recibidos en la variable reactiva correspondiente.
+          variableRef.value = response.data;
+        } else {
+          console.error(`Error al cargar datos desde ${rutaDatos}:`, response.status, response.data);
+          alert(`Hubo un problema al cargar los datos de ${rutaDatos}. Código de error: ${response.status}.`);
+        }
+
       }
       catch (error) {
         console.error('Error al cargar datos desde ${rutaDatos}:', error);
@@ -247,12 +267,24 @@
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend y controlar los filtros.
     onMounted(async () => {
 
+      let incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS;
+
+      // Dependiendo de si el usuario logueado es técnico o no, mostrará todas o solo las creadas por él.
+      if (!es_tecnico){
+        incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS_PROPIAS;
+      }
+      /* todo : quitar
+      else {
+        incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS;
+      }
+       */
+
       // Cargar datos de la API
       await Promise.all([
         fetchDatos(API_ROUTES.CAMPUS, campus),
         fetchDatos(API_ROUTES.SECCIONES, secciones),
         fetchDatos(API_ROUTES.CATEGORIAS, categorias),
-        fetchDatos(API_ROUTES.INCIDENCIAS, incidencias),
+        fetchDatos(incidenciasPersonalizadas, incidencias),
         fetchDatos(API_ROUTES.MAQUINAS, maquinas),
       ]);
 
@@ -380,7 +412,7 @@
 
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                <div v-if="es_tecnico || (!es_tecnico && incidencia.operario_id === operarioId)" class="incidencia mb-3">
+                <div class="incidencia mb-3">
                   <p class="mb-0">{{ incidencia.titulo }}</p>
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>

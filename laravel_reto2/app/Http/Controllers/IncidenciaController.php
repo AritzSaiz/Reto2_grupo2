@@ -9,9 +9,31 @@ use Illuminate\Support\Facades\Validator;
 class IncidenciaController extends Controller
 {
     // Función para obtener todas las incidencias.
-    public function list(){
+    public function listTodas(){
         return Incidencia::whereNull('deleted_at')->get();
     }
+
+    // Función para obtener las incidencias que han sido creadas por el usuario logueado.
+    public function listPropias(Request $request) {
+        // Obtener solo las que tengan la columna 'operario_id' con el parámetro/valor del localStorage llamado 'operarioId'.
+
+        $operarioId = $request->header('Operario-Id');
+
+        // Validar que el operarioId no sea nulo o vacío
+        if (!$operarioId) {
+            return response()->json([
+                'error' => 'Operario ID es requerido.'
+            ], 400);
+        }
+
+        // Filtrar las incidencias por operarioId y que no estén eliminadas.
+        $incidencias = Incidencia::where('operario_id', $operarioId)
+            ->whereNull('deleted_at')
+            ->get();
+
+        return response()->json($incidencias);
+    }
+
 
     public function show(){
         $incidencias = Incidencia::all();

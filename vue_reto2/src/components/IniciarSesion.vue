@@ -43,7 +43,7 @@
         if (operarioId){
           localStorage.setItem('operarioId', operarioId);
 
-          await verificarTecnico(operarioId);
+          await verificarTecnico(localStorage.getItem('operarioId'));
 
           router.push(`/operario/${operarioId}`);
         }

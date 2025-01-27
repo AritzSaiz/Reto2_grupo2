@@ -22,15 +22,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 Route::get('/campus', [CampusController::class, 'list']);
 Route::get('/secciones', [SeccionController::class, 'list']);
 Route::get('/categorias', [CategoriaController::class, 'list']);
-Route::get('/incidencias', [IncidenciaController::class, 'list']);
+Route::get('/incidencias', [IncidenciaController::class, 'listTodas']);
+Route::get('/incidenciasPropias', [IncidenciaController::class, 'listPropias']);
 Route::get('/maquinas', [MaquinaController::class, 'list']);
 Route::get('/operarios', [OperarioController::class, 'list']);
 
-
-//Route::get('/incidencias', [IncidenciaController::class, 'show']);
 Route::get('/incidencias/{incidencia}', [IncidenciaController::class, 'detalle']);
-Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
-
 
 //Sacar solo las incidencias solucionadas del usuario que inicie sesion
 Route::get('/misIncidenciasSolucionadas/{id}', [IncidenciaController::class, 'misIncidenciasSolucionadas']);
@@ -40,6 +37,10 @@ Route::get('/misIncidenciasAbiertas/{id}', [IncidenciaController::class, 'misInc
 //Sacar todas las incidencias sin resolver
 Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbiertas']);
 
+Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
+
+
+Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
 
 Route::post('/anadir',[HistorialController::class,'anadir']);
 
@@ -50,18 +51,15 @@ Route::post('/login', [OperarioController::class, 'inicioSesion']);
 
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
 
-Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
 
-/* REPASAR ESTAS 3
-Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
-
+// TODO : Repasar
+/*
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/createMantenimientoMaquina', [MaquinaMantenimientoController::class, 'create']);
 */
 
-
-// TODO : Repasar
+// TODO : Repasar lo de Auth
 
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/operario', [OperarioController::class, 'index']);
