@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Models\Incidencia;
 use App\Models\Mantenimiento;
 use App\Models\MantenimientoMaquina;
 use Illuminate\Http\Request;
@@ -26,8 +27,22 @@ class MantenimientoMaquinaController extends Controller{
             return response()->json(['message' => $validator->errors()], 400);
         }else{
 
+            $mantenimiento = Mantenimiento::findOrFail($request->get("mantenimiento_id"));
 
-            $diasMantenimiento = Mantenimiento::where('id', "mantenimiento_id")->value('dias');
+            $incidencia = Incidencia::create([
+                "titulo" => $mantenimiento->titulo,
+                "descripcion" => $mantenimiento->descripcion,
+                "abierta" => 1,
+                "categoria_id" => 7,
+                "gravedad" => "Mantenimiento preventivo",
+                "operario_id" => null,
+                "maquina_id" => $request->get("maquina_id"),
+            ]);
+
+
+            $incidenciaId = $incidencia->id;
+
+            $diasMantenimiento = $mantenimiento->dias;
 
             $proximo = now()->addDays($diasMantenimiento);
 
@@ -36,9 +51,10 @@ class MantenimientoMaquinaController extends Controller{
                 "maquina_id" => $request->get("maquina_id"),
                 "ultima_revision" => now(),
                 "siguiente_revision" => $proximo,
+                "incidencia_id" => $incidenciaId,
             ]);
 
-            return response()->json(['message' => '', 'data' => $relacion], 200);
+            return redirect()->route("maquinaMantenimiento.verLista")->with('success', 'Mantenimiento maquina eliminado correctamente.');
 
         }
     }

@@ -34,6 +34,7 @@
     @foreach ($tecnicos as $tecnico)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+                <!--Para coger datos de una relacion ponemos el nombre de la variable sin _id (operario_id > operario ) y luego ya puedes acceder a lo demas  -->
                 <span>{{ $tecnico->operario->nombre }}</span>
                 <span>{{ $tecnico->operario->apellidos }}</span>
                 <span>{{ $tecnico->especialidad }}</span>
