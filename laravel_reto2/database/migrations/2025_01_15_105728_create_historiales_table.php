@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('incidencia_id')->nullable(false);
             $table->unsignedBigInteger('tecnico_id')->nullable(false);
             $table->dateTime('entrada')->nullable(false);
-            $table->dateTime('salida');
-            $table->string('detalles_trabajo', 300);
-            $table->string('justificacion_salida', 300);
+            $table->dateTime('salida')->nullable(true);
+            $table->string('detalles_trabajo', 300)->nullable(true);
+            $table->string('justificacion_salida', 300)->nullable(true);
             $table->timestamps();
             $table->softDeletes();
 

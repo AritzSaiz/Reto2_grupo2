@@ -73,6 +73,10 @@ a:active {
   color: #FFFFFF;
 }
 
+#navbarNav {
+  position: sticky;
+}
+
 #navbarNav ul li a:hover {
   color: #FFFFFF;
   font-weight: bold;
@@ -86,7 +90,7 @@ a:active {
 
 button {
   padding: 8px 24px;
-  background-color: red;
+  background-color: #FFFFFF;
   border: 1px solid #CCCCCC;
   border-radius: 4px;
   font-size: 16px;

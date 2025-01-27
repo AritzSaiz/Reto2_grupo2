@@ -43,7 +43,7 @@
         if (operarioId){
           localStorage.setItem('operarioId', operarioId);
 
-          await verificarTecnico(operarioId);
+          await verificarTecnico(operarioId, response);
 
           router.push(`/operario/${operarioId}`);
         }
@@ -57,12 +57,15 @@
 
     }
 
-    async function verificarTecnico(operarioId) {
+    async function verificarTecnico(operarioId, responseLogin) {
         try {
             const response = await api.get(`/tecnico/${operarioId}`);
 
+            const { tecnicoId } = responseLogin.data;
+
             if (response.data) {
                 localStorage.setItem('tiene_tecnico', true); // El operario es técnico
+                localStorage.setItem('tecnicoId', tecnicoId);
             } else {
                 localStorage.setItem('tiene_tecnico', false); // El operario no es técnico
             }
