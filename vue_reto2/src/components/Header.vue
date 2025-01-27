@@ -58,7 +58,8 @@
 
     function cerrarSesion(){
         localStorage.removeItem('operarioId');
-        localStorage.removeItem('es_tecnico');
+        localStorage.removeItem('tiene_tecnico');
+        localStorage.removeItem('tecnicoId');
         router.push('/');
     }
 

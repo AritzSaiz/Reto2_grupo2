@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MantenimientoMaquina;
 use App\Models\Operario;
 use App\Models\Seccion;
 use Illuminate\Http\Request;
@@ -74,11 +75,23 @@ class MaquinaController extends Controller{
     {
         try {
             $maquina = Maquina::findOrFail($id);
-            $maquina->deleted_at = now();
-            $maquina->save();
-            return redirect()->route('maquina.show')->with('success', 'Operario eliminada correctamente.');
+
+            $maquinaMantenimiento = MantenimientoMaquina::where("maquina_id", $id)->get()->whereNull('deleted_at')->first();
+
+            if ($maquinaMantenimiento == null) {
+
+                $maquina->deleted_at = now();
+                $maquina->save();
+
+                return redirect()->route('maquina.show')->with('success', 'Maquina eliminada correctamente.');
+
+            }else{
+                return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar la maquina borra la relacion.');
+
+            }
+
         } catch (\Exception $e) {
-            return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar el operario.');
+            return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar la maquina.');
         }
     }
 

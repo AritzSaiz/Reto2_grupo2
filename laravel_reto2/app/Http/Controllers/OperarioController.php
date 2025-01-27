@@ -25,9 +25,20 @@ class OperarioController extends Controller
 
         // Buscar al operario por usuario
         $operario = Operario::where('usuario', $usuario)->first();
+        $tecnico = Tecnico::where('operario_id', $operario->id)->first();
 
         // Verificar si el operario existe y si la contraseña es válida
-        if ($operario && Hash::check($contrasena, $operario->contrasena)) {
+        if ($operario && $tecnico && Hash::check($contrasena, $operario->contrasena)) {
+            // Comprobar si tiene un técnico asociado
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso',
+                'operarioId' => $operario->id,
+                'tecnicoId' => $tecnico->id,
+                'data' => $operario
+            ], 200);
+        }
+
+        else if ($operario && !$tecnico && Hash::check($contrasena, $operario->contrasena)) {
             // Comprobar si tiene un técnico asociado
             return response()->json([
                 'message' => 'Inicio de sesión exitoso',
@@ -110,7 +121,6 @@ class OperarioController extends Controller
                 return redirect()->route('operario.show')->with('error', 'El operario está relacionado con un técnico');
             }
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Muestra el mensaje del error
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }

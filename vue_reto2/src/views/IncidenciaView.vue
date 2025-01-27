@@ -9,8 +9,9 @@ import api from '@/plugins/axios';
 const router = useRouter();
 //const route = useRoute();
 
-const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
+const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
 const operarioId = Number(localStorage.getItem('operarioId'));
+const tecnicoId = Number(localStorage.getItem('tecnicoId'));
 
 const props = defineProps({
   id: {
@@ -42,8 +43,39 @@ function volver(){
   }
 }
 
-function participar(){
+const participando = ref(false);
+
+async function participar(){
+  console.log("Participar fue llamado");
+
   if (confirm("¿Quieres participar en esta incidencia?")) {
+    try {
+      const data = {
+        incidencia_id: props.id, // ID de la incidencia actual
+        tecnico_id: tecnicoId,  // ID del técnico (del localStorage; asignado en el login)
+        entrada: new Date().toISOString(), // Fecha/hora actual
+        detalles_trabajo: '',  // Si no hay detalles, que esté vacío
+        justificacion_salida: null,  // Puede ser null si no es necesario
+        salida: null, // Si no se ha dado salida, también puede ser null
+      };
+
+      console.log(data);
+
+      const response = await api.post('/historial/entrada', {
+        headers: { 'datos': data }
+      });
+
+      console.log(response.data);
+
+      if (response.status === 201) {
+        alert("Has sido registrado como participante en la incidencia.");
+        participando.value = true;
+        // Aquí podrías actualizar la UI para reflejar la participación
+      }
+    } catch (error) {
+      console.error("Error al registrar la participación:", error);
+      alert("No se pudo registrar la participación. Inténtalo más tarde.");
+    }
     // TODO : Asignar (crear fila en historial)
     /*
     Se quedará en esta ventana (semi-bloqueada) con solo accesible el botón de
@@ -60,9 +92,16 @@ function participar(){
   }
 }
 
+function dejarDeParticipar() {
+  if (confirm("¿Quieres dejar de participar en esta incidencia?")) {
+    participando.value = false;
+  }
+}
+
 async function fetchDatosIncidencia() {
   try {
     const responseIncidencia = await api.get(`/incidencias/${props.id}`);
+    console.log("responseIncidencia:", responseIncidencia);  // Agrega este console log
     const responseOperarios = await api.get('/operarios');
     const responseCategoria = await api.get('/categorias');
     const responseMaquina = await api.get('/maquinas');
@@ -70,8 +109,10 @@ async function fetchDatosIncidencia() {
     const responseCampus = await api.get('/campus');
     const dataIncidencia = responseIncidencia.data.data;
 
-    if (dataIncidencia) {
+    console.log("dataIncidencia:", dataIncidencia);  // Agrega este console log para ver la data
 
+    if (dataIncidencia) {
+      console.log("dataIncidencia.abierta:", dataIncidencia.abierta);
       let timestampCreacion = dataIncidencia.created_at;
       let dateCreacion = new Date(timestampCreacion);
       // Formatear la fecha y la hora
@@ -81,6 +122,8 @@ async function fetchDatosIncidencia() {
       descripcion.value = dataIncidencia.descripcion;
       gravedad.value = dataIncidencia.gravedad;
       incidenciaAbierta.value = dataIncidencia.abierta;
+
+      console.log("incidenciaAbierta.value después de asignar:", incidenciaAbierta.value); // Verifica si se asigna correctamente
 
       const operarioData = responseOperarios.data.find(operario => operario.id === dataIncidencia.operario_id);
       operario.value = operarioData ? operarioData.email : 'Operario no encontrado';
@@ -116,6 +159,7 @@ async function fetchDatosIncidencia() {
 
 onMounted(() => {
   fetchDatosIncidencia();
+
 });
 
 </script>
@@ -129,8 +173,10 @@ onMounted(() => {
             <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
             <div class="mb-4 d-flex justify-content-between">
-              <button @click="volver" type="button" class="btn text-white border-light mb-4">Volver</button>
-              <button v-if="es_tecnico && incidenciaAbierta" @click="participar" type="button" class="btn btn-warning border-dark mb-4">Participar</button>
+              <!-- TODO : Poner el de Volver con un color más claro y el de Participar más destacado. -->
+              <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
+              <button v-if="tiene_tecnico && incidenciaAbierta && !participando" @click="participar" type="button" class="btn btn-warning mb-4">Participar</button>
+              <button v-if="tiene_tecnico && participando" @click="dejarDeParticipar" type="button" class="btn btn-warning mb-4">Dejar de participar</button>
             </div>
             
             <form>

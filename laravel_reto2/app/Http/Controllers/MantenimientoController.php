@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
+use App\Models\MantenimientoMaquina;
 use App\Models\Maquina;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class MantenimientoController extends Controller
     }
 
     public function create(){
-        $maquinas = Maquina::all();
+        $maquinas = Maquina::whereNull('deleted_at')->get();
         return view('Mantenimiento.createMantenimiento', compact('maquinas'));
     }
 
@@ -90,9 +91,22 @@ class MantenimientoController extends Controller
     {
         try {
             $mantenimiento = Mantenimiento::findOrFail($id);
-            $mantenimiento->deleted_at = now();
-            $mantenimiento->save();
-            return redirect()->route('mantenimiento.show')->with('success', 'Mantenimiento eliminado correctamente.');
+
+
+            $maquinaMantenimiento = MantenimientoMaquina::where("mantenimiento_id", $id)->get()->whereNull('deleted_at')->first();
+
+
+            if ($maquinaMantenimiento == null) {
+
+                $mantenimiento->deleted_at = now();
+                $mantenimiento->save();
+                return redirect()->route('mantenimiento.show')->with('success', 'Mantenimiento eliminado correctamente.');
+
+            }else{
+                return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento borra la relacion.');
+
+            }
+
         } catch (\Exception $e) {
             return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento.');
         }
@@ -108,4 +122,7 @@ class MantenimientoController extends Controller
         return view("Mantenimiento.asociarMantenimiento", compact('maquinas', 'mantenimientos'));
 
     }
+
+
+
 }

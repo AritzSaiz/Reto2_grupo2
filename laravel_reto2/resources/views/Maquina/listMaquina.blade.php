@@ -26,19 +26,29 @@
                 </a>
             </div>
         </div>
-
-
-
     </div>
 
 
+    <div class="containerListOperario">
+        <div class="row justify-content-center">
+            <div class="col-auto">
 
+                @if (session('error'))
+                    <div class="mensajeNuevo alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
     @foreach ($maquinas as $maquina)
 
         <div class="incidents-list">
             <div class="incident border-bottom  border-dark rounded p-3 shadow-sm">
                 <span>{{$maquina->codigo}}</span>
                 <span>{{$maquina->nombre}}</span>
+                <span>{{$maquina->modelo}}</span>
+
                 <form action="{{ route('maquina.delete', $maquina->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

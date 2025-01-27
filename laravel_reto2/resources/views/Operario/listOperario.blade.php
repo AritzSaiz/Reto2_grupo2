@@ -47,6 +47,9 @@
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
                 <span>{{ $operario->nombre }}</span>
+                <span>{{ $operario->apellidos }}</span>
+                <span>{{ $operario->email }}</span>
+
                 <form action="{{ route('operario.delete', $operario->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

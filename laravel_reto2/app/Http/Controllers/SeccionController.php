@@ -70,15 +70,15 @@ class SeccionController extends Controller{
             $todasMaquinasEliminadas = $seccion->maquinas()->whereNull('deleted_at')->count() == 0;
 
             if (!$todasMaquinasEliminadas) {
-                return back()->withErrors(['message' => 'No se puede eliminar la sección porque tiene máquinas asignadas.']);
+                return back()->with('errors', 'No se puede eliminar ls seccion porque tiene secciones asignadas.');
             }else{
                 $seccion->deleted_at = now();
                 $seccion->save();
-                return redirect()->route('seccion.show')->with('success', 'Operario eliminada correctamente.');
+                return back()->with('success', 'Seccion eliminado correctamente.');
 
             }
         } catch (\Exception $e) {
-            return redirect()->route('seccion.show')->with('error', 'No se pudo eliminar la sección.');
+            return back()->with('errors', 'No se puede eliminar el campus porque tiene secciones asignadas.');
         }
     }
 

@@ -102,6 +102,7 @@ class IncidenciaController extends Controller
     public function create(Request $request) {
 
         $validator = Validator::make($request->all(), [
+            "titulo" => "required",
             "descripcion" => "required",
             "categoria_id" => "required",
             "abierta" => "required",
@@ -116,6 +117,7 @@ class IncidenciaController extends Controller
         else{
 
             $incidencia = Incidencia::create([
+                "titulo" => $request->get("titulo"),
                 "descripcion" => $request->get("descripcion"),
                 "abierta" => $request->get("abierta"),
                 "categoria_id" => $request->get("categoria_id"),

@@ -73,6 +73,10 @@ a:active {
   color: #FFFFFF;
 }
 
+#navbarNav {
+  position: sticky;
+}
+
 #navbarNav ul li a:hover {
   color: #FFFFFF;
   font-weight: bold;
@@ -94,7 +98,7 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover, select:hover {
+button:hover {
   background-color: #FFC300;
 }
 

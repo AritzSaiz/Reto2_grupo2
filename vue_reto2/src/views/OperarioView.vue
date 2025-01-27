@@ -13,7 +13,7 @@
 
     const router = useRouter();
 
-    const es_tecnico = JSON.parse(localStorage.getItem('es_tecnico'));
+    const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
     const operarioId = Number(localStorage.getItem('operarioId'));
 
     // TODO
@@ -270,7 +270,7 @@
       let incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS;
 
       // Dependiendo de si el usuario logueado es técnico o no, mostrará todas o solo las creadas por él.
-      if (!es_tecnico){
+      if (!tiene_tecnico){
         incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS_PROPIAS;
       }
 
