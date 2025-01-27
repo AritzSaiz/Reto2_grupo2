@@ -26,13 +26,21 @@
                 </a>
             </div>
         </div>
-
-
-
     </div>
 
 
+    <div class="containerListOperario">
+        <div class="row justify-content-center">
+            <div class="col-auto">
 
+                @if (session('error'))
+                    <div class="mensajeNuevo alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
     @foreach ($maquinas as $maquina)
 
         <div class="incidents-list">

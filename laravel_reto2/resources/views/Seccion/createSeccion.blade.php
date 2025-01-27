@@ -64,9 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 row">
-                        <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
-                        <div class="col-sm-6">
+                    <div class="mb-3 row align-items-center">
                         <label for="campus" class="col-sm-3 col-form-label">Campus:</label>
                         <div class="col-sm-6">
                             <select id="campus_id" class="form-select" name="campus_id" required>
@@ -86,11 +84,5 @@
                 </form>
 
             </div>
-    </div>
+        </div>
 @endsection
-
-
-
-
-
-

@@ -94,7 +94,7 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover, select:hover {
+button:hover {
   background-color: #FFC300;
 }
 

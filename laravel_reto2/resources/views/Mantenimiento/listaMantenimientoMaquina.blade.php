@@ -16,24 +16,17 @@
             </div>
         </div>
 
-
         <div class="col-8 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1>Lista de Mantenimientos </h1>
+            <h1>Maquinas asociadas</h1>
             <div class="btn-toolbar align-items-right mb-2 mb-md-0">
-                <a type="button" href="{{ route('mantenimiento.create') }}" class="btn btn-sm btn-outline-secondary">
-                    <span data-feather="plus-circle"></span>
-                    Añadir
-                </a>
                 <a type="button" href="{{ route('mantenimiento.cargarDatos') }}" class="btn btn-sm btn-outline-secondary">
                     <span data-feather="plus-circle"></span>
                     Asociar
                 </a>
-                <a type="button" href="{{ route('maquinaMantenimiento.verLista') }}" class="btn btn-sm btn-outline-secondary">
-                    <span data-feather="plus-circle"></span>
-                    Ver Asociados
-                </a>
             </div>
         </div>
+
+
     </div>
 
     <div class="containerListOperario">
@@ -48,11 +41,13 @@
             </div>
         </div>
     </div>
-    @foreach ($mantenimientos as $mantenimiento)
+    @foreach ($maquinaMantenimientos as $maquinaMantenimiento)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
-                <span>{{ $mantenimiento->descripcion }}</span>
-                <form action="{{route('mantenimiento.delete', $mantenimiento->id)}}" method="POST" style="display:inline;">
+                <span>{{ $maquinaMantenimiento->mantenimiento_id }}</span>
+                <span>{{ $maquinaMantenimiento->maquina_id }}</span>
+                <span>{{ $maquinaMantenimiento->siguiente_revision }}</span>
+                <form action="{{ route('maquinaMantenimiento.delete', $maquinaMantenimiento->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="detail-btn">Borrar</button>
@@ -60,10 +55,5 @@
             </div>
         </div>
     @endforeach
-
-
-
-
-
 
 @endsection

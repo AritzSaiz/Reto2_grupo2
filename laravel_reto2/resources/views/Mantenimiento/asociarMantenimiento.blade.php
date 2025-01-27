@@ -25,7 +25,7 @@
                 <div class="row mb-3">
                     <h1>Asociar Mantenimiento</h1>
                 </div>
-                <form action="" method="post">
+                <form action="{{route("maquinaMantenimiento.save")}}" method="post">
                     @csrf
 
                     <div class="mb-3 row">

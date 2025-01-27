@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\MantenimientoMaquinaController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\MaquinaMantenimientoController;
 use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\SeccionController;
@@ -54,7 +56,7 @@ Route::controller(MantenimientoController::class)->group(function() {
     Route::get('/createMantenimiento', 'create')->name('mantenimiento.create');
     Route::get('/asociarMantenimiento', 'cargarDatos')->name('mantenimiento.cargarDatos');
     Route::post('/saveMantenimiento', 'save')->name('mantenimiento.save');
-    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
+    Route::delete('/mantenimientos/{id}', 'delete')->name('mantenimiento.delete');
 });
 
 Route::controller(CampusController::class)->group(function() {
@@ -63,6 +65,14 @@ Route::controller(CampusController::class)->group(function() {
     Route::post('/saveCampus', 'save')->name('campus.save');
     Route::delete('/deleteCampus/{id}', 'delete')->name('campus.delete');
 });
+
+Route::controller(MantenimientoMaquinaController::class)->group(function() {
+    Route::get('/showMaquinaMantenimmiento', 'verLista')->name('maquinaMantenimiento.verLista');
+    Route::post('/saveMaquinaMantenimiento', 'save')->name('maquinaMantenimiento.save');
+    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('maquinaMantenimiento.delete');
+});
+
+
 
 
 // Ruta para la exportación de un Excel con datos de las tablas.
