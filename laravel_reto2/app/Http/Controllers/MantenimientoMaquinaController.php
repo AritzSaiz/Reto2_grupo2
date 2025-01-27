@@ -46,7 +46,7 @@ class MantenimientoMaquinaController extends Controller{
 
     public function verLista(){
 
-        $maquinaMantenimientos =MantenimientoMaquina::all();
+        $maquinaMantenimientos =MantenimientoMaquina::whereNull('deleted_at')->get();
 
 
         return view("Mantenimiento.listaMantenimientoMaquina", compact('maquinaMantenimientos'));
@@ -60,9 +60,9 @@ class MantenimientoMaquinaController extends Controller{
             $mantenimientoMaquina = MantenimientoMaquina::findOrFail($id);
             $mantenimientoMaquina->deleted_at = now();
             $mantenimientoMaquina->save();
-            return redirect()->route('Mantenimiento.show')->with('success', 'Mantenimiento maquina eliminado correctamente.');
+            return redirect()->route("maquinaMantenimiento.verLista")->with('success', 'Mantenimiento maquina eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('Mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento maquina.');
+            return redirect()->route("maquinaMantenimiento.verLista")->with('error', 'No se pudo eliminar el mantenimiento maquina.');
         }
     }
 

@@ -47,7 +47,7 @@
                 <span>{{ $maquinaMantenimiento->mantenimiento_id }}</span>
                 <span>{{ $maquinaMantenimiento->maquina_id }}</span>
                 <span>{{ $maquinaMantenimiento->siguiente_revision }}</span>
-                <form action="" method="POST" style="display:inline;">
+                <form action="{{ route('maquinaMantenimiento.delete', $maquinaMantenimiento->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="detail-btn">Borrar</button>
@@ -56,10 +56,4 @@
         </div>
     @endforeach
 
-
-
 @endsection
-
-
-
-

@@ -36,11 +36,23 @@
         </div>
     </div>
 
+    <div class="containerListOperario">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                @if (session('error'))
+                    <div class="mensajeNuevo alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
     @foreach ($mantenimientos as $mantenimiento)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
                 <span>{{ $mantenimiento->descripcion }}</span>
-                <form action="{{ route('mantenimiento.delete', $mantenimiento->id) }}" method="POST" style="display:inline;">
+                <form action="{{route('mantenimiento.delete', $mantenimiento->id)}}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="detail-btn">Borrar</button>

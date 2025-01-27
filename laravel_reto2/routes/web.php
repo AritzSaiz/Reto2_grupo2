@@ -56,7 +56,7 @@ Route::controller(MantenimientoController::class)->group(function() {
     Route::get('/createMantenimiento', 'create')->name('mantenimiento.create');
     Route::get('/asociarMantenimiento', 'cargarDatos')->name('mantenimiento.cargarDatos');
     Route::post('/saveMantenimiento', 'save')->name('mantenimiento.save');
-    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
+    Route::delete('/mantenimientos/{id}', 'delete')->name('mantenimiento.delete');
 });
 
 Route::controller(CampusController::class)->group(function() {
@@ -69,7 +69,7 @@ Route::controller(CampusController::class)->group(function() {
 Route::controller(MantenimientoMaquinaController::class)->group(function() {
     Route::get('/showMaquinaMantenimmiento', 'verLista')->name('maquinaMantenimiento.verLista');
     Route::post('/saveMaquinaMantenimiento', 'save')->name('maquinaMantenimiento.save');
-    //Route::delete('/deleteMantenimiento/{id}', 'delete')->name('mantenimiento.delete');
+    Route::delete('/deleteMantenimiento/{id}', 'delete')->name('maquinaMantenimiento.delete');
 });
 
 

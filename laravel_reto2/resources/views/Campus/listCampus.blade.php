@@ -27,16 +27,17 @@
             </div>
         </div>
 
-        <div class="col-12 error-messages">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+    </div>
+
+    <div class="containerListOperario">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                @if (session('error'))
+                    <div class="mensajeNuevo alert alert-danger text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 
