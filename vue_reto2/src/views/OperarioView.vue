@@ -1,7 +1,7 @@
 <script setup>
 
     import IniciarSesion from '@/components/IniciarSesion.vue';
-    import {onMounted, ref, watch} from 'vue';
+    import {onMounted, ref, computed, watch} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
 
@@ -41,6 +41,32 @@
 
     // Copia de las incidencias originales. Hay que guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
+
+    // Paginación
+    const currentPage = ref(1);
+    const itemsPerPage = 3;
+
+    const paginatedIncidencias = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      return incidencias.value.slice(start, end);
+    });
+
+    const totalPages = computed(() => {
+      return Math.ceil(incidencias.value.length / itemsPerPage);
+    });
+
+    const previousPage = () => {
+      if (currentPage.value > 1) {
+        currentPage.value--;
+      }
+    };
+
+    const nextPage = () => {
+      if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+      }
+    };
 
     // Constantes reutilizables con las rutas para obtener datos.
     const API_ROUTES = {
@@ -435,6 +461,22 @@
             </p>
 
             <div class="listaIncidencias">
+              <div v-for="(incidencia, index) in paginatedIncidencias" :key="index" class="mb-3">
+                <div class="incidencia mb-3">
+                  <p class="mb-0">{{ incidencia.titulo }}</p>
+                  <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                </div>
+              </div>
+
+              <div class="pagination justify-content-center">
+                <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>
+                <span>{{ currentPage }} de {{ totalPages }}</span>
+                <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
+              </div>
+            </div>
+
+            <!--
+            <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
                 <div class="incidencia mb-3">
                   <p class="mb-0">{{ incidencia.titulo }}</p>
@@ -442,6 +484,7 @@
                 </div>
               </div>
             </div>
+            -->
 
           </form>
 

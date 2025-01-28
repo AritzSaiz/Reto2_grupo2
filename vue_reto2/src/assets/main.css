@@ -386,4 +386,22 @@ select[name=filtroEstado], select[name=filtroFecha], select[name=filtroCampus], 
   color: #0A3D62;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination span {
+  font-size: 16px;
+  margin: 0 10px;
+}
+
 /*# sourceMappingURL=main.css.map */
