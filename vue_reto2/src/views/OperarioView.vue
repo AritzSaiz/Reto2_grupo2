@@ -44,15 +44,17 @@
 
     // Paginación
     const currentPage = ref(1);
-    const itemsPerPage = 3;
+    const itemsPerPage = 4;
 
     const paginatedIncidencias = computed(() => {
+      if (incidencias.value.length === 0) return [];
       const start = (currentPage.value - 1) * itemsPerPage;
       const end = start + itemsPerPage;
       return incidencias.value.slice(start, end);
     });
 
     const totalPages = computed(() => {
+      if (incidencias.value.length === 0) return 1;
       return Math.ceil(incidencias.value.length / itemsPerPage);
     });
 
@@ -470,7 +472,7 @@
 
               <div class="pagination justify-content-center">
                 <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>
-                <span>{{ currentPage }} de {{ totalPages }}</span>
+                <span>Pagina {{ currentPage }} de {{ totalPages }}</span>
                 <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
               </div>
             </div>
