@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="col-6 mt-4">
+        <div class="col-6 mt-5">
 
             <!-- Formulario de Operario -->
             <div class="form-section" id="form-operario">
