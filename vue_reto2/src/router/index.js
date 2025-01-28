@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Operario from '../views/OperarioView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,14 +30,28 @@ const router = createRouter({
       props: true,  // Pasa la ID como una prop al componente
     },
     {
+      path: '/incidenciasResueltas',
+      name: 'Incidencias resueltas',
+      component: () => import('../views/IncidenciaResuelta.vue'),
+    },
+    {
       path: '/incidenciasResueltas/:id',
       name: 'Ventana incidencias resueltas',
-      component: () => import('../views/IncidenciaResuelta.vue'),
+      redirect: (to) => {
+        return '/incidenciasResueltas'
+      },
+    },
+    {
+      path: '/incidenciasParticipa',
+      name: 'Incidencias participadas',
+      component: () => import('../views/IncidenciaParticipa.vue'),
     },
     {
       path: '/incidenciasParticipa/:id',
       name: 'Ventana incidencias participadas',
-      component: () => import('../views/IncidenciaParticipa.vue'),
+      redirect: (to) => {
+        return '/incidenciasParticipa'
+      }
     },
     {
       path: '/incidenciaResueltaView',
