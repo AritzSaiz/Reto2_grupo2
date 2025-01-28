@@ -5,6 +5,7 @@
 
     const router = useRouter();
 
+    const inciMias = ref('');
     const inciResueltas = ref('');
     const inciNoResueltas = ref('');
     const tecnicoExitoso = ref(false);
@@ -25,16 +26,19 @@
 
             if (response.data) {
                 tecnicoExitoso.value = true;
+                inciMias.value = 'Mis incidencias';
                 inciResueltas.value = 'Incidencias Resueltas';
                 inciNoResueltas.value = 'Incidencias NO Resueltas';
             } else {
                 tecnicoExitoso.value = false;
+                inciMias.value = '';
                 inciResueltas.value = '';
                 inciNoResueltas.value = '';
             }
         } catch (error) {
             console.error('Error al verificar el técnico:', error);
             tecnicoExitoso.value = false;
+            inciMias.value = '';
             inciResueltas.value = '';
             inciNoResueltas.value = '';
         }
@@ -63,6 +67,10 @@
         router.push('/');
     }
 
+    function incidenciasMias(){
+        router.push(`/incidenciasMias/${operarioId}`);
+    }
+
     function incidenciasResueltas(){
         router.push(`/incidenciasResueltas/${operarioId}`);
     }
@@ -77,6 +85,7 @@
 
       <img class="logo" src="../assets/logoEgibide.png" alt="Logo de Egibide" @click="volver" style="cursor: pointer;">
 
+      <a v-if="tecnicoExitoso" @click="incidenciasMias" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciMias }}</a>
       <a v-if="tecnicoExitoso" @click="incidenciasResueltas" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciResueltas }}</a>
       <a v-if="tecnicoExitoso" @click="incidenciasParticipa" class="text-white text-decoration-none" style="cursor: pointer;">{{ inciNoResueltas }}</a>
 

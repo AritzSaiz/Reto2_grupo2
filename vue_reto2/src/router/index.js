@@ -58,6 +58,18 @@ const router = createRouter({
       name: 'Ventana detalles incidencias resueltas',
       component: () => import('../views/IncidenciaResueltaView.vue'),
     },
+    {
+      path: '/incidenciasMias',
+      name: 'Mis incidencias',
+      component: () => import('../views/IncidenciaMias.vue'),
+    },
+    {
+      path: '/incidenciasMias/:id',
+      name: 'Ventana mis incidencias',
+      redirect: (to) => {
+        return '/incidenciasMias'
+      }
+    },
   
   ],
 })
