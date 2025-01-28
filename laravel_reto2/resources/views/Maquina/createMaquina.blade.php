@@ -23,7 +23,7 @@
             <!-- Formulario de Máquina -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
-                    <h1>Añadir Maquina </h1>
+                    <h1 class="mt-5">Añadir Maquina </h1>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>

@@ -21,7 +21,7 @@
             <!-- Formulario de Tecnico -->
             <div class="form-section" id="form-seccion">
                 <div class="row mb-3">
-                    <h1>Añadir tecnico </h1>
+                    <h1 class="mt-5">Añadir tecnico </h1>
                 </div>
                     <form action="{{route('tecnico.save')}}" method="post">
                         @csrf

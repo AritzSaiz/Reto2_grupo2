@@ -23,7 +23,7 @@
             <!-- Formulario de Mantenimiento -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
-                    <h1>Añadir Mantenimiento</h1>
+                    <h1 class="mt-5">Añadir Mantenimiento</h1>
                 </div>
                 <form action="{{route('mantenimiento.save')}}" method="post">
                     @csrf
