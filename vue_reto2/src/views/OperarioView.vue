@@ -52,6 +52,9 @@
       MAQUINAS: '/maquinas',
     };
 
+    // Variable reactiva para controlar la visualización de la capa "dOverlay" que contiene el icono de "tick-correcto"
+    const mostrarOverlay = ref(false);
+
     // Valores de las casillas al crear una incidencia.
     const tituloCrear = ref("");
     const descripcionCrear = ref("");
@@ -71,7 +74,10 @@
         // Si se quieran obtener las incidencias que han sido creadas por el usuario logueado, habrá que pasarle el valor del localStorage "operarioId".
         if (rutaDatos === API_ROUTES.INCIDENCIAS_PROPIAS){
           response = await api.get(rutaDatos, {
-            headers: { 'Operario-Id': operarioId }
+            // TODO
+            params: {
+              operario_id: operarioId,
+            },
           });
         }
         else {
@@ -228,21 +234,23 @@
           // Si se ha creado la incidencia podrá continuar.
           if (response.status === 200) {
 
-            console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
+            // Habría que "recargar" la página (limpiando casillas para poder crear más incidencias si se necesita).
+            tituloCrear.value = "";
+            descripcionCrear.value = "";
+            campusCrear.value = "";
+            seccionCrear.value = "";
+            maquinaCrear.value = "";
+            categoriaCrear.value = "";
+            gravedadCrear.value = "";
 
-            // TODO : REVISAR A PARTIR DE AQUÍ
+            // Mostrar temporalmente (durante 2 segundos) el icono de "tick-correcto".
+            mostrarOverlay.value = true;
 
-            // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
-            mostrarCrear.value = true;
-
-            // TODO : Corregir para que se vea.
-            // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
-            const overlay = document.getElementById('dOverlay');
-            overlay.style.display = 'flex';
-            // Ocultar la capa después de 3 segundos
             setTimeout(() => {
-              overlay.style.display = 'none';
-            }, 3000);
+              mostrarOverlay.value = false;
+            }, 2000);
+
+            // TODO : ¿Al crear una incidencia (y darle al botón de Volver) aparecen las nuevas en el listado, o hay que actualizar / aplicarFiltros() de alguna manera?
 
           }
           else {
@@ -334,11 +342,6 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
 
-          <!-- Icono de un tick que inicialmente estará invisible y solo aparecerá temporalmente al crear exitosamente una incidencia.-->
-          <div id="dOverlay" class="d-flex justify-content-center align-items-center d-none">
-            <img src="../assets/tick.png" alt="Icono de tick-correcto" class="iOverlay img-fluid">
-          </div>
-
           <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
           <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
@@ -352,8 +355,6 @@
             <h2 class="mt-5">Filtros</h2>
 
             <!-- Habrá 2 filas de 4 filtros cada una, en este orden. -->
-
-            <!-- TODO : Mejorar que sea responsivo en diferentes tamaños de pantallas. -->
 
             <div class="row gy-3">
               <div class="col-md-3">
@@ -446,6 +447,11 @@
           </form>
 
           <form @submit.prevent="crearIncidencia" class="crear" v-show="!mostrarCrear">
+            <!-- Icono de un tick que inicialmente estará invisible y solo aparecerá temporalmente al crear exitosamente una incidencia.-->
+            <div id="dOverlay" class="d-flex justify-content-center align-items-center" v-if="mostrarOverlay">
+              <img src="../assets/tick.png" alt="Icono de tick-correcto" class="iOverlay img-fluid">
+            </div>
+
             <div class="form-group mb-3">
               <div class="descripcion mb-4">
                 <label for="tituloCrear" class="form-label">Título</label>

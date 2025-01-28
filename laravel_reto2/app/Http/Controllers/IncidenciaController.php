@@ -17,21 +17,18 @@ class IncidenciaController extends Controller
     public function listPropias(Request $request) {
         // Obtener solo las que tengan la columna 'operario_id' con el parámetro/valor del localStorage llamado 'operarioId'.
 
-        $operarioId = $request->header('Operario-Id');
+        // Validar el parámetro operario_id
+        $validatedData = $request->validate([
+            'operario_id' => 'required|integer',
+        ]);
 
-        // Validar que el operarioId no sea nulo o vacío
-        if (!$operarioId) {
-            return response()->json([
-                'error' => 'Operario ID es requerido.'
-            ], 400);
-        }
+        // Obtener el valor de 'operario_id' del request
+        $operarioId = $validatedData['operario_id'];
 
-        // Filtrar las incidencias por operarioId y que no estén eliminadas.
-        $incidencias = Incidencia::where('operario_id', $operarioId)
+        // Filtrar las incidencias por 'operario_id' y que no estén eliminadas.
+        return Incidencia::where('operario_id', $operarioId)
             ->whereNull('deleted_at')
             ->get();
-
-        return response()->json($incidencias);
     }
 
 

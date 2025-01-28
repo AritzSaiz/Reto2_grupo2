@@ -88,12 +88,12 @@
             <form action="" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Usuario</label>
-                    <input type="text" id="username" v-model="username" ref="usernameInput" autofocus class="form-control" required>
+                    <input type="text" id="username" v-model="username" ref="usernameInput" autofocus class="form-control" autocomplete="username" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" id="password" v-model="password" ref="passwordInput" class="form-control" required>
+                    <input type="password" id="password" v-model="password" ref="passwordInput" class="form-control" autocomplete="current-password" required>
                 </div>
 
                 <div class="d-grid">

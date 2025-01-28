@@ -13,6 +13,7 @@ class OperariosSeeder extends Seeder
     public function run(): void
     {
         DB::table('operarios')->insert([
+            // TODO : Luego poner las contraseñas como "12345" + validar en servidor que sean con 8 caracteres/minúsculas/mayúsculas...
             ['nombre' => 'Juan', 'apellidos' => 'Pérez López', 'email' => 'juan.perez@egibide.org', 'usuario' => 'jperez', 'contrasena' => bcrypt('Password1'), 'created_at' => now(), 'updated_at' => now()],
             ['nombre' => 'María', 'apellidos' => 'González Díaz', 'email' => 'maria.gonzalez@egibide.org', 'usuario' => 'mgonzalez', 'contrasena' => bcrypt('Password2'), 'created_at' => now(), 'updated_at' => now()],
             ['nombre' => 'Luis', 'apellidos' => 'Martínez Ruiz', 'email' => 'luis.martinez@egibide.org', 'usuario' => 'lmartinez', 'contrasena' => bcrypt('Password3'), 'created_at' => now(), 'updated_at' => now()],

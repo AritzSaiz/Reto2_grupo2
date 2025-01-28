@@ -104,7 +104,8 @@ class TecnicoController extends Controller
         }
     }
 
-    public function verificarTecnico($operarioId)
+    // TODO : HACER
+    public function verificarTecnico(int $operarioId)
     {
         // Buscar el operario por su ID
         $operario = Operario::find($operarioId);
@@ -117,7 +118,7 @@ class TecnicoController extends Controller
             ], 404); // 404 Not Found
         }
 
-        // Buscar si el operario tiene un técnico asociado
+        // Buscar si el operario tiene un técnico asociado; es decir, si es técnico (y tiene el atributo 'tecnico_id')
         $tecnico = $operario->tecnico;
 
         // Si el operario tiene un técnico asociado
