@@ -15,6 +15,7 @@
     const operarioId = localStorage.getItem('operarioId');
 
     const incidencias = ref([]);
+    const incidenciasOriginales = ref([]);
     const filtro = ref('1');
 
     const router = useRouter();
@@ -69,8 +70,8 @@
     async function fetchIncidencias() {
       try {
         const response = await api.get('/incidencias');
-        incidencias.value = response.data.filter(incidencia => incidencia.operario_id == operarioId);
-        filtrarIncidencias();
+        incidenciasOriginales.value = response.data.filter(incidencia => incidencia.operario_id == operarioId);
+        incidencias.value = [...incidenciasOriginales.value]; // Copia los datos originales a incidencias
       } catch (error) {
         console.error('Error al cargar las incidencias:', error);
         alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
@@ -78,17 +79,19 @@
     }
 
     function filtrarIncidencias() {
-        if (filtro.value === '1') {
-            // Mostrar todas las incidencias
-            return;
-        }
-        if (filtro.value === '2') {
-            // Mostrar solo abiertas
-            incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 1);
-        } else if (filtro.value === '3') {
-            // Mostrar solo cerradas
-            incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 0);
-        }
+      incidencias.value = [...incidenciasOriginales.value];
+
+      if (filtro.value === '1') {
+        // Mostrar todas las incidencias
+        return;
+      }
+      if (filtro.value === '2') {
+        // Mostrar solo abiertas
+        incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 1);
+      } else if (filtro.value === '3') {
+        // Mostrar solo cerradas
+        incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 0);
+      }
     }
 
     onMounted(() => {
