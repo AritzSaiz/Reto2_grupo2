@@ -23,31 +23,40 @@ class OperarioController extends Controller
         $contrasena = $request->input('contrasena');
 
         // Buscar al operario por usuario
-        $operario = Operario::where('usuario', $usuario)->first();
-        $tecnico = Tecnico::where('operario_id', $operario->id)->first();
+        $operario = Operario::where('usuario', $usuario)->whereNull('deleted_at')->first();
 
-        // Verificar si el operario existe y si la contraseña es válida
-        if ($operario && $tecnico && Hash::check($contrasena, $operario->contrasena)) {
-            // Comprobar si tiene un técnico asociado
+        // Verificar si el operario existe
+        if (!$operario) {
             return response()->json([
-                'message' => 'Inicio de sesión exitoso',
+                'message' => 'Usuario o contraseña incorrectos.',
+            ], 401);
+        }
+
+        // Verificar si la contraseña es válida (hay que mandar el mismo mensaje para no revelar que existe ese usuario)
+        if (!Hash::check($contrasena, $operario->contrasena)) {
+            return response()->json([
+                'message' => 'Usuario o contraseña incorrectos.',
+            ], 403);
+        }
+
+        // Buscar si tiene asociado un técnico
+        $tecnico = Tecnico::where('operario_id', $operario->id)->whereNull('deleted_at')->first();
+
+        // Verificar si el operario es técnico o no
+        if($tecnico) {
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso del operario técnico.',
                 'operarioId' => $operario->id,
                 'tecnicoId' => $tecnico->id,
                 'data' => $operario
             ], 200);
         }
-
-        else if ($operario && !$tecnico && Hash::check($contrasena, $operario->contrasena)) {
-            // Comprobar si tiene un técnico asociado
+        else {
             return response()->json([
-                'message' => 'Inicio de sesión exitoso',
+                'message' => 'Inicio de sesión exitoso del operario corriente.',
                 'operarioId' => $operario->id,
                 'data' => $operario,
             ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Usuario o contraseña incorrectos',
-            ], 401);
         }
     }
 

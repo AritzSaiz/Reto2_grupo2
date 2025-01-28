@@ -51,7 +51,6 @@ Route::post('/historial/entrada', [HistorialController::class, 'registrarEntrada
 // Rutas relacionadas con el login / tipo de usuario
 Route::post('/login', [OperarioController::class, 'inicioSesion']);
 Route::post('/operario', [OperarioController::class, 'inicioSesion']);
-Route::get('/tecnico/{operarioId}', [TecnicoController::class, 'verificarTecnico']);
 
 
 

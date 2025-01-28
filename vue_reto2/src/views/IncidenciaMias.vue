@@ -100,7 +100,7 @@
     <Header />
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
-            <h1 class="titulo text-center mb-4">Tus incidencias</h1>
+            <h1 class="titulo text-center mb-4">Mis incidencias reportadas</h1>
 
             <div class="mb-4">
                 <button @click="volver" type="button" class="btn btn-warning">Volver</button>

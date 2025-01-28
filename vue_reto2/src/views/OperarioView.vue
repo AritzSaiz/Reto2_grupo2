@@ -40,7 +40,31 @@
     // Copia de las incidencias originales. Hay que guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
     const incidenciasOriginal = ref([]);
 
+    // Constantes reutilizables con las rutas para obtener datos.
+    const API_ROUTES = {
+      CAMPUS: '/campus',
+      SECCIONES: '/secciones',
+      CATEGORIAS: '/categorias',
+      INCIDENCIAS: '/incidencias',
+      INCIDENCIAS_PROPIAS: '/incidenciasPropias',
+      MAQUINAS: '/maquinas',
+    };
+
+    // Variable reactiva para controlar la visualización de la capa "dOverlay" que contiene el icono de "tick-correcto"
+    const mostrarOverlay = ref(false);
+
+    // Valores de las casillas al crear una incidencia.
+    const tituloCrear = ref("");
+    const descripcionCrear = ref("");
+    const campusCrear = ref("");
+    const seccionCrear = ref("");
+    const maquinaCrear = ref("");
+    const categoriaCrear = ref("");
+    const gravedadCrear = ref("");
+
+    // TODO : ¿Sería aquí? Si se aplican los filtros tiene que cambiar, y aquí parece que lo declara al principio...
     // Paginación
+
     const currentPage = ref(1);
     const itemsPerPage = 4;
 
@@ -68,28 +92,6 @@
       }
     };
 
-    // Constantes reutilizables con las rutas para obtener datos.
-    const API_ROUTES = {
-      CAMPUS: '/campus',
-      SECCIONES: '/secciones',
-      CATEGORIAS: '/categorias',
-      INCIDENCIAS: '/incidencias',
-      INCIDENCIAS_PROPIAS: '/incidenciasPropias',
-      MAQUINAS: '/maquinas',
-    };
-
-    // Variable reactiva para controlar la visualización de la capa "dOverlay" que contiene el icono de "tick-correcto"
-    const mostrarOverlay = ref(false);
-
-    // Valores de las casillas al crear una incidencia.
-    const tituloCrear = ref("");
-    const descripcionCrear = ref("");
-    const campusCrear = ref("");
-    const seccionCrear = ref("");
-    const maquinaCrear = ref("");
-    const categoriaCrear = ref("");
-    const gravedadCrear = ref("");
-
     // Función para obtener los datos desde el backend.
     // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/rutaDatos'.
     async function fetchDatos(rutaDatos, variableRef) {
@@ -100,7 +102,6 @@
         // Si se quieran obtener las incidencias que han sido creadas por el usuario logueado, habrá que pasarle el valor del localStorage "operarioId".
         if (rutaDatos === API_ROUTES.INCIDENCIAS_PROPIAS){
           response = await api.get(rutaDatos, {
-            // TODO
             params: {
               operario_id: operarioId,
             },
@@ -469,23 +470,23 @@
                 </div>
               </div>
 
+              <!--
+              <div class="listaIncidencias">
+                <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
+                  <div class="incidencia mb-3">
+                    <p class="mb-0">{{ incidencia.titulo }}</p>
+                    <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                  </div>
+                </div>
+              </div>
+              -->
+
               <div class="pagination justify-content-center">
                 <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>
-                <span>Pagina {{ currentPage }} de {{ totalPages }}</span>
+                <span>Página {{ currentPage }} de {{ totalPages }}</span>
                 <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
               </div>
             </div>
-
-            <!--
-            <div class="listaIncidencias">
-              <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                <div class="incidencia mb-3">
-                  <p class="mb-0">{{ incidencia.titulo }}</p>
-                  <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
-                </div>
-              </div>
-            </div>
-            -->
 
           </form>
 

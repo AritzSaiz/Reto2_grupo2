@@ -7,7 +7,6 @@ import Header from '../components/Header.vue';
 import api from '@/plugins/axios';
 
 const router = useRouter();
-//const route = useRoute();
 
 const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
 //const operarioId = Number(localStorage.getItem('operarioId'));
@@ -160,7 +159,6 @@ async function fetchDatosIncidencia() {
 onMounted(() => {
   console.log(props.id);
   fetchDatosIncidencia();
-
 });
 
 </script>

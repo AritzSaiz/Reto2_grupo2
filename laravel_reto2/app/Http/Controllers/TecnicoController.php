@@ -62,7 +62,6 @@ class TecnicoController extends Controller
 
     public function save(Request $request)
     {
-
         // Validar los datos enviados desde el formulario
         $validatedData = $request->validate([
             'operario_id' => 'required|exists:operarios,id|unique:tecnicos,operario_id', // Asegura que el operario no esté ya en la tabla
@@ -70,14 +69,12 @@ class TecnicoController extends Controller
             'admin' => 'required|in:0,1',
         ]);
 
-
         // Crear un nuevo técnico
         $tecnico = new Tecnico();
         $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
 
         $tecnico->admin = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
-
 
         try {
             $tecnico->save();
@@ -87,10 +84,7 @@ class TecnicoController extends Controller
             Log::error('Error al crear técnico: ' . $e->getMessage()); // Registrar el error en el log
             return redirect()->route('tecnico.show')->with('error', 'No se pudo crear el técnico.');
         }
-
-
     }
-
 
     public function delete($id)
     {
@@ -103,38 +97,5 @@ class TecnicoController extends Controller
             return redirect()->route('tecnico.show')->with('error', 'No se pudo eliminar el tecnico.');
         }
     }
-
-    // TODO : HACER
-    public function verificarTecnico(int $operarioId)
-    {
-        // Buscar el operario por su ID
-        $operario = Operario::find($operarioId);
-
-        // Si el operario no se encuentra, devolver un error 404
-        if (!$operario) {
-            return response()->json([
-                'existe' => false,
-                'message' => 'Operario no encontrado.'
-            ], 404); // 404 Not Found
-        }
-
-        // Buscar si el operario tiene un técnico asociado; es decir, si es técnico (y tiene el atributo 'tecnico_id')
-        $tecnico = $operario->tecnico;
-
-        // Si el operario tiene un técnico asociado
-        if ($tecnico) {
-            return response()->json([
-                'existe' => true,
-                'tecnico' => $tecnico
-            ], 200); // 200 OK
-        }
-
-        // Si el operario no tiene técnico asociado, devolver un error 404
-        return response()->json([
-            'existe' => false,
-            'message' => 'No se encontró un técnico asociado al operario.'
-        ], 404); // 404 Not Found
-    }
-
 
 }

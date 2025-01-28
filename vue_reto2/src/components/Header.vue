@@ -1,7 +1,6 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import { useRouter } from 'vue-router';
-    import api from '@/plugins/axios';
 
     const router = useRouter();
 
@@ -19,23 +18,23 @@
 
     const operarioId = localStorage.getItem('operarioId');
 
-    // TODO : Repasar esto (cambiar nombres...)
+    // TODO : Repasar esto (cambiar nombres del menú...)
     async function verificarTecnico() {
         try {
-            const response = await api.get(`/tecnico/${operarioId}`);
-
-            if (response.data) {
+            if (localStorage.getItem('tiene_tecnico') === "true") {
                 tecnicoExitoso.value = true;
                 inciMias.value = 'Mis incidencias';
                 inciResueltas.value = 'Incidencias Resueltas';
                 inciNoResueltas.value = 'Incidencias NO Resueltas';
-            } else {
+            }
+            else {
                 tecnicoExitoso.value = false;
                 inciMias.value = '';
                 inciResueltas.value = '';
                 inciNoResueltas.value = '';
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error al verificar el técnico:', error);
             tecnicoExitoso.value = false;
             inciMias.value = '';
@@ -63,7 +62,8 @@
     function cerrarSesion(){
         localStorage.removeItem('operarioId');
         localStorage.removeItem('tiene_tecnico');
-        localStorage.removeItem('tecnicoId');
+        if (localStorage.getItem('tecnicoId'))
+          localStorage.removeItem('tecnicoId');
         router.push('/');
     }
 

@@ -38,41 +38,40 @@
           contrasena: password.value,
         });
 
-        const { operarioId } = response.data;
+        // Si ha obtenido valores significa que existe el usuario
+        if (response.status === 200){
 
-        if (operarioId){
-          localStorage.setItem('operarioId', operarioId);
+          const operarioId = response.data.operarioId;
 
-          await verificarTecnico(operarioId, response);
+          if (operarioId){
+            localStorage.setItem('operarioId', operarioId);
 
-          router.push(`/operario/${operarioId}`);
+            if (response.data.tecnicoId){
+              localStorage.setItem('tiene_tecnico', true); // El operario tiene un técnico asociado / es técnico
+              localStorage.setItem('tecnicoId', response.data.tecnicoId);
+            }
+            else {
+              localStorage.setItem('tiene_tecnico', false);
+            }
+
+            console.log(response.data.message);
+            router.push(`/operario/${operarioId}`);
+          }
+          else {
+            alert('Error al iniciar sesión. Inténtalo más tarde.');
+          }
+
         }
         else {
+          console.error('Error al iniciar sesión (status != 200):', response.data.message);
           alert('Error al iniciar sesión. Inténtalo más tarde.');
         }
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Error al iniciar sesión:', error);
         alert('Usuario o contraseña incorrectos.');
       }
 
-    }
-
-    async function verificarTecnico(operarioId, responseLogin) {
-        try {
-            const response = await api.get(`/tecnico/${operarioId}`);
-
-            const { tecnicoId } = responseLogin.data;
-
-            if (response.data) {
-                localStorage.setItem('tiene_tecnico', true); // El operario es técnico
-                localStorage.setItem('tecnicoId', tecnicoId);
-            } else {
-                localStorage.setItem('tiene_tecnico', false); // El operario no es técnico
-            }
-        } catch (error) {
-            console.error('Error al verificar el técnico:', error);
-            localStorage.setItem('tiene_tecnico', false); // En caso de error, lo consideramos un operario no técnico
-        }
     }
 
 </script>
