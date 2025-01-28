@@ -1,7 +1,7 @@
 <script setup>
     import Header from '@/components/Header.vue';
     import { useRoute, useRouter } from 'vue-router';
-    import {onMounted, ref} from 'vue';
+    import {onMounted, ref, computed} from 'vue';
 
     import api from '@/plugins/axios';
 
@@ -15,7 +15,6 @@
     const incidencias = ref([]);
 
     const router = useRouter();
-    const route = useRoute();
 
     function volver(){
         const operarioId = localStorage.getItem('operarioId');
@@ -25,6 +24,34 @@
             console.error("No se encontró el ID del operario.");
         }
     }
+
+    // Paginación
+    const currentPage = ref(1);
+    const itemsPerPage = 4;
+
+    const paginatedIncidencias = computed(() => {
+      if (incidencias.value.length === 0) return [];
+      const start = (currentPage.value - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      return incidencias.value.slice(start, end);
+    });
+
+    const totalPages = computed(() => {
+      if (incidencias.value.length === 0) return 1;
+      return Math.ceil(incidencias.value.length / itemsPerPage);
+    });
+
+    const previousPage = () => {
+      if (currentPage.value > 1) {
+        currentPage.value--;
+      }
+    };
+
+    const nextPage = () => {
+      if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+      }
+    };
 
     function detalle(){
         router.push('/incidenciaResueltaView');
@@ -66,14 +93,34 @@
             </div>
 
             <form class="ver">
-                <p class="cantIncidencias mb-4">Se han encontrado <b>{{ incidencias.length }}</b> incidencias resueltas.</p>
+                <p class="cantIncidencias mb-0">
+                    Se ha{{ (incidencias.length === 0 || incidencias.length > 1) ? 'n' : '' }} encontrado
+                    <span class="badge estiloBadge">{{ incidencias.length }}</span>
+                    incidencia{{ (incidencias.length === 0 || incidencias.length > 1) ? 's' : '' }} con los filtros especificados.
+                </p>
 
+                <div class="listaIncidencias">
+                    <div v-for="(incidencia, index) in paginatedIncidencias" :key="index" class="mb-3">
+                        <div class="incidencia mb-3">
+                            <p class="mb-0">{{ incidencia.titulo }}</p>
+                            <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                        </div>
+                    </div>
+
+                    <div class="pagination justify-content-center">
+                        <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>
+                        <span>Pagina {{ currentPage }} de {{ totalPages }}</span>
+                        <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
+                    </div>
+                </div>
+                <!--
                 <div class="listaIncidencias">
                     <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
                         <p class="mb-0">{{ incidencia.descripcion }}</p>
                         <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
                     </div>
                 </div>
+                -->
             </form>
         </div>
     </div>

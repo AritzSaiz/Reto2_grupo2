@@ -84,17 +84,3 @@
             
     </header>
 </template>
-
-<style>
-/*
-        <div>
-            <a href="#" id="botonPerfil" @click="toggleMenu">
-                <img class="perfil" src="../assets/perfil.png">
-            </a>
-
-            <div id="menuPerfil" class="menuDesplegable" v-show="isMenuVisible" ref="menuPerfil">
-                <a href="/">Cerrar sesión</a>
-            </div>
-        </div>
-*/
-</style>

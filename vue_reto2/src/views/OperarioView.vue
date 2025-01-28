@@ -1,6 +1,4 @@
 <script setup>
-
-    import IniciarSesion from '@/components/IniciarSesion.vue';
     import {onMounted, ref, computed, watch} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
@@ -570,28 +568,3 @@
     </div>
 
 </template>
-
-<!-- TODO : Poner donde corresponde. -->
-<style scoped>
-
-.estiloBadge{
-  background-color: #FFFFFF;
-  color: green !important;
-  font-size: 14px;
-  /* font-weight: normal; */
-}
-
-#dOverlay{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.iOverlay{
-  width: 20%;
-}
-
-</style>
