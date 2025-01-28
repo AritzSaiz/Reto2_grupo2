@@ -11,12 +11,17 @@ const router = createRouter({
       props: true,
     },
     {
+      path: '/operario',
+      name: 'Operario',
+      component: () => import('../views/OperarioView.vue'),
+    },
+    {
       path: '/operario/:id',
       name: 'Ventana operario',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/OperarioView.vue'),
+      redirect: (to) => {
+        localStorage.setItem('operarioId', to.params.id)
+        return '/operario';
+      },
     },
     {
       path: '/incidencias/:id',  // Parámetro dinámico "id"
@@ -25,27 +30,32 @@ const router = createRouter({
       props: true,  // Pasa la ID como una prop al componente
     },
     {
+      path: '/incidenciasResueltas',
+      name: 'Incidencias resueltas',
+      component: () => import('../views/IncidenciaResuelta.vue'),
+    },
+    {
       path: '/incidenciasResueltas/:id',
       name: 'Ventana incidencias resueltas',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/IncidenciaResuelta.vue'),
+      redirect: (to) => {
+        return '/incidenciasResueltas'
+      },
+    },
+    {
+      path: '/incidenciasParticipa',
+      name: 'Incidencias participadas',
+      component: () => import('../views/IncidenciaParticipa.vue'),
     },
     {
       path: '/incidenciasParticipa/:id',
       name: 'Ventana incidencias participadas',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/IncidenciaParticipa.vue'),
+      redirect: (to) => {
+        return '/incidenciasParticipa'
+      }
     },
     {
       path: '/incidenciaResueltaView',
       name: 'Ventana detalles incidencias resueltas',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/IncidenciaResueltaView.vue'),
     },
   

@@ -17,7 +17,7 @@
         </div>
 
 
-        <div class="col-8 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="col-8 mt-5 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1>Lista de Tecnicos </h1>
             <div class="btn-toolbar align-items-right mb-2 mb-md-0">
                 <a type="button" href="{{ route('tecnico.create') }}" class="btn btn-sm btn-outline-secondary">
@@ -34,7 +34,7 @@
     @foreach ($tecnicos as $tecnico)
         <div class="incidents-list">
             <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
-                <!--Para coger datos de una relacion ponemos el nombre de la variable sin _id (operario_id > operario ) y luego ya puedes acceder a lo demas  -->
+                <!-- Para obtener datos de una relación hay que poner el nombre de la variable sin la última parte de "_id" (operario_id ~> operario ) y a partir de ahí ya se puede acceder a lo demás. -->
                 <span>{{ $tecnico->operario->nombre }}</span>
                 <span>{{ $tecnico->operario->apellidos }}</span>
                 <span>{{ $tecnico->especialidad }}</span>

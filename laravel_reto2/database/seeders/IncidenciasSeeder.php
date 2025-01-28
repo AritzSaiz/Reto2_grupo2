@@ -22,7 +22,6 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 1,
                 'operario_id' => 1,
                 'maquina_id' => 1,
-                // TODO : Poner fechas con --> Carbon::create('2025-01-25 10:00:00')
                 'created_at' => now(),
                 'updated_at' => now(),
                 'deleted_at' => null,
@@ -35,8 +34,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 2,
                 'operario_id' => 2,
                 'maquina_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-25 9:00:00'),
+                'updated_at' => Carbon::create('2025-01-25 9:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -47,8 +46,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 1,
                 'operario_id' => 3,
                 'maquina_id' => 3,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-26 9:00:00'),
+                'updated_at' => Carbon::create('2025-01-26 9:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -59,8 +58,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 2,
                 'operario_id' => 1,
                 'maquina_id' => 4,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-27 9:00:00'),
+                'updated_at' => Carbon::create('2025-01-27 9:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -71,8 +70,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 3,
                 'operario_id' => 2,
                 'maquina_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-27 12:00:00'),
+                'updated_at' => Carbon::create('2025-01-27 12:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -83,8 +82,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 3,
                 'operario_id' => 3,
                 'maquina_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-27 13:00:00'),
+                'updated_at' => Carbon::create('2025-01-27 13:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -95,8 +94,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 3,
                 'operario_id' => 4,
                 'maquina_id' => 3,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-20 10:00:00'),
+                'updated_at' => Carbon::create('2025-01-20 10:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -107,8 +106,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 4,
                 'operario_id' => 4,
                 'maquina_id' => 4,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-10 10:00:00'),
+                'updated_at' => Carbon::create('2025-01-10 10:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -119,8 +118,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 7,
                 'operario_id' => 4,
                 'maquina_id' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-10 9:00:00'),
+                'updated_at' => Carbon::create('2025-01-10 9:00:00'),
                 'deleted_at' => null,
             ],
             [
@@ -143,8 +142,8 @@ class IncidenciasSeeder extends Seeder
                 'categoria_id' => 7,
                 'operario_id' => null,
                 'maquina_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::create('2025-01-15 9:00:00'),
+                'updated_at' => Carbon::create('2025-01-15 9:00:00'),
                 'deleted_at' => null,
             ]
         ]);

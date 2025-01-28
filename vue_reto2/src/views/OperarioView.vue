@@ -48,6 +48,7 @@
       SECCIONES: '/secciones',
       CATEGORIAS: '/categorias',
       INCIDENCIAS: '/incidencias',
+      INCIDENCIAS_PROPIAS: '/incidenciasPropias',
       MAQUINAS: '/maquinas',
     };
 
@@ -61,13 +62,32 @@
     const gravedadCrear = ref("");
 
     // Función para obtener los datos desde el backend.
-    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/datos'.
+    // Se conecta con la API de Laravel utilizando Axios y realiza una solicitud GET a '/rutaDatos'.
     async function fetchDatos(rutaDatos, variableRef) {
       try {
-        // Realiza la solicitud GET a la ruta proporcionada.
-        const response = await api.get(rutaDatos);
-        //  Guardar los datos recibidos en la variable reactiva correspondiente.
-        variableRef.value = response.data;
+
+        let response;
+
+        // Si se quieran obtener las incidencias que han sido creadas por el usuario logueado, habrá que pasarle el valor del localStorage "operarioId".
+        if (rutaDatos === API_ROUTES.INCIDENCIAS_PROPIAS){
+          response = await api.get(rutaDatos, {
+            headers: { 'Operario-Id': operarioId }
+          });
+        }
+        else {
+          // Realiza la solicitud GET a la ruta proporcionada.
+          response = await api.get(rutaDatos);
+        }
+
+        // Verificar si la respuesta fue exitosa (código 200)
+        if (response.status === 200) {
+          //  Guardar los datos recibidos en la variable reactiva correspondiente.
+          variableRef.value = response.data;
+        } else {
+          console.error(`Error al cargar datos desde ${rutaDatos}:`, response.status, response.data);
+          alert(`Hubo un problema al cargar los datos de ${rutaDatos}. Código de error: ${response.status}.`);
+        }
+
       }
       catch (error) {
         console.error('Error al cargar datos desde ${rutaDatos}:', error);
@@ -173,7 +193,7 @@
       aplicarFiltros();
     }
 
-    function crearIncidencia() {
+    async function crearIncidencia() {
       try {
 
         const error = validarIncidencia();
@@ -185,22 +205,50 @@
         // Si es válido habrá que crear, redirigir y mostrar una imagen.
         const operarioId = localStorage.getItem('operarioId');
         if (operarioId) {
-          // TODO : Crear (registrar en BD pasándole los valores de las casillas)...
-          //router.push(`/createIncidencia`);
 
-          console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
+          console.log({
+            titulo: tituloCrear.value,
+            descripcion: descripcionCrear.value,
+            gravedad: gravedadCrear.value,
+            categoria_id: categoriaCrear.value,
+            operario_id: operarioId,
+            maquina_id: maquinaCrear.value,
+          });
 
-          // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
-          mostrarCrear.value = true;
+          const response = await api.post('/createIncidencia', {
+            // Todos los valores que se le pasan son los de las casillas, menos el 'operario_id' que es el almacenado.
+            titulo: tituloCrear.value,
+            descripcion: descripcionCrear.value,
+            gravedad: gravedadCrear.value,
+            categoria_id: categoriaCrear.value,
+            operario_id: operarioId,
+            maquina_id: maquinaCrear.value,
+          });
 
-          // TODO : Corregir para que se vea.
-          // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
-          const overlay = document.getElementById('dOverlay');
-          overlay.style.display = 'flex';
-          // Ocultar la capa después de 3 segundos
-          setTimeout(() => {
-            overlay.style.display = 'none';
-          }, 3000);
+          // Si se ha creado la incidencia podrá continuar.
+          if (response.status === 200) {
+
+            console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
+
+            // TODO : REVISAR A PARTIR DE AQUÍ
+
+            // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
+            mostrarCrear.value = true;
+
+            // TODO : Corregir para que se vea.
+            // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
+            const overlay = document.getElementById('dOverlay');
+            overlay.style.display = 'flex';
+            // Ocultar la capa después de 3 segundos
+            setTimeout(() => {
+              overlay.style.display = 'none';
+            }, 3000);
+
+          }
+          else {
+            console.error("Error al crear la incidencia:", response.data.message);
+          }
+
         }
         else {
           console.error("La sesión se ha cerrado inesperadamente y no se ha podido realizar la operación. Inténtalo más tarde.");
@@ -247,12 +295,19 @@
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend y controlar los filtros.
     onMounted(async () => {
 
+      let incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS;
+
+      // Dependiendo de si el usuario logueado es técnico o no, mostrará todas o solo las creadas por él.
+      if (!tiene_tecnico){
+        incidenciasPersonalizadas = API_ROUTES.INCIDENCIAS_PROPIAS;
+      }
+
       // Cargar datos de la API
       await Promise.all([
         fetchDatos(API_ROUTES.CAMPUS, campus),
         fetchDatos(API_ROUTES.SECCIONES, secciones),
         fetchDatos(API_ROUTES.CATEGORIAS, categorias),
-        fetchDatos(API_ROUTES.INCIDENCIAS, incidencias),
+        fetchDatos(incidenciasPersonalizadas, incidencias),
         fetchDatos(API_ROUTES.MAQUINAS, maquinas),
       ]);
 
@@ -358,6 +413,7 @@
               <div class="col-md-3">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
                 <select id="filtroCategoria" name="filtroCategoria" class="form-select" v-model="filtroCategoria" @change="aplicarFiltros">
+                  <!-- TODO : TIENE QUE RELLENARSE CON LAS CATEGORÍAS DE LA SECCIÓN SELECCIONADA (Y SI NO HAY SECCIÓN SELECCIONADA QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una categoría --</option>
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}
@@ -380,7 +436,7 @@
 
             <div class="listaIncidencias">
               <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                <div v-if="tiene_tecnico || (!tiene_tecnico && incidencia.operario_id === operarioId)" class="incidencia mb-3">
+                <div class="incidencia mb-3">
                   <p class="mb-0">{{ incidencia.titulo }}</p>
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>
@@ -448,9 +504,9 @@
                   <label for="gravedadCrear" class="form-label">Gravedad</label>
                   <select name="gravedadCrear" class="form-select" v-model="gravedadCrear">
                     <option value="" disabled selected>-- Elige una gravedad --</option>
-                    <option value="no">No funciona</option>
-                    <option value="si">Sí funciona</option>
-                    <option value="aviso">Aviso</option>
+                    <option value="No funciona">No funciona</option>
+                    <option value="Sí funciona">Sí funciona</option>
+                    <option value="Aviso">Aviso</option>
                     <!--
                     No hay que poner la opción de "Mantenimiento preventivo" ya que solo se puede asignar
                     ese tipo de gravedad cuando un admin relaciona un mantenimiento con una máquina.

@@ -1,7 +1,8 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-    <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Change.org</title>

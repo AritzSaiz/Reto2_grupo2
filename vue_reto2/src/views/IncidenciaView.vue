@@ -10,7 +10,7 @@ const router = useRouter();
 //const route = useRoute();
 
 const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
-const operarioId = Number(localStorage.getItem('operarioId'));
+//const operarioId = Number(localStorage.getItem('operarioId'));
 const tecnicoId = Number(localStorage.getItem('tecnicoId'));
 
 const props = defineProps({
@@ -52,7 +52,7 @@ async function participar(){
     try {
       const data = {
         incidencia_id: props.id, // ID de la incidencia actual
-        tecnico_id: tecnicoId,  // ID del técnico (del localStorage)
+        tecnico_id: tecnicoId,  // ID del técnico (del localStorage; asignado en el login)
         entrada: new Date().toISOString(), // Fecha/hora actual
         detalles_trabajo: '',  // Si no hay detalles, que esté vacío
         justificacion_salida: null,  // Puede ser null si no es necesario
@@ -158,6 +158,7 @@ async function fetchDatosIncidencia() {
 }
 
 onMounted(() => {
+  console.log(props.id);
   fetchDatosIncidencia();
 
 });
@@ -173,6 +174,7 @@ onMounted(() => {
             <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
             <div class="mb-4 d-flex justify-content-between">
+              <!-- TODO : Poner el de Volver con un color más claro y el de Participar más destacado. -->
               <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
               <button v-if="tiene_tecnico && incidenciaAbierta && !participando" @click="participar" type="button" class="btn btn-warning mb-4">Participar</button>
               <button v-if="tiene_tecnico && participando" @click="dejarDeParticipar" type="button" class="btn btn-warning mb-4">Dejar de participar</button>
