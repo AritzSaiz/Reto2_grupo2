@@ -134,32 +134,26 @@ class OperarioController extends Controller
 
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
-        $operario = Operario::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'contrasena' => 'required|min:6'
+        ]);
 
 
-        if ($request->isMethod('get')) {
-            // Handle GET request (display the form)
-            return view('operario.edit', compact('operario'));
+        $operario = Operario::findOrFail($request->id);
 
-        } elseif ($request->isMethod('put')) {
-            // Handle PUT request (form submission)
-            $validator = Validator::make($request->all(), [
-                'contrasena' => 'required|min:6|confirmed',
-            ],[
-                'contrasena.min' => 'La contraseña debe tener al menos 6 caracteres.',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $operario->contrasena = Hash::make($request->input('contrasena'));
-            $operario->save();
+        $contrasena = Hash::make($request->input('contrasena'));
 
 
-            return redirect()->route('operario.show')->with('success', 'Contraseña actualizada exitosamente.');
-        }
+
+        $operario->updat([
+            'contrasena' => $contrasena,
+        ]);
+
+        return view('operario.show');
+
     }
 }
 
