@@ -74,7 +74,18 @@ a:active {
 }
 
 #navbarNav {
-  position: sticky;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 1000;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+#navbarNav ul li a {
+  margin-top: 2em;
+  color: #FFFFFF;
+  font-weight: bold;
 }
 
 #navbarNav ul li a:hover {

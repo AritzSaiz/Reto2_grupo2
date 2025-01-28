@@ -140,6 +140,26 @@ form {
   margin-top: 1.5em;
 }
 
+.estiloBadge {
+  background-color: #FFFFFF;
+  color: #28A745 !important;
+  font-size: 14px;
+  /* font-weight: normal; */
+}
+
+#dOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.iOverlay {
+  width: 20%;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -384,6 +404,24 @@ select[name=filtroEstado], select[name=filtroFecha], select[name=filtroCampus], 
 .status-medium {
   background-color: #AAB0B6;
   color: #0A3D62;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination span {
+  font-size: 16px;
+  margin: 0 10px;
 }
 
 /*# sourceMappingURL=main.css.map */

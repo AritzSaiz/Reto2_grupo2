@@ -12,7 +12,10 @@
         }
     });
 
+    const operarioId = localStorage.getItem('operarioId');
+
     const incidencias = ref([]);
+    const filtro = ref('1');
 
     const router = useRouter();
 
@@ -53,14 +56,9 @@
       }
     };
 
-    function detalle(){
-        router.push('/incidenciaResueltaView');
-    }
-
-    async function fetchIncidencias() {
+    async function detalle(incidenciaId) {
       try {
-        const response = await api.get('/incidencias');
-        incidencias.value = response.data.filter(incidencia => incidencia.abierta === 1);
+        router.push(`/incidencias/${incidenciaId}`);
       }
       catch (error) {
         console.error('Error al cargar las incidencias:', error);
@@ -68,27 +66,51 @@
       }
     }
 
+    async function fetchIncidencias() {
+      try {
+        const response = await api.get('/incidencias');
+        incidencias.value = response.data.filter(incidencia => incidencia.operario_id == operarioId);
+        filtrarIncidencias();
+      } catch (error) {
+        console.error('Error al cargar las incidencias:', error);
+        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+      }
+    }
+
+    function filtrarIncidencias() {
+        if (filtro.value === '1') {
+            // Mostrar todas las incidencias
+            return;
+        }
+        if (filtro.value === '2') {
+            // Mostrar solo abiertas
+            incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 1);
+        } else if (filtro.value === '3') {
+            // Mostrar solo cerradas
+            incidencias.value = incidencias.value.filter(incidencia => incidencia.abierta === 0);
+        }
+    }
+
     onMounted(() => {
       fetchIncidencias();
     });
-
 </script>
 
 <template>
     <Header />
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
-            <h1 class="titulo text-center mb-4">Incidencias en las que ha participado</h1>
+            <h1 class="titulo text-center mb-4">Tus incidencias</h1>
 
             <div class="mb-4">
                 <button @click="volver" type="button" class="btn btn-warning">Volver</button>
             </div>
 
             <div class="mb-4">
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroFecha" v-show="!mostrarCrear" class="form-select d-inline-block w-auto">
-                    <option value="1">Elegir orden</option>
-                    <option value="2">Más antiguas</option>
-                    <option value="3">Más recientes</option>
+                <select :class="{ active: !mostrarCrear }" v-model="filtro" @change="filtrarIncidencias" name="filtroFecha" class="form-select d-inline-block w-auto">
+                    <option value="1">Todas</option>
+                    <option value="2">Abiertas</option>
+                    <option value="3">Cerradas</option>
                 </select>
             </div>
 

@@ -33,6 +33,10 @@ Route::controller(OperarioController::class)->group(function() {
     Route::get('/createOperario', 'create')->name('operario.create');
     Route::post('/saveOperario', 'save')->name('operario.save');
     Route::delete('/deleteOperario/{id}', 'delete')->name('operario.delete');
+
+    Route::get('/detalleOperario/{id}', 'detalle')->name('operario.detalle');
+    Route::put('/editOperario', 'edit')->name('operario.edit');
+
 });
 
 Route::controller(TecnicoController::class)->group(function() {
