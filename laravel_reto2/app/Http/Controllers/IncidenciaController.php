@@ -101,31 +101,30 @@ class IncidenciaController extends Controller
 
     public function create(Request $request) {
 
-        $validator = Validator::make($request->all(), [
-            "titulo" => "required",
-            "descripcion" => "required",
-            "categoria_id" => "required",
-            "abierta" => "required",
-            "gravedad" => "required",
-            "operario_id" => "required",
-            "maquina_id" => "required",
+        // Validar los datos
+        $request->validate([
+            'titulo' => 'required|string|max:100',
+            'descripcion' => 'required|string|max:300',
+            'gravedad' => 'required|string|in:No funciona,Sí funciona,Aviso,Mantenimiento preventivo',
+            'categoria_id' => 'required|integer',
+            'operario_id' => 'required|integer',
+            'maquina_id' => 'required|integer',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 400);
-        }
-        else{
+        try {
+            // Crear la incidencia (no hace falta tratar errores antes ya que el method 'validate' detendría la ejecución).
+            $data = $request->only(['titulo', 'descripcion', 'gravedad', 'categoria_id', 'operario_id', 'maquina_id']);
+            $data['abierta'] = 1; // Agregar este campo manualmente
+            $incidencia = Incidencia::create($data);
 
-            $incidencia = Incidencia::create([
-                "titulo" => $request->get("titulo"),
-                "descripcion" => $request->get("descripcion"),
-                "abierta" => $request->get("abierta"),
-                "categoria_id" => $request->get("categoria_id"),
-                "gravedad" => $request->get("gravedad"),
-                "operario_id" => $request->get("operario_id"),
-                "maquina_id" => $request->get("maquina_id"),
-            ]);
-            return response()->json(['message' => '', 'data' => $incidencia], 200);
+            return response()->json([
+                'message' => 'Incidencia registrada correctamente',
+                'data' => $incidencia
+            ], 200);
         }
+        catch (\Exception $e) {
+            return response()->json(['message' => 'Error al registrar la incidencia', 'error' => $e->getMessage()], 500);
+        }
+
     }
 }

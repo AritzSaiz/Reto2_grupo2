@@ -193,7 +193,7 @@
       aplicarFiltros();
     }
 
-    function crearIncidencia() {
+    async function crearIncidencia() {
       try {
 
         const error = validarIncidencia();
@@ -205,22 +205,50 @@
         // Si es válido habrá que crear, redirigir y mostrar una imagen.
         const operarioId = localStorage.getItem('operarioId');
         if (operarioId) {
-          // TODO : Crear (registrar en BD pasándole los valores de las casillas)...
-          //router.push(`/createIncidencia`);
 
-          console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
+          console.log({
+            titulo: tituloCrear.value,
+            descripcion: descripcionCrear.value,
+            gravedad: gravedadCrear.value,
+            categoria_id: categoriaCrear.value,
+            operario_id: operarioId,
+            maquina_id: maquinaCrear.value,
+          });
 
-          // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
-          mostrarCrear.value = true;
+          const response = await api.post('/createIncidencia', {
+            // Todos los valores que se le pasan son los de las casillas, menos el 'operario_id' que es el almacenado.
+            titulo: tituloCrear.value,
+            descripcion: descripcionCrear.value,
+            gravedad: gravedadCrear.value,
+            categoria_id: categoriaCrear.value,
+            operario_id: operarioId,
+            maquina_id: maquinaCrear.value,
+          });
 
-          // TODO : Corregir para que se vea.
-          // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
-          const overlay = document.getElementById('dOverlay');
-          overlay.style.display = 'flex';
-          // Ocultar la capa después de 3 segundos
-          setTimeout(() => {
-            overlay.style.display = 'none';
-          }, 3000);
+          // Si se ha creado la incidencia podrá continuar.
+          if (response.status === 200) {
+
+            console.log("Intentando redirigir a la ruta:", `/operario/${operarioId}`);
+
+            // TODO : REVISAR A PARTIR DE AQUÍ
+
+            // Al estar en la misma ventana que el listado de incidencias, habría que "recargar" la página.
+            mostrarCrear.value = true;
+
+            // TODO : Corregir para que se vea.
+            // Mostrar temporalmente (durante 3 segundos) el icono de tick-correcto.
+            const overlay = document.getElementById('dOverlay');
+            overlay.style.display = 'flex';
+            // Ocultar la capa después de 3 segundos
+            setTimeout(() => {
+              overlay.style.display = 'none';
+            }, 3000);
+
+          }
+          else {
+            console.error("Error al crear la incidencia:", response.data.message);
+          }
+
         }
         else {
           console.error("La sesión se ha cerrado inesperadamente y no se ha podido realizar la operación. Inténtalo más tarde.");
@@ -385,6 +413,7 @@
               <div class="col-md-3">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
                 <select id="filtroCategoria" name="filtroCategoria" class="form-select" v-model="filtroCategoria" @change="aplicarFiltros">
+                  <!-- TODO : TIENE QUE RELLENARSE CON LAS CATEGORÍAS DE LA SECCIÓN SELECCIONADA (Y SI NO HAY SECCIÓN SELECCIONADA QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una categoría --</option>
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}
@@ -475,9 +504,9 @@
                   <label for="gravedadCrear" class="form-label">Gravedad</label>
                   <select name="gravedadCrear" class="form-select" v-model="gravedadCrear">
                     <option value="" disabled selected>-- Elige una gravedad --</option>
-                    <option value="no">No funciona</option>
-                    <option value="si">Sí funciona</option>
-                    <option value="aviso">Aviso</option>
+                    <option value="No funciona">No funciona</option>
+                    <option value="Sí funciona">Sí funciona</option>
+                    <option value="Aviso">Aviso</option>
                     <!--
                     No hay que poner la opción de "Mantenimiento preventivo" ya que solo se puede asignar
                     ese tipo de gravedad cuando un admin relaciona un mantenimiento con una máquina.
