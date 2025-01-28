@@ -34,7 +34,7 @@
             <!-- Formulario de Sección -->
             <div class="form-section" id="form-seccion">
                 <div class="row mb-3">
-                    <h1>Añadir seccion </h1>
+                    <h1 class="mt-5">Añadir seccion </h1>
 
 
                     <!-- Mostrar mensajes de éxito o error -->

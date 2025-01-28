@@ -12,7 +12,7 @@
                 <a href="{{route("maquina.show")}}">Maquinas</a>
                 <a href="{{route("seccion.show")}}">Secciones</a>
                 <a href="{{route("mantenimiento.show")}}">Mantenimientos preventivos</a>
-                <a href="{{route("campus.show")}}">Campus</a>
+                <a  href="{{route("campus.show")}}">Campus</a>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             <!-- Formulario de Campus -->
             <div class="form-section" id="form-maquina">
                 <div class="row mb-3">
-                    <h1>Añadir Campus </h1>
+                    <h1 class="mt-5">Añadir Campus </h1>
 
                     @if ($errors->any())
                         <div class="alert alert-danger">

@@ -21,7 +21,8 @@
             <!-- Formulario de Operario -->
             <div class="form-section" id="form-operario">
                 <div class="row mb-3">
-                    <h1>Editar Operario </h1>
+
+                    <h1 class="mt-5">Editar Operario </h1>
 
                     @if ($errors->any())
                         <div class="alert alert-danger">

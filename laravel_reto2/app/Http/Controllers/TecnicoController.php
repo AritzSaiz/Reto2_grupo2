@@ -34,7 +34,7 @@ class TecnicoController extends Controller
                         //'tecnico_nombre' => $tecnico->nombre,
                     ]);
 
-                    return redirect()->route('maquina.show')->with('success', 'Inicio de sesión exitoso');
+                    return redirect()->route('operario.show')->with('success', 'Inicio de sesión exitoso');
                 } else {
                     return back()->withErrors(['message' => 'Usuario o contraseña incorrectos.']);
                 }
