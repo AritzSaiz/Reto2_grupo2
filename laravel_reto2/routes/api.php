@@ -15,8 +15,6 @@ use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-// TODO : Agrupar por controlers como en ejs.
-
 /*
  * Definir rutas HTTP GET para obtener los datos de la ventana de incidencias desde
  * el controlador de Laravel y enviarlas al frontend en Vue.
@@ -43,9 +41,12 @@ Route::get('/incidenciasAbiertas', [IncidenciaController::class, 'incidenciasAbi
 // Crear incidencia
 Route::post('/createIncidencia',[IncidenciaController::class, 'create']);
 
+// Actualizar incidencia
+Route::put('/updateIncidencia/{id}',[IncidenciaController::class, 'update']);
+
 // Rutas del historial
 Route::post('/anadir',[HistorialController::class,'anadir']);
-Route::post('/actualizar', [HistorialController::class, 'actualizar']);
+Route::post('/historial/salida', [HistorialController::class, 'registrarSalida']);
 Route::post('/historial/entrada', [HistorialController::class, 'registrarEntrada']);
 
 // Rutas relacionadas con el login / tipo de usuario
@@ -60,7 +61,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/createMantenimientoMaquina', [MaquinaMantenimientoController::class, 'create']);
 */
 
-// TODO : Repasar lo de Auth / Middleware
 
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/operario', [OperarioController::class, 'index']);

@@ -62,7 +62,6 @@
     const categoriaCrear = ref("");
     const gravedadCrear = ref("");
 
-    // TODO : ¿Sería aquí? Si se aplican los filtros tiene que cambiar, y aquí parece que lo declara al principio...
     // Paginación
 
     const currentPage = ref(1);
@@ -277,8 +276,6 @@
               mostrarOverlay.value = false;
             }, 2000);
 
-            // TODO : ¿Al crear una incidencia (y darle al botón de Volver) aparecen las nuevas en el listado, o hay que actualizar / aplicarFiltros() de alguna manera?
-
           }
           else {
             console.error("Error al crear la incidencia:", response.data.message);
@@ -327,6 +324,20 @@
       }
     }
 
+    function recargarPagina(){
+      mostrarCrear.value = true;
+      // Recargar la página para mostrar todas las incidencias (las nuevas incluidas)
+      window.location.reload();
+    }
+
+    // Computed property para filtrar las secciones por el campus seleccionado
+    const filteredSecciones = computed(() => {
+      if (!filtroCampus.value) {
+        return secciones.value; // Si no hay campus, mostrar todas las secciones
+      }
+      return secciones.value.filter(seccion => seccion.campus_id === parseInt(filtroCampus.value, 10));
+    });
+
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend y controlar los filtros.
     onMounted(async () => {
 
@@ -373,7 +384,7 @@
           <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
           <div class="button-group mb-4 text-center">
-            <button :class="{ active: mostrarCrear }" @click="mostrarCrear = true" class="btn btn-warning me-2">Ver</button>
+            <button :class="{ active: mostrarCrear }" @click="recargarPagina" class="btn btn-warning me-2">Ver</button>
             <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" class="btn btn-warning">Crear</button>
           </div>
 
@@ -431,9 +442,9 @@
               <div class="col-md-3">
                 <label for="filtroSeccion" class="form-label text-dark">Sección</label>
                 <select id="filtroSeccion" name="filtroSeccion" class="form-select" v-model="filtroSeccion" @change="aplicarFiltros">
-                  <!-- TODO : TIENE QUE RELLENARSE CON LAS SECCIONES DEL CAMPUS SELECCIONADO (Y SI NO HAY CAMPUS SELECCIONADO QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
+                  <!-- Se rellenará con las secciones del campus seleccionado (y si no hay campus seleccionado aparecerán todas las secciones existentes/operativas) -->
                   <option value="" disabled selected>-- Elige una sección --</option>
-                  <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
+                  <option v-for="(secci, index) in filteredSecciones" :key="index" :value="secci.id">
                     {{ secci.codigo }}
                   </option>
                 </select>
@@ -441,7 +452,6 @@
               <div class="col-md-3">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
                 <select id="filtroCategoria" name="filtroCategoria" class="form-select" v-model="filtroCategoria" @change="aplicarFiltros">
-                  <!-- TODO : TIENE QUE RELLENARSE CON LAS CATEGORÍAS DE LA SECCIÓN SELECCIONADA (Y SI NO HAY SECCIÓN SELECCIONADA QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una categoría --</option>
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}

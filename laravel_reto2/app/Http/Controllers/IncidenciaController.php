@@ -124,4 +124,29 @@ class IncidenciaController extends Controller
         }
 
     }
+
+    public function update(Request $request, $id) {
+        $request->validate([
+            'abierta' => 'required|boolean',
+        ]);
+
+        try {
+            // Buscar la incidencia a actualizar
+            $incidencia = Incidencia::findOrFail($id);
+
+            // Actualizar la incidencia
+            $incidencia->update(['abierta' => $request->abierta]);
+
+            return response()->json([
+                'message' => 'Incidencia actualizada correctamente',
+                'data' => $incidencia
+            ], 200);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al actualizar la incidencia',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
