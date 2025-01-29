@@ -1,16 +1,9 @@
 <script setup>
     import Header from '@/components/Header.vue';
-    import { useRoute, useRouter } from 'vue-router';
+    import { useRouter } from 'vue-router';
     import {onMounted, ref, computed} from 'vue';
 
     import api from '@/plugins/axios';
-
-    const props = defineProps({
-        id: {
-            type: [String, Number],
-            required: true
-        }
-    });
 
     const incidencias = ref([]);
 
@@ -53,8 +46,14 @@
       }
     };
 
-    function detalle(){
-        router.push('/incidenciaResueltaView');
+    function detalle(incidenciaId) {
+      try {
+        router.push(`/incidenciaResueltaView/${incidenciaId}`);
+      }
+      catch (error) {
+        console.error('Error al cargar las incidencias:', error);
+        alert('Hubo un problema al cargar las incidencias. Inténtalo más tarde.');
+      }
     }
 
     async function fetchIncidencias() {
@@ -85,7 +84,7 @@
             </div>
 
             <div class="mb-4">
-                <select :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" name="filtroFecha" v-show="!mostrarCrear" class="form-select d-inline-block w-auto">
+                <select name="filtroFecha" class="form-select d-inline-block w-auto">
                     <option value="1">Elegir orden</option>
                     <option value="2">Más antiguas</option>
                     <option value="3">Más recientes</option>

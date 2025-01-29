@@ -143,5 +143,16 @@ class HistorialController extends Controller
         ], 201);
     }
 
+    public function detalle(Historial $historial){
+
+        if($historial){
+            return response()->json(['message' => '', 'data' =>$historial], 200);
+
+        }else{
+            return response()->json(['message' => 'Se ha producido un error'], 404);
+        }
+
+    }
+
 
 }

@@ -29,6 +29,9 @@ Route::get('/incidenciasPropias', [IncidenciaController::class, 'listPropias']);
 Route::get('/maquinas', [MaquinaController::class, 'list']);
 Route::get('/operarios', [OperarioController::class, 'list']);
 
+// Obtener los datos para el detalle de un historial
+Route::get('/historiales/{historial}', [HistorialController::class, 'detalle']);
+
 // Obtener los datos para el detalle de una incidencia
 Route::get('/incidencias/{incidencia}', [IncidenciaController::class, 'detalle']);
 
