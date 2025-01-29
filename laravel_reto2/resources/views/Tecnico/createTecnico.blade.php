@@ -21,7 +21,7 @@
             <!-- Formulario de Tecnico -->
             <div class="form-section" id="form-seccion">
                 <div class="row mb-3">
-                    <h1 class="mt-5">Añadir tecnico </h1>
+                    <h1 class="mt-5">Añadir técnico </h1>
                 </div>
                     <form action="{{route('tecnico.save')}}" method="post">
                         @csrf
@@ -47,7 +47,7 @@
                             <select id="operario_id" class="form-select" name="operario_id" required>
                                 <option value="">Seleccione un operario</option>
                                 @foreach ($operarios as $operario)
-                                    <option value="{{ $operario->id }}">{{ $operario->nombre }}</option>
+                                    <option value="{{ $operario->id }}">{{ $operario->email }}</option>
                                 @endforeach
                             </select>
                         </div>

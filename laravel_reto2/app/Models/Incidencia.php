@@ -18,19 +18,22 @@ class Incidencia extends Model
         "maquina_id",
     ];
 
-    // TODO : ¿Poner dos HasOne {de categorias e historiales}, un BelongsTo de operario...?
+    // Relación: Una incidencia pertenece a una categoría
     public function categoria(){
-        return $this->hasOne(Categoria::class);
+        return $this->belongsTo(Categoria::class);
     }
 
+    // Relación: Una incidencia tiene muchas filas en el historial
     public function historial(){
         return $this->hasMany(Historial::class);
     }
 
+    // Relación: Una incidencia pertenece a un operario
     public function operario(){
         return $this->belongsTo(Operario::class);
     }
 
+    // Relación: Una incidencia pertenece a una máquina
     public function maquina(){
         return $this->belongsTo(Maquina::class);
     }

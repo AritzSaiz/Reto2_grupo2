@@ -16,7 +16,7 @@ class Tecnico extends Model
     ];
 
     public function operario(){
-        return $this->belongsTo(Operario::class);
+        return $this->belongsTo(Operario::class, 'operario_id');
     }
 
     public function historial(){

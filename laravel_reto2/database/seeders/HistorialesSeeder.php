@@ -14,6 +14,8 @@ class HistorialesSeeder extends Seeder
     public function run(): void
     {
         DB::table('historiales')->insert([
+            // TODO : Acabar seeders
+
 
         ]);
     }

@@ -12,5 +12,8 @@ class Categoria extends Model
         'nombre',
     ];
 
-    // TODO : ¿Poner un BelongsToMany/HasMany de incidencias?
+    // Relación: Una categoría tiene muchas incidencias
+    public function incidencias(){
+        return $this->hasMany(Incidencia::class);
+    }
 }

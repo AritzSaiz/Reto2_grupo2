@@ -14,9 +14,11 @@ class TecnicosSeeder extends Seeder
     {
         DB::table('tecnicos')->insert([
             ['operario_id' => 1, 'especialidad' => 'Electricidad', 'admin' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['operario_id' => 2, 'especialidad' => 'Mecánica', 'admin' => false, 'created_at' => now(), 'updated_at' => now()],
+            ['operario_id' => 2, 'especialidad' => 'Mecánica', 'admin' => true, 'created_at' => now(), 'updated_at' => now()],
             ['operario_id' => 5, 'especialidad' => 'Electrónica', 'admin' => false, 'created_at' => now(), 'updated_at' => now()],
-        ]);
+            ['operario_id' => 6, 'especialidad' => 'Informática', 'admin' => false, 'created_at' => now(), 'updated_at' => now()],
+            ['operario_id' => 7, 'especialidad' => 'Mantenimiento', 'admin' => false, 'created_at' => now(), 'updated_at' => now()],
+            ]);
 
     }
 }

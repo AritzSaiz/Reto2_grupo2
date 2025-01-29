@@ -15,9 +15,20 @@ class Maquina extends Model
         'seccion_id',
     ];
 
-    public function seccion(){
-        return $this->belongsTo(Seccion::class);
+    // Relación: Una máquina tiene muchas incidencias
+    public function incidencias(){
+        return $this->hasMany(Incidencia::class);
     }
 
-    // TODO : ¿Poner un HasMany de incidencias, un BelongsTo de secciones...?
+    // Relación: Una máquina pertenece a una sección
+    public function seccion(){
+        return $this->belongsTo(Seccion::class, 'seccion_id');
+    }
+
+    // Relación: Una máquina puede estar asociada con muchos mantenimientos preventivos
+    public function mantenimientosPreventivos(){
+        return $this->belongsToMany(Mantenimiento::class, 'mantenimientos_maquinas')
+            ->withPivot('ultima_revision', 'siguiente_revision', 'incidencia_id')
+            ->withTimestamps();
+    }
 }

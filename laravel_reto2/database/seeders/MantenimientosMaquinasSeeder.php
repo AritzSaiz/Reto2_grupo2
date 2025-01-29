@@ -14,6 +14,8 @@ class MantenimientosMaquinasSeeder extends Seeder
     public function run(): void
     {
         DB::table('mantenimientos_maquinas')->insert([
+            // TODO : Acabar seeders
+
             [
                 'mantenimiento_id' => 1,
                 'maquina_id' => 1,
