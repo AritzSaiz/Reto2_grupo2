@@ -1,5 +1,5 @@
 <script setup>
-    import IniciarSesion from '@/components/IniciarSesion.vue';
+
     import {onMounted, ref} from 'vue';
     import { useRouter } from 'vue-router';
     import Header from '../components/Header.vue';
@@ -15,9 +15,9 @@
         }
     });
 
-    const descripcion = ref('')
-    const categoria = ref('')
-    const gravedad = ref('')
+    const descripcion = ref('');
+    const categoria = ref('');
+    const gravedad = ref('');
     const maquina = ref('');
     const fechaEntrada = ref('');
     const fechaSalida = ref('');
@@ -26,7 +26,7 @@
     function volver(){
         const operarioId = localStorage.getItem('operarioId');
         if (operarioId) {
-            router.push(`/operario/${operarioId}`);
+            router.push('/incidenciasResueltas');
         } else {
             console.error("No se encontró el ID del operario.");
         }
@@ -36,9 +36,21 @@
         try {
             const responseIncidencia = await api.get(`/incidencias/${props.id}`);
             console.log("responseIncidencia:", responseIncidencia);
+            const responseCategoria = await api.get('/categorias');
             const responseMaquina = await api.get('/maquinas');
+
+            let responseHistorial;
+
+            try{
+                responseHistorial = await api.get(`/historiales/${props.id}`);
+            } catch (error) {
+                console.warn("No se encontró historial para la incidencia.");
+                responseHistorial = null;
+            }
+    
             const responseTecnicos = await api.get(`/incidencias/${props.id}`);
             const dataIncidencia = responseIncidencia.data.data;
+            const dataHistorial = responseHistorial && responseHistorial.data.data ? responseHistorial.data.data : null;
 
             console.log("dataIncidencia:", dataIncidencia);
 
@@ -46,14 +58,23 @@
 
                 descripcion.value = dataIncidencia.descripcion;
                 gravedad.value = dataIncidencia.gravedad;
-                fechaEntrada.value = dataIncidencia.fechaEntrada;
-                fechaSalida.value = dataIncidencia.fechaSalida;
+
+                if (dataHistorial){
+                    fechaEntrada.value = dataHistorial.entrada;
+                    fechaSalida.value = dataHistorial.salida;
+                } else {
+                    fechaEntrada.value = 'No hay un historial disponible';
+                    fechaSalida.value = 'No hay un historial disponible';
+                }
+                
+                const categoriaData = responseCategoria.data.find(categoria => categoria.id === dataIncidencia.categoria_id);
+                categoria.value = categoriaData ? categoriaData.nombre : 'Código no encontrado';
 
                 const maquinaData = responseMaquina.data.find(maquina => maquina.id === dataIncidencia.maquina_id);
                 maquina.value = maquinaData ? maquinaData.codigo : 'Máquina no encontrada';
 
                 const tecnicosData = responseTecnicos.data.find(tecnico => tecnico.id === dataIncidencia.tecnico_id);
-                tecnico.value = tecnicosData ? tecnicosData.codigo : 'Tecnicos no encontrados';
+                listaTecnicos.value = tecnicosData ? tecnicosData.codigo : 'Tecnicos no encontrados';
             }
             else {
                 alert('No se encontró una incidencia con el ID especificado.');
@@ -66,7 +87,6 @@
     }
 
     onMounted(() => {
-        console.log(props.id);
         fetchDatosIncidencia();
     });
 </script>

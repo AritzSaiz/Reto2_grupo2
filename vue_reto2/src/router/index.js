@@ -54,9 +54,10 @@ const router = createRouter({
       }
     },
     {
-      path: '/incidenciaResueltaView',
+      path: '/incidenciaResueltaView/:id',
       name: 'Ventana detalles incidencias resueltas',
       component: () => import('../views/IncidenciaResueltaView.vue'),
+      props: true,
     },
     {
       path: '/incidenciasMias',

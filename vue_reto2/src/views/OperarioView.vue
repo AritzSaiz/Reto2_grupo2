@@ -366,11 +366,11 @@
 
     <Header />
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100 mt-10">
-        <div class="crear-form p-4 ">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="crear-form p-4 mt-5">
 
-          <h1 class="titulo text-center mb-4 " v-show="!mostrarCrear">Creación de incidencias</h1>
-          <h1 class="titulo text-center mb-4 " v-show="mostrarCrear">Lista de incidencias</h1>
+          <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
+          <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
 
           <div class="button-group mb-4 text-center">
             <button :class="{ active: mostrarCrear }" @click="mostrarCrear = true" class="btn btn-warning me-2">Ver</button>
@@ -431,6 +431,7 @@
               <div class="col-md-3">
                 <label for="filtroSeccion" class="form-label text-dark">Sección</label>
                 <select id="filtroSeccion" name="filtroSeccion" class="form-select" v-model="filtroSeccion" @change="aplicarFiltros">
+                  <!-- TODO : TIENE QUE RELLENARSE CON LAS SECCIONES DEL CAMPUS SELECCIONADO (Y SI NO HAY CAMPUS SELECCIONADO QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una sección --</option>
                   <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
                     {{ secci.codigo }}
@@ -440,6 +441,7 @@
               <div class="col-md-3">
                 <label for="filtroCategoria" class="form-label text-dark">Categoría de incidencia</label>
                 <select id="filtroCategoria" name="filtroCategoria" class="form-select" v-model="filtroCategoria" @change="aplicarFiltros">
+                  <!-- TODO : TIENE QUE RELLENARSE CON LAS CATEGORÍAS DE LA SECCIÓN SELECCIONADA (Y SI NO HAY SECCIÓN SELECCIONADA QUE SE QUEDE EN LA ÚNICA OPCIÓN DE DEFAULT DE "-- Elige...") -->
                   <option value="" disabled selected>-- Elige una categoría --</option>
                   <option v-for="(cate, index) in categorias" :key="index" :value="cate.id">
                     {{ cate.nombre }}
@@ -467,6 +469,17 @@
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>
               </div>
+
+              <!--
+              <div class="listaIncidencias">
+                <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
+                  <div class="incidencia mb-3">
+                    <p class="mb-0">{{ incidencia.titulo }}</p>
+                    <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
+                  </div>
+                </div>
+              </div>
+              -->
 
               <div class="pagination justify-content-center">
                 <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>

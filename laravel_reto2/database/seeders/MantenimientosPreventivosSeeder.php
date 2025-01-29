@@ -13,8 +13,6 @@ class MantenimientosPreventivosSeeder extends Seeder
     public function run(): void
     {
         DB::table('mantenimientos_preventivos')->insert([
-            // TODO : Acabar seeders
-
             [
                 'titulo' => 'Limpieza General',
                 'descripcion' => 'Limpieza rutinaria de la máquina',
