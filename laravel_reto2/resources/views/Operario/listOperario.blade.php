@@ -18,14 +18,16 @@
 
         <div class="col-8 mt-5 d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1>Lista de Operarios </h1>
-            <div class="btn-toolbar align-items-right mb-2 mb-md-0">
-                <a type="button" href="{{ route('operario.create') }}" class="btn btn-sm btn-outline-secondary">
+            <div class=" btn btn-toolbar align-items-right mb-2  gap-3">
+                <a type="button" href="{{ route('operario.create') }}" class=" bOperario btn  btn-outline-secondary text-center">
                     <span data-feather="plus-circle"></span>
                     Añadir
                 </a>
                 <!-- TODO : Reubicar y estilizar este botón. -->
                 <a href="{{ url('/exportar-datos') }}" class="btn btn-primary">Descargar el Excel de prueba</a>
+
             </div>
+
         </div>
 
 
@@ -43,13 +45,13 @@
             </div>
         </div>
     </div>
+
     @foreach ($operarios as $operario)
         <div class="incidents-list">
-            <div class="incident border-bottom border-dark rounded p-3 shadow-sm">
+            <div class="incident border-bottom border-dark rounded p-3 shadow-sm  justify-content-evenly">
                 <span>{{ $operario->nombre }}</span>
-                <span>{{ $operario->apellidos }}</span>
+                <span class="text-center">{{ $operario->apellidos }}</span>
                 <span>{{ $operario->email }}</span>
-
                 <form action="{{ route('operario.delete', $operario->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
@@ -60,4 +62,5 @@
             </div>
         </div>
     @endforeach
+
 @endsection

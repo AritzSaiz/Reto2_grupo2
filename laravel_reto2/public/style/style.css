@@ -130,6 +130,10 @@ option {
   background-color: #FF5733;
 }
 
+.bOperario {
+  padding-bottom: 0 !important;
+}
+
 form {
   display: flex;
   flex-direction: column;

@@ -34,7 +34,7 @@
 
 
                 </div>
-                <form action="{{ route('operario.edit', $operario->id) }}" method="post">
+                <form action="{{ route('operario.edit', $operario->id, $operario) }}" method="post">
                     @csrf
                     @method('PUT')
 
@@ -93,16 +93,7 @@
                             @enderror
                         </div>
                     </div>
-                    <!-- Contraseña confirmada -->
-                    <div class="mb-3 row">
-                        <label for="contrasena_confirmation" class="col-sm-3 col-form-label">Confirmar Contraseña:</label>
-                        <div class="col-sm-6">
-                            <input type="password" class="form-control @error('contrasena_confirmation') is-invalid @enderror" id="contrasena_confirmation" name="contrasena_confirmation" required>
-                            @error('contrasena_confirmation')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+
 
                     <!-- Botón enviar -->
                     <div class="row">
