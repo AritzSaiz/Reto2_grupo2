@@ -18,7 +18,6 @@
 
     const operarioId = localStorage.getItem('operarioId');
 
-    // TODO : Repasar esto (cambiar nombres del menú...)
     async function verificarTecnico() {
         try {
             if (localStorage.getItem('tiene_tecnico') === "true") {

@@ -14,10 +14,6 @@
     const tiene_tecnico = JSON.parse(localStorage.getItem('tiene_tecnico'));
     const operarioId = Number(localStorage.getItem('operarioId'));
 
-    // TODO
-    // Mejorar el manejo de errores con SweetAlert2 u otra cosa (es una biblioteca de notificaciones).
-    //import Swal from 'sweetalert2';
-
     // Variable que controla el contenido de la ventana (para listar incidencias o crear una)
     const mostrarCrear = ref(true);
 

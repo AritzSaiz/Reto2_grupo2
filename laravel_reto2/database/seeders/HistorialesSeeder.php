@@ -54,7 +54,6 @@ class HistorialesSeeder extends Seeder
                 'created_at' => Carbon::create('2025-01-22 12:40:00'),
                 'updated_at' => Carbon::create('2025-01-22 12:40:00'),
             ],
-            // TODO : Hacer de las demás incidencias (las que tengan "'abierta' => false" y de alguna que esté abierta también, ya que pueden haber entrado (1 o varios) y todavía no acabado)
         ]);
     }
 }

@@ -20,7 +20,6 @@ Route::controller(AdminController::class)->group(function() {
     Route::get('/index', 'index')->name('list.index');
 });
 
-// TODO : Poner que primero (después del login) salgan los operarios, y no las máquinas.
 Route::controller(MaquinaController::class)->group(function() {
     Route::get('/index', 'show')->name('maquina.show');
     Route::get('/createMaquina', 'create')->name('maquina.create');
