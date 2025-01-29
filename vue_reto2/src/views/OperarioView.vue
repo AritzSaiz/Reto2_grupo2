@@ -367,7 +367,7 @@
     <Header />
 
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="crear-form p-4">
+        <div class="crear-form p-4 mt-5">
 
           <h1 class="titulo text-center mb-4" v-show="!mostrarCrear">Creación de incidencias</h1>
           <h1 class="titulo text-center mb-4" v-show="mostrarCrear">Lista de incidencias</h1>
