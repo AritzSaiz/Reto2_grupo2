@@ -35,7 +35,7 @@ Route::controller(OperarioController::class)->group(function() {
     Route::delete('/deleteOperario/{id}', 'delete')->name('operario.delete');
 
     Route::get('/detalleOperario/{id}', 'detalle')->name('operario.detalle');
-    Route::put('/editOperario', 'edit')->name('operario.edit');
+    Route::put('/editOperario/{id}', 'edit')->name('operario.edit');
 
 });
 

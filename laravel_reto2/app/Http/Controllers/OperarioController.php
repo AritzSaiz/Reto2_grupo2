@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class OperarioController extends Controller
 {
+
     // Función para obtener todos los operarios.
     public function list()
     {
@@ -22,28 +23,17 @@ class OperarioController extends Controller
         $usuario = $request->input('usuario');
         $contrasena = $request->input('contrasena');
 
-        // Buscar al operario por usuario
         $operario = Operario::where('usuario', $usuario)->whereNull('deleted_at')->first();
 
-        // Verificar si el operario existe
-        if (!$operario) {
-            return response()->json([
-                'message' => 'Usuario o contraseña incorrectos.',
-            ], 401);
+        if (!$operario || !Hash::check($contrasena, $operario->contrasena)) {
+            return response()->json(['message' => 'Usuario o contraseña incorrectos.'], 401);
         }
 
-        // Verificar si la contraseña es válida (hay que mandar el mismo mensaje para no revelar que existe ese usuario)
-        if (!Hash::check($contrasena, $operario->contrasena)) {
-            return response()->json([
-                'message' => 'Usuario o contraseña incorrectos.',
-            ], 403);
-        }
 
-        // Buscar si tiene asociado un técnico
         $tecnico = Tecnico::where('operario_id', $operario->id)->whereNull('deleted_at')->first();
 
-        // Verificar si el operario es técnico o no
-        if($tecnico) {
+        if ($tecnico) {
+
             return response()->json([
                 'message' => 'Inicio de sesión exitoso del operario técnico.',
                 'operarioId' => $operario->id,
@@ -51,13 +41,12 @@ class OperarioController extends Controller
                 'data' => $operario
             ], 200);
         }
-        else {
-            return response()->json([
-                'message' => 'Inicio de sesión exitoso del operario corriente.',
-                'operarioId' => $operario->id,
-                'data' => $operario,
-            ], 200);
-        }
+
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso del operario corriente.',
+            'operarioId' => $operario->id,
+            'data' => $operario,
+        ], 200);
     }
 
     public function show()
@@ -113,21 +102,21 @@ class OperarioController extends Controller
         try {
             $operario = Operario::findOrFail($id);
 
-            $tecnico = Tecnico::where('operario_id', $id)
-                ->whereNull('deleted_at')
-                ->first();
+
+            $tecnico = Tecnico::where('operario_id', $id)->whereNull('deleted_at')->first();
 
             if ($tecnico == null) {
                 $operario->deleted_at = now();
                 $operario->save();
                 return redirect()->route('operario.show')->with('success', 'Operario eliminado correctamente.');
             } else {
-                return redirect()->route('operario.show')->with('error', 'El operario está relacionado con un técnico');
+                return redirect()->route('operario.show')->with('error', 'El operario está relacionado con un técnico.');
             }
         } catch (\Exception $e) {
             return redirect()->route('operario.show')->with('error', 'No se pudo eliminar el operario.');
         }
     }
+
 
     public function detalle($id)
     {
@@ -161,4 +150,3 @@ class OperarioController extends Controller
         return redirect()->route('operario.show')->with('success', 'Operario actualizado correctamente');
     }
 }
-
