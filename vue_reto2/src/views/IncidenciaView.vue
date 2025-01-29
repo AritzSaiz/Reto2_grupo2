@@ -32,6 +32,13 @@ const campus = ref('');
 // Variable que permite saber si la incidencia está abierta o no, para poder mostrar el botón para participar en ella.
 const incidenciaAbierta = ref('');
 
+// Variable para el textarea de detalles de trabajo
+const detallesTrabajo = ref('');
+// Variable para la justificación de salida (radio button)
+const justificacionSalida = ref('');
+// Variable para el texto en caso de "Otro"
+const otroJustificacion = ref('');
+
 function volver(){
   const operarioId = localStorage.getItem('operarioId');
   if (operarioId) {
@@ -44,56 +51,93 @@ function volver(){
 
 const participando = ref(false);
 
+// Mostrar/ocultar el modal de salida
+const mostrarSalidaModal = ref(false);
+
 async function participar(){
   console.log("Participar fue llamado");
 
   if (confirm("¿Quieres participar en esta incidencia?")) {
     try {
-      const data = {
-        incidencia_id: props.id, // ID de la incidencia actual
-        tecnico_id: tecnicoId,  // ID del técnico (del localStorage; asignado en el login)
-        entrada: new Date().toISOString(), // Fecha/hora actual
-        detalles_trabajo: '',  // Si no hay detalles, que esté vacío
-        justificacion_salida: null,  // Puede ser null si no es necesario
-        salida: null, // Si no se ha dado salida, también puede ser null
-      };
-
-      console.log(data);
-
-      const response = await api.post('/historial/entrada', {
-        headers: { 'datos': data }
+      console.log("Datos a enviar:", {
+        incidencia_id: props.id,
+        tecnico_id: tecnicoId,
+        entrada: new Date().toISOString(),
       });
 
-      console.log(response.data);
+      const response = await api.post('/historial/entrada', {
+        incidencia_id: props.id,
+        tecnico_id: tecnicoId,
+        entrada: new Date().toISOString(),
+      });
 
-      if (response.status === 201) {
-        alert("Has sido registrado como participante en la incidencia.");
+      if (response.status === 200) {
+        alert("Has sido registrado/a como participante en la incidencia.");
         participando.value = true;
-        // Aquí podrías actualizar la UI para reflejar la participación
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error("Error al registrar la participación:", error);
       alert("No se pudo registrar la participación. Inténtalo más tarde.");
     }
-    // TODO : Asignar (crear fila en historial)
-    /*
-    Se quedará en esta ventana (semi-bloqueada) con solo accesible el botón de
-    "Dejar de participar en esta incidencia" (que se habrá hecho visible).
-
-    Al clicarlo saldrá una confirmación y al darle que sí saldrá un pop-up con datos
-    a rellenar ("detalles_trabajo" {lo que ha hecho en ese tiempo} y
-    "justificacion_salida" {si se ha salido por haber solucionado completamente la
-    incidencia {para cerrarla o no}, por falta de material/herramientas, por acabar turno,
-    por cambiar de incidencia… u otro (a especificar en input)}) y al aceptar ahí se
-    recargará la página (para q deje de mostrarse el botón de "Participar") + crear fila en
-    historial, quizás cerrar incidencia...
-     */
   }
 }
 
 function dejarDeParticipar() {
   if (confirm("¿Quieres dejar de participar en esta incidencia?")) {
     participando.value = false;
+    // Saldrá el div obligatorio con los datos a rellenar
+    mostrarSalidaModal.value = true;
+  }
+}
+
+async function actualizarSalida() {
+  try{
+    const data = {
+      incidencia_id: props.id,
+      tecnico_id: tecnicoId,
+      // La entrada la asignará en la función del controlador (será la misma que la anterior; la de cuando aceptó participar por última vez).
+      salida: new Date().toISOString(),
+      detalles_trabajo: detallesTrabajo.value,
+      // Si es "Otro" se guarda el texto, si no el seleccionado
+      justificacion_salida: justificacionSalida.value === 'Otro' ? otroJustificacion.value : justificacionSalida.value,
+    };
+
+    console.log(data);
+
+    const response = await api.post('/historial/salida', data);
+    if (response.status === 200){
+      alert("Has actualizado la salida de la incidencia.");
+
+      // Validará el valor de 'justificacion_salida' y si es que ha solucionado la incidencia, actualizará la incidencia correspondiente de la BD para cerrarla.
+      if (data.justificacion_salida === 'Solucionado') {
+        try {
+          const updateResponse = await api.put(`/updateIncidencia/${props.id}`, {
+            abierta: false
+          });
+
+          if (updateResponse.status === 200) {
+            console.log("Incidencia cerrada correctamente.");
+          }
+          else {
+            console.error("Error al cerrar la incidencia:", updateResponse.data.message);
+          }
+        } catch (updateError) {
+          console.error("Error al actualizar el estado de la incidencia:", updateError);
+        }
+      }
+
+      participando.value = false;
+      mostrarSalidaModal.value = false;
+      fetchDatosIncidencia(); // Recargar la página
+    }
+    else {
+      console.error("Error al actualizar la salida:", response.data.message);
+    }
+
+  }
+  catch (error){
+    console.error("Error en la actualización de salida:", error);
   }
 }
 
@@ -169,68 +213,125 @@ onMounted(() => {
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="incidencia-form">
 
-            <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
+          <h1 class="fw-bold fs-1 mb-4">Detalles de la incidencia</h1>
 
-            <div class="mb-4 d-flex justify-content-between">
-              <!-- TODO : Poner el de Volver con un color más claro y el de Participar más destacado. -->
-              <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
-              <button v-if="tiene_tecnico && incidenciaAbierta && !participando" @click="participar" type="button" class="btn btn-warning mb-4">Participar</button>
-              <button v-if="tiene_tecnico && participando" @click="dejarDeParticipar" type="button" class="btn btn-warning mb-4">Dejar de participar</button>
-            </div>
-            
-            <form>
-                <div class="form-group mb-4">
-                  <div class="datos d-flex mb-4">
-                    <div class="col me-2">
-                      <label for="operario" class="form-label">Operario que reportó</label>
-                      <input id="operario" name="operario" readonly v-model="operario">
-                    </div>
+          <div class="mb-4 d-flex justify-content-between">
+            <button @click="volver" type="button" class="btn btn-warning mb-4">Volver</button>
+            <button v-if="tiene_tecnico && incidenciaAbierta && !participando" @click="participar" type="button" class="btn btn-warning mb-4">Participar</button>
+            <button v-if="tiene_tecnico && participando" @click="dejarDeParticipar" type="button" class="btn btn-warning mb-4">Dejar de participar</button>
+          </div>
 
-                    <div class="col me-2">
-                      <label for="fecha" class="form-label">Fecha de reporte</label>
-                      <input id="fecha" name="fecha" readonly v-model="fecha">
+          <!-- Modal de salida. Se podrá especificar la razón de haber elegido "Dejar de participar".  -->
+          <div class="modal" :class="{ 'd-block show': mostrarSalidaModal }"  tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detalles de salida</h5>
+                  <button type="button" class="close" @click="mostrarSalidaModal = false">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="detallesTrabajo" class="form-label">Detalles del trabajo</label>
+                    <textarea class="form-control" id="detallesTrabajo" v-model="detallesTrabajo" placeholder="Describe el trabajo realizado" rows="3"></textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label d-block">Justificación de salida</label>
+                    <div class="form-check" v-for="(justificacion, index) in ['Solucionado', 'Falta de material / herramientas', 'Acabar turno', 'Cambio de incidencia', 'Otro']" :key="index">
+                      <input type="radio" class="form-check-input" :id="'justificacion' + index" name="justificacion_salida" :value="justificacion" v-model="justificacionSalida">
+                      <label class="form-check-label" :for="'justificacion' + index">{{ justificacion }}</label>
+                      <div v-if="justificacion === 'Otro'" class="mt-2">
+                        <input type="text" class="form-control" placeholder="Escribe la justificación" v-model="otroJustificacion">
+                      </div>
                     </div>
                   </div>
-                    <div class="descripcion mb-4">
-                        <label for="titulo" class="form-label">Título</label>
-                        <textarea id="titulo" name="titulo" class="form-control" readonly v-model="titulo"></textarea>
-                    </div>
 
-                    <div class="descripcion">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control" readonly v-model="descripcion"></textarea>
-                    </div>
-
-                    <div class="datos d-flex">
-                        <div class="col me-2">
-                            <label for="categoria" class="form-label">Categoría</label>
-                            <input id="categoria" name="categoria" readonly v-model="categoria">
-                        </div>
-
-                        <div class="col me-2">
-                            <label for="gravedad" class="form-label">Gravedad</label>
-                            <input id="gravedad" name="gravedad" readonly v-model="gravedad">
-                        </div>
-                    </div>
-
-                    <div class="datos d-flex">
-                      <div class="col me-2">
-                        <label for="maquina" class="form-label">Máquina</label>
-                        <input id="maquina" name="maquina" readonly v-model="maquina">
-                      </div>
-
-                      <div class="col me-2">
-                        <label for="seccion" class="form-label">Sección</label>
-                        <input id="seccion" name="seccion" readonly v-model="seccion">
-                      </div>
-
-                      <div class="col me-2">
-                        <label for="campus" class="form-label">Campus</label>
-                        <input id="Campus" name="Campus" readonly v-model="campus">
-                      </div>
-                    </div>
                 </div>
-            </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="mostrarSalidaModal = false">Cancelar</button>
+                  <button type="button" class="btn btn-primary" @click="actualizarSalida">Guardar salida</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form>
+            <div class="form-group mb-4">
+              <div class="datos d-flex mb-4">
+                <div class="col me-2">
+                  <label for="operario" class="form-label">Operario que reportó</label>
+                  <input id="operario" name="operario" readonly v-model="operario">
+                </div>
+
+                <div class="col me-2">
+                  <label for="fecha" class="form-label">Fecha de reporte</label>
+                  <input id="fecha" name="fecha" readonly v-model="fecha">
+                </div>
+              </div>
+              <div class="descripcion mb-4">
+                <label for="titulo" class="form-label">Título</label>
+                <textarea id="titulo" name="titulo" class="form-control" readonly v-model="titulo"></textarea>
+              </div>
+
+              <div class="descripcion">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea id="descripcion" name="descripcion" class="form-control" readonly v-model="descripcion"></textarea>
+              </div>
+
+              <div class="datos d-flex">
+                <div class="col me-2">
+                  <label for="categoria" class="form-label">Categoría</label>
+                  <input id="categoria" name="categoria" readonly v-model="categoria">
+                </div>
+
+                <div class="col me-2">
+                  <label for="gravedad" class="form-label">Gravedad</label>
+                  <input id="gravedad" name="gravedad" readonly v-model="gravedad">
+                </div>
+              </div>
+
+              <div class="datos d-flex">
+                <div class="col me-2">
+                  <label for="maquina" class="form-label">Máquina</label>
+                  <input id="maquina" name="maquina" readonly v-model="maquina">
+                </div>
+
+                <div class="col me-2">
+                  <label for="seccion" class="form-label">Sección</label>
+                  <input id="seccion" name="seccion" readonly v-model="seccion">
+                </div>
+
+                <div class="col me-2">
+                  <label for="campus" class="form-label">Campus</label>
+                  <input id="Campus" name="Campus" readonly v-model="campus">
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
     </div>
 </template>
+
+<style scoped>
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal.d-block {
+  display: block;
+}
+.modal.show {
+  opacity: 1;
+}
+</style>
