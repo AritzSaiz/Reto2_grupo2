@@ -34,7 +34,7 @@
 
 
                 </div>
-                <form action="{{ route('operario.edit', $operario->id, $operario) }}" method="post">
+                <form action="{{ route('operario.edit', $operario->id) }}" method="post">
                     @csrf
                     @method('PUT')
 
