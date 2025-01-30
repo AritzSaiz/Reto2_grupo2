@@ -95,7 +95,60 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 
 ## Instalación y configuración
 
-*(falta por hacer)*
+Sigue los pasos detallados a continuación para configurar y ejecutar nuestra aplicación en tu entorno local:
+
+### 1. Clonar el Repositorio
+
+1. Abre una terminal y navega a la carpeta donde deseas clonar el repositorio.
+2. Crea una carpeta llamada `Reto` dentro de `htdocs`:
+  - `cd C:\xampp\htdocs`
+  - `mkdir Reto`
+  - `cd Reto`
+3. Clona el repositorio:
+  - `git clone https://github.com/AritzSaiz/Reto2_grupo2.git`
+
+### 2. Configurar Apache y MySQL con XAMPP
+
+1. Abre **XAMPP**.
+2. Inicia los servicios de **Apache** y **MySQL** desde el panel de control de XAMPP.
+
+### 3. Configurar Laravel y Vue
+
+#### Laravel
+1. Navega a la carpeta de Laravel (`laravel_reto2`) desde una consola:
+  - `cd laravel_reto2`
+2. Instala las dependencias necesarias:
+  - `composer install`
+3. Inicia el servidor de desarrollo:
+  - `php artisan serve`
+4. Si es necesario, copia el archivo de configuración `.env` y configúralo:
+  - `cp .env.example .env`
+  - Abre el archivo `.env` en un editor de texto y modifica los datos necesarios (como el número de puerto).
+
+#### Vue
+1. Navega a la carpeta de Vue (`vue_reto2`) desde otra consola:
+  - `cd vue_reto2`
+2. Instala las dependencias necesarias:
+  - `npm install`
+3. Inicia el servidor de desarrollo:
+  - `npm run dev`
+
+### 4. Configurar la Base de Datos
+
+1. En **PhpStorm**, crea una nueva **Data Source**:
+  - Ve a la parte superior derecha de la pestaña "Database".
+  - Configura la conexión con tu base de datos.
+
+2. Ejecuta las migraciones desde la carpeta de Laravel:
+  - `php artisan migrate`
+
+3. Si aparece un error de clave de cifrado en la ventana que se ha creado mediante el comando `php artisan serve` anterior, genera una nueva:
+  - `php artisan key:generate`
+
+4. Población de datos iniciales:
+  - `php artisan db:seed`
+
+Con esto, la aplicación estará lista para usarse. Si tienes algún problema, revisa las configuraciones o consulta la documentación adicional.
 
 ---
 
