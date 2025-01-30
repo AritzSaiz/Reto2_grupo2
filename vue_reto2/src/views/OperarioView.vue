@@ -199,12 +199,12 @@
       return secciones.value.filter(seccion => seccion.campus_id === parseInt(filtroCampus.value, 10));
     });
 
-    // Computed property para filtrar las secciones de la parte de crear incidencia por el campus seleccionado
+    // Filtrar las secciones de la parte de crear incidencia por el campus seleccionado
     const filteredSeccionesCrear = computed(() => {
-      if (!seccionCrear.value) {
+      if (!campusCrear.value) {
         return secciones.value; // Si no hay campus, mostrar todas las secciones
       }
-      return secciones.value.filter(seccion => seccion.campus_id === parseInt(seccionCrear.value, 10));
+      return secciones.value.filter(seccion => seccion.campus_id === parseInt(campusCrear.value, 10));
     });
 
     // Función que aplica todos los filtros seleccionados al array de incidencias.
