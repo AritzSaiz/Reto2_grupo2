@@ -10,6 +10,8 @@ class HistorialController extends Controller
 {
     public function registrarEntrada(Request $request)
     {
+        dump("registrarEntrada fue llamada");
+
         // Validar los datos
         $request->validate([
             'incidencia_id' => 'required|integer|exists:incidencias,id',
@@ -17,8 +19,9 @@ class HistorialController extends Controller
             'entrada' => 'required|date',
         ]);
 
+        dump("validate fue llamada");
+
         try {
-            // Crear la fila en el historial (no hace falta tratar errores antes ya que el method 'validate' detendría la ejecución).
             $data = $request->only(['incidencia_id', 'tecnico_id', 'entrada']);
             $historial = Historial::create($data);
 

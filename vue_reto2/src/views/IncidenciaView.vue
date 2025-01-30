@@ -62,18 +62,21 @@ async function participar(){
       console.log("Datos a enviar:", {
         incidencia_id: props.id,
         tecnico_id: tecnicoId,
-        entrada: new Date().toISOString(),
+        entrada: new Date().toISOString().slice(0, 19).replace("T", " "),
       });
 
       const response = await api.post('/historial/entrada', {
         incidencia_id: props.id,
         tecnico_id: tecnicoId,
-        entrada: new Date().toISOString(),
+        entrada: new Date().toISOString().slice(0, 19).replace("T", " "),
       });
 
       if (response.status === 200) {
         alert("Has sido registrado/a como participante en la incidencia.");
         participando.value = true;
+      }
+      else {
+        console.error("Error al registrarse como participante en la incidencia:", response.data.message);
       }
     }
     catch (error) {

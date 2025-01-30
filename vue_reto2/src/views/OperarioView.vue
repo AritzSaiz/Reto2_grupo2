@@ -30,11 +30,13 @@
     const campus = ref([]);
     const secciones = ref([]);
     const categorias = ref([]);
-    const incidencias = ref([]);
     const maquinas = ref([]);
 
-    // Copia de las incidencias originales. Hay que guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se modificará.
+    // Copia de las incidencias originales. Hay que guardar los datos originales de las incidencias para no perderlos al filtrar. Este array no se filtrará.
     const incidenciasOriginal = ref([]);
+
+    // Array que contiene el listado de las incidencias cada vez que se le aplican filtros
+    const incidenciasFiltradas = ref([]);
 
     // Constantes reutilizables con las rutas para obtener datos.
     const API_ROUTES = {
@@ -64,15 +66,15 @@
     const itemsPerPage = 4;
 
     const paginatedIncidencias = computed(() => {
-      if (incidencias.value.length === 0) return [];
+      if (incidenciasFiltradas.value.length === 0) return [];
       const start = (currentPage.value - 1) * itemsPerPage;
       const end = start + itemsPerPage;
-      return incidencias.value.slice(start, end);
+      return incidenciasFiltradas.value.slice(start, end);
     });
 
     const totalPages = computed(() => {
-      if (incidencias.value.length === 0) return 1;
-      return Math.ceil(incidencias.value.length / itemsPerPage);
+      if (incidenciasFiltradas.value.length === 0) return 1;
+      return Math.ceil(incidenciasFiltradas.value.length / itemsPerPage);
     });
 
     const previousPage = () => {
@@ -123,72 +125,98 @@
       }
     }
 
-    // Función que aplica todos los filtros seleccionados al array de incidencias.
-    function aplicarFiltros() {
+    // Funciones de filtro auxiliares.
 
-      // Empezar con todas las incidencias originales
-      let incidenciasFiltradas = [...incidenciasOriginal.value];
-
-      // Filtrar por estado
-      if (filtroEstado.value !== '1') {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          if (filtroEstado.value === '2') {
-            return incidencia.abierta; // Solo abiertas
-          } else if (filtroEstado.value === '3') {
-            return !incidencia.abierta; // Solo cerradas
-          }
-          return true;
-        });
+    // Filtrar por estado
+    const filterByEstado = (incidencias) => {
+      if (filtroEstado.value === '1') {
+        return incidencias; // Todas las incidencias.
       }
+      else if (filtroEstado.value === '2') {
+        return incidencias.filter(incidencia => incidencia.abierta); // Solo abiertas.
+      }
+      else {
+        return incidencias.filter(incidencia => !incidencia.abierta); // Solo cerradas.
+      }
+    };
 
-      // Filtrar por gravedad
-      incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-        return incidencia.gravedad === getGravedadById(filtroGravedad.value);
-      });
+    // Filtrar por gravedad
+    const filterByGravedad = (incidencias) => {
+      return incidencias.filter(incidencia => incidencia.gravedad === getGravedadById(filtroGravedad.value));
+    };
 
-      // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
-      incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
+    // Filtrar por prioridad (basada en el atributo de la máquina asociada a la incidencia)
+    const filterByPrioridad = (incidencias) => {
+      return incidencias.filter(incidencia => {
         const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
         return maquinaAsociada && maquinaAsociada.prioridad === filtroPrioridad.value;
       });
+    };
 
-      // Filtrar por fecha ("ORDER BY" ascendente o descendente, sin descartar elementos)
+    // Filtrar por fecha ("ORDER BY" ascendente o descendente, sin descartar elementos)
+    const sortByFecha = (incidencias) => {
       if (filtroFecha.value === '1') {
         // Más antiguas primero
-        incidenciasFiltradas.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)); // Ascendente
+        return [...incidencias].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
       }
       else {
         // Más recientes primero
-        incidenciasFiltradas.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Descendente
+        return [...incidencias].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       }
+    };
 
-      // Filtrar por campus (acceso mediante relaciones entre tablas)
-      if (filtroCampus.value) {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
-          const seccionAsociada = secciones.value.find(seccion => seccion.id === maquinaAsociada?.seccion_id);
-          return seccionAsociada?.campus_id === parseInt(filtroCampus.value, 10);
-        });
-      }
+    // Filtrar por campus (acceso mediante relaciones entre tablas)
+    const filterByCampus = (incidencias) => {
+      if (!filtroCampus.value) return incidencias;
 
-      // Filtrar por sección (a través de relaciones)
-      if (filtroSeccion.value) {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
-          return maquinaAsociada?.seccion_id === parseInt(filtroSeccion.value, 10);
-        });
-      }
+      return incidencias.filter(incidencia => {
+        const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+        const seccionAsociada = secciones.value.find(seccion => seccion.id === maquinaAsociada?.seccion_id);
+        return seccionAsociada?.campus_id === parseInt(filtroCampus.value, 10);
+      });
+    };
 
-      // Filtrar por categoría (basada en el atributo `categoria_id` de la incidencia)
-      if (filtroCategoria.value) {
-        incidenciasFiltradas = incidenciasFiltradas.filter(incidencia => {
-          return incidencia.categoria_id === parseInt(filtroCategoria.value, 10);
-        });
+    // Filtrar por sección (a través de relaciones)
+    const filterBySeccion = (incidencias) => {
+      if (!filtroSeccion.value) return incidencias;
+      return incidencias.filter(incidencia => {
+        const maquinaAsociada = maquinas.value.find(maquina => maquina.id === incidencia.maquina_id);
+        return maquinaAsociada?.seccion_id === parseInt(filtroSeccion.value, 10);
+      });
+    };
+
+    // Filtrar por categoría (basada en el atributo `categoria_id` de la incidencia)
+    const filterByCategoria = (incidencias) => {
+      if (!filtroCategoria.value) return incidencias;
+      return incidencias.filter(incidencia => incidencia.categoria_id === parseInt(filtroCategoria.value, 10));
+    };
+
+    // Computed property para filtrar las secciones por el campus seleccionado
+    const filteredSecciones = computed(() => {
+      if (!filtroCampus.value) {
+        return secciones.value; // Si no hay campus, mostrar todas las secciones
       }
+      return secciones.value.filter(seccion => seccion.campus_id === parseInt(filtroCampus.value, 10));
+    });
+
+    // Función que aplica todos los filtros seleccionados al array de incidencias.
+    function aplicarFiltros() {
+      // Empezar con todas las incidencias originales
+      let incidencias = [...incidenciasOriginal.value];
+
+      incidencias = filterByEstado(incidencias);
+      incidencias = filterByGravedad(incidencias);
+      incidencias = filterByPrioridad(incidencias);
+      incidencias = sortByFecha(incidencias);
+      incidencias = filterByCampus(incidencias);
+      incidencias = filterBySeccion(incidencias);
+      incidencias = filterByCategoria(incidencias);
 
       // Actualizar el array de incidencias con las incidencias filtradas
-      incidencias.value = incidenciasFiltradas;
+      incidenciasFiltradas.value = incidencias;
 
+      // Resetear la paginación al aplicar filtros.
+      currentPage.value = 1;
     }
 
     // Función para obtener la gravedad en base a su ID
@@ -215,7 +243,7 @@
 
       // Restaurar todas las incidencias desde la lista original.
       // El operador de propagación '...' crea una nueva lista (array) basada en "incidenciasOriginal.value" (lo rellena con los datos del original).
-      incidencias.value = [...incidenciasOriginal.value];
+      incidenciasFiltradas.value = [...incidenciasOriginal.value];
 
       // Aplicarlos ya que la opción por default puede que no sea la primera en la lista (como en "Estado" que está en "Pendiente" en vez de "Todas").
       aplicarFiltros();
@@ -326,14 +354,6 @@
       window.location.reload();
     }
 
-    // Computed property para filtrar las secciones por el campus seleccionado
-    const filteredSecciones = computed(() => {
-      if (!filtroCampus.value) {
-        return secciones.value; // Si no hay campus, mostrar todas las secciones
-      }
-      return secciones.value.filter(seccion => seccion.campus_id === parseInt(filtroCampus.value, 10));
-    });
-
     // Ciclo de vida: Al montar el componente, se ejecutan las funciones para cargar los datos desde el backend y controlar los filtros.
     onMounted(async () => {
 
@@ -349,12 +369,12 @@
         fetchDatos(API_ROUTES.CAMPUS, campus),
         fetchDatos(API_ROUTES.SECCIONES, secciones),
         fetchDatos(API_ROUTES.CATEGORIAS, categorias),
-        fetchDatos(incidenciasPersonalizadas, incidencias),
+        fetchDatos(incidenciasPersonalizadas, incidenciasOriginal),
         fetchDatos(API_ROUTES.MAQUINAS, maquinas),
       ]);
 
-      // Guardar una copia de las incidencias originales
-      incidenciasOriginal.value = [...incidencias.value];
+      // Inicializar `incidenciasFiltradas` con los valores de `incidenciasOriginal`
+      incidenciasFiltradas.value = [...incidenciasOriginal.value];
 
       // Aplicar los filtros iniciales
       aplicarFiltros();
@@ -463,9 +483,9 @@
             <!-- Acceder a las incidencias obtenidas para mostrar el número total y sus datos. -->
 
             <p class="cantIncidencias mb-0">
-              Se ha{{ (incidencias.length === 0 || incidencias.length > 1) ? 'n' : '' }} encontrado
-              <span class="badge estiloBadge">{{ incidencias.length }}</span>
-              incidencia{{ (incidencias.length === 0 || incidencias.length > 1) ? 's' : '' }} con los filtros especificados.
+              Se ha{{ (incidenciasFiltradas.length === 0 || incidenciasFiltradas.length > 1) ? 'n' : '' }} encontrado
+              <span class="badge estiloBadge">{{ incidenciasFiltradas.length }}</span>
+              incidencia{{ (incidenciasFiltradas.length === 0 || incidenciasFiltradas.length > 1) ? 's' : '' }} con los filtros especificados.
             </p>
 
             <div class="listaIncidencias">
@@ -475,17 +495,6 @@
                   <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
                 </div>
               </div>
-
-              <!--
-              <div class="listaIncidencias">
-                <div v-for="(incidencia, index) in incidencias" :key="index" class="mb-3">
-                  <div class="incidencia mb-3">
-                    <p class="mb-0">{{ incidencia.titulo }}</p>
-                    <button @click="detalle(incidencia.id)" type="button" class="btn btn-detalle">Detalle</button>
-                  </div>
-                </div>
-              </div>
-              -->
 
               <div class="pagination justify-content-center">
                 <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-prev">Anterior</button>

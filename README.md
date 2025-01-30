@@ -32,24 +32,64 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 
 ## Posibles innovaciones
 
-*(falta por poner lo de la descarga de un excel y la visualización esquemática del historial de una incidencia)*
+*(La primera implementación, a pesar de estar completamente desarrollada en código, no pudo ser ejecutada debido a la incompatibilidad de un paquete que, tras diversas investigaciones, no logramos instalar. En cuanto a la segunda propuesta, no se llegó a materializar en código, quedando únicamente en fase de conceptualización.)*
+
+- **Descarga de un archivo Excel con registros**: Implementación de la funcionalidad para la descarga de un archivo Excel que contenga los datos y registros de algunas tablas de la base de datos. Este archivo incluirá información consolidada obtenida a partir de consultas con múltiples `SELECT` de varias tablas, permitiendo así una visión más completa y detallada de los datos almacenados.
+- **Creación de una línea temporal por cada incidencia**: Desarrollo de una visualización esquemática o en formato de diagrama para representar el historial de una incidencia. Este diagrama mostrará la evolución de la incidencia a lo largo del tiempo, organizándola en distintas fases con los técnicos implicados, lo que facilitará su análisis y comprensión.
 
 ---
 
 ## Estructura del proyecto
 
-*(falta por hacer)*
+- 📂 **`laravel_reto2`**: Proyecto backend desarrollado con Laravel, encargado de gestionar la lógica del negocio, la base de datos y la API para la comunicación con el frontend.
+- 🎨 **`vue_reto2`**: Proyecto frontend desarrollado con Vue.js, encargado de la interfaz de usuario y la interacción con la API proporcionada por Laravel.
+
+/Reto2_grupo2
+
+│── laravel_reto2/        # Backend - API en Laravel  
+│   ├── app/              # Código fuente de Laravel (modelos, controladores, middleware, etc.)  
+│   ├── bootstrap/        # Configuración de arranque del framework  
+│   ├── config/           # Archivos de configuración del sistema  
+│   ├── database/         # Migraciones y seeders de la base de datos  
+│   ├── public/           # Archivos accesibles públicamente (index.php, imágenes, etc.)  
+│   ├── resources/        # Vistas, archivos de idioma y assets  
+│   ├── routes/           # Definición de rutas de la API y web  
+│   ├── storage/          # Archivos generados por Laravel (logs, caché, etc.)  
+│   ├── tests/            # Pruebas automatizadas  
+│   ├── .env              # Variables de entorno del proyecto  
+│   └── composer.json     # Dependencias del proyecto Laravel  
+│  
+│── vue_reto2/            # Frontend - Aplicación en Vue.js  
+│   ├── src/              # Código fuente de la aplicación Vue  
+│   │   ├── assets/       # Recursos estáticos como imágenes y estilos  
+│   │   ├── components/   # Componentes reutilizables de Vue  
+│   │   ├── router/       # Configuración de rutas de Vue  
+│   │   ├── store/        # Gestión del estado con Vuex o Pinia (si aplica)  
+│   │   ├── views/        # Vistas principales de la aplicación  
+│   │   ├── App.vue       # Componente raíz de la aplicación  
+│   │   └── main.js       # Punto de entrada de la aplicación Vue  
+│   ├── public/           # Archivos públicos (index.html, favicon, etc.)  
+│   ├── .env              # Variables de entorno para Vue  
+│   ├── package.json      # Dependencias del proyecto Vue  
+│   ├── vite.config.js    # Configuración de Vite (compilador)  
+│   └── README.md         # Documentación del proyecto frontend  
+│  
+└── README.md             # Documentación principal del repositorio
+
+### 📖 Documentación
+- 📌 `README.md` en la raíz del repositorio contiene la documentación general del proyecto.
+- 📌 Cada subproyecto (`laravel_reto2` y `vue_reto2`) tiene su propio `README.md` con detalles específicos para su instalación y configuración.
 
 ---
 
 ## Tecnologías utilizadas
 
 - 🌐 **Frontend**: Vue y Laravel, desarrollados con Visual Studio Code y PhpStorm.
-- ⚙️ **Backend**: Vue y Laravel, desarrollados con Visual Studio Code y PhpStorm.
+- ⚙️ **Backend**: Laravel, desarrollados con Visual Studio Code y PhpStorm.
 - 🗄️ **Base de datos**: MySQL
 - 🎨 **Estilo y diseño**: Bootstrap CSS
 - 🧪 **Pruebas**: LocalHost
-- 🚀 **Despliegue**: OpenNebula
+- 🚀 **Despliegue**: LocalHost (a falta de conocimientos para poder desplegar con OpenNebula)
 
 ---
 
@@ -62,9 +102,9 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 ## Uso
 
 - **Operarios**: Reportan incidencias a través de un formulario en la aplicación. Además, solo podrán ver las incidencias que ellos mismos han reportado.
-- **Docentes/Alumnado**: Mismos permisos básicos que todos los operarios; es decir, creación y visualización parcial de las incidencias.
+- **Docentes/Alumnado**: Mismos permisos básicos que todos los operarios; es decir, creación y visualización de las incidencias propias.
 - **Técnicos**: Mismos permisos básicos que todos los operarios, además, pueden visualizar todas las incidencias existentes y seleccionar aquellas que desean solucionar.
-- **Administrador**: Mismos permisos que los técnicos, además de poder gestionar usuarios, incidencias, máquinas, secciones y demás.
+- **Administrador**: Mismos permisos que los técnicos, además de poder gestionar usuarios, incidencias derivadas de mantenimientos, máquinas, secciones y demás.
 
 ---
 
