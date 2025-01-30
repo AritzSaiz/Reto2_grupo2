@@ -29,10 +29,10 @@
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="maquina_id" class="col-sm-3 col-form-label">Maquina:</label>
+                        <label for="maquina_id" class="col-sm-3 col-form-label">Máquina:</label>
                         <div class="col-sm-6">
                             <select id="maquina_id" class="form-select" name="maquina_id" required>
-                                <option value="">Seleccione una maqina</option>
+                                <option value="">Seleccione una máquina</option>
                                 @foreach ($maquinas as $maquina)
                                     <option value="{{ $maquina->id }}">{{ $maquina->codigo }}</option>
                                 @endforeach

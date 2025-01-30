@@ -40,9 +40,9 @@ class CampusController extends Controller{
                 'telefono' => 'required|max:255',
                 'email' => 'required|email',
             ],[
-                'codigo.size' => 'El codigo tiene que tener 2 digitos',
-                'codigo_postal.size' => 'El codigo postal tiene que tener 5 digitos',
-                'codigo_postal.regex' => 'El codigo postal tiene que tener 5 digitos',
+                'codigo.size' => 'El código tiene que tener 2 dígitos.',
+                'codigo_postal.size' => 'El código postal tiene que tener 5 dígitos numéricos.',
+                'codigo_postal.regex' => 'El código postal tiene que tener 5 dígitos.',
             ]);
 
             if ($validator->fails()) {

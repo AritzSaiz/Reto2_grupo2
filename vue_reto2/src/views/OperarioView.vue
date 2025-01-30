@@ -199,6 +199,14 @@
       return secciones.value.filter(seccion => seccion.campus_id === parseInt(filtroCampus.value, 10));
     });
 
+    // Computed property para filtrar las secciones de la parte de crear incidencia por el campus seleccionado
+    const filteredSeccionesCrear = computed(() => {
+      if (!seccionCrear.value) {
+        return secciones.value; // Si no hay campus, mostrar todas las secciones
+      }
+      return secciones.value.filter(seccion => seccion.campus_id === parseInt(seccionCrear.value, 10));
+    });
+
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
       // Empezar con todas las incidencias originales
@@ -537,7 +545,7 @@
                   <label for="seccionCrear" class="form-label">Sección</label>
                   <select name="seccionCrear" class="form-select" v-model="seccionCrear">
                     <option value="" disabled selected>-- Elige una sección --</option>
-                    <option v-for="(secci, index) in secciones" :key="index" :value="secci.id">
+                    <option v-for="(secci, index) in filteredSeccionesCrear" :key="index" :value="secci.id">
                       {{ secci.codigo }}
                     </option>
                   </select>

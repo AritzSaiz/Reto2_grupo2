@@ -86,7 +86,7 @@ class MaquinaController extends Controller{
                 return redirect()->route('maquina.show')->with('success', 'Maquina eliminada correctamente.');
 
             }else{
-                return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar la maquina borra la relacion.');
+                return redirect()->route('maquina.show')->with('error', 'No se pudo eliminar la maquina debido a mantenimientos asociados. Borra primero la relación.');
 
             }
 

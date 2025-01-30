@@ -103,7 +103,7 @@ class MantenimientoController extends Controller
                 return redirect()->route('mantenimiento.show')->with('success', 'Mantenimiento eliminado correctamente.');
 
             }else{
-                return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento borra la relacion.');
+                return redirect()->route('mantenimiento.show')->with('error', 'No se pudo eliminar el mantenimiento debido a máquinas asociadas. Borra primero la relación.');
 
             }
 

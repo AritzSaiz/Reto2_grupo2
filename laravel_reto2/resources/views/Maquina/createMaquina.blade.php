@@ -66,10 +66,10 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="seccion_id" class="col-sm-3 col-form-label">Seccion:</label>
+                        <label for="seccion_id" class="col-sm-3 col-form-label">Sección:</label>
                         <div class="col-sm-6">
                             <select id="seccion_id" class="form-select" name="seccion_id" required>
-                                <option value="">Seleccione una seccion</option>
+                                <option value="">Seleccione una sección</option>
                                 @foreach ($secciones as $seccion)
                                     <option value="{{ $seccion->id }}">{{ $seccion->nombre }}</option>
                                 @endforeach

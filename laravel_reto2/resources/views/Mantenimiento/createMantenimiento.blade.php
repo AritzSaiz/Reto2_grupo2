@@ -38,7 +38,7 @@
 
                     <!-- Dias -->
                     <div class="mb-3 row">
-                        <label for="dias" class="col-sm-3 col-form-label">Dias:</label>
+                        <label for="dias" class="col-sm-3 col-form-label">Días:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="dias" name="dias" required>
                         </div>
@@ -46,7 +46,7 @@
 
                     <!-- Primera revision -->
                     <div class="mb-3 row">
-                        <label for="primera_revision" class="col-sm-3 col-form-label">Primera Revisión:</label>
+                        <label for="primera_revision" class="col-sm-3 col-form-label">Primera revisión:</label>
                         <div class="col-sm-6">
                             <input type="datetime-local" class="form-control" id="primera_revision" name="primera_revision" required>
                         </div>
