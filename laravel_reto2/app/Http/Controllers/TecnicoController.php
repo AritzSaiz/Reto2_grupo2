@@ -74,7 +74,7 @@ class TecnicoController extends Controller
         $tecnico->operario_id = $validatedData['operario_id'];
         $tecnico->especialidad = $validatedData['especialidad'];
 
-        $tecnico->admin = ($validatedData['administrador'] === 'si'); // Convertir a booleano (1 para sí, 0 para no)
+        $tecnico->admin = ($validatedData['admin'] === '1');
 
         try {
             $tecnico->save();

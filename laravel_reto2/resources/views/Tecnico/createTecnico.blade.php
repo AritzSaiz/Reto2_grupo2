@@ -66,8 +66,8 @@
                             <label class="col-sm-3 col-form-label">Admin:</label>
 
                             <div class="col-sm-6">
-                                <input type="radio" name="admin" value="si" id="admin_si" {{ old('admin') == 'si' ? 'checked' : '' }}> Sí
-                                <input type="radio" name="admin" value="no" id="admin_no" {{ old('admin') == 'no' ? 'checked' : '' }} class="ms-5" checked> No
+                                <input type="radio" name="admin" value="1" id="admin_si" {{ old('admin') == '1' ? 'checked' : '' }}> Sí
+                                <input type="radio" name="admin" value="0" id="admin_no" {{ old('admin') == '0' ? 'checked' : '' }} class="ms-5" checked> No
                             </div>
                         </div>
 
