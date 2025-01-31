@@ -22,9 +22,9 @@ Este proyecto consiste en el desarrollo de una aplicación web para la gestión 
 - **Sistema de asignación manual**: Permite a los técnicos elegir las incidencias que desean resolver.
 - **Gestión del estado de las incidencias**: Las incidencias deben poder gestionarse en estados como "abiertas" y "resueltas".
 - **Registro del histórico de incidencias**: Cada incidencia debe contar con un historial detallado, que incluya:
-    - Fecha y hora de reporte.
-    - Listado de técnicos que participaron en la resolución de la incidencia.
-    - Tiempos asociados a cada etapa en la que ha participado cada técnico.
+  - Fecha y hora de reporte.
+  - Listado de técnicos que participaron en la resolución de la incidencia.
+  - Tiempos asociados a cada etapa en la que ha participado cada técnico.
 - **Creación y gestión de mantenimientos preventivos periódicos**: Posibilidad de programar y administrar mantenimientos preventivos de manera periódica.
 - **Panel de administración**: Herramienta centralizada para gestionar usuarios (operarios, técnicos y técnicos-administradores), incidencias, mantenimientos preventivos, máquinas, secciones, campus, entre otros.
 
@@ -101,11 +101,11 @@ Sigue los pasos detallados a continuación para configurar y ejecutar nuestra ap
 
 1. Abre una terminal y navega a la carpeta donde deseas clonar el repositorio.
 2. Crea una carpeta llamada `Reto` dentro de `htdocs`:
-  - `cd C:\xampp\htdocs`
-  - `mkdir Reto`
-  - `cd Reto`
+- `cd C:\xampp\htdocs`
+- `mkdir Reto`
+- `cd Reto`
 3. Clona el repositorio:
-  - `git clone https://github.com/AritzSaiz/Reto2_grupo2.git`
+- `git clone https://github.com/AritzSaiz/Reto2_grupo2.git`
 
 ### 2. Configurar Apache y MySQL con XAMPP
 
@@ -116,37 +116,40 @@ Sigue los pasos detallados a continuación para configurar y ejecutar nuestra ap
 
 #### Laravel
 1. Navega a la carpeta de Laravel (`laravel_reto2`) desde una consola:
-  - `cd laravel_reto2`
+- `cd laravel_reto2`
 2. Instala las dependencias necesarias:
-  - `composer install`
+- `composer install`
 3. Inicia el servidor de desarrollo:
-  - `php artisan serve`
+- `php artisan serve`
 4. Si es necesario, copia el archivo de configuración `.env` y configúralo:
-  - `cp .env.example .env`
-  - Abre el archivo `.env` en un editor de texto y modifica los datos necesarios (como el número de puerto).
+- `cp .env.example .env`
+- Abre el archivo `.env` en un editor de texto y modifica los datos necesarios (como el número de puerto).
 
 #### Vue
 1. Navega a la carpeta de Vue (`vue_reto2`) desde otra consola:
-  - `cd vue_reto2`
+- `cd vue_reto2`
 2. Instala las dependencias necesarias:
-  - `npm install`
+- `npm install`
 3. Inicia el servidor de desarrollo:
-  - `npm run dev`
+- `npm run dev`
 
 ### 4. Configurar la Base de Datos
 
 1. En **PhpStorm**, crea una nueva **Data Source**:
-  - Ve a la parte superior derecha de la pestaña "Database".
-  - Configura la conexión con tu base de datos.
+- Ve a la parte superior derecha de la pestaña "Database".
+- Configura la conexión con tu base de datos.
 
 2. Ejecuta las migraciones desde la carpeta de Laravel:
-  - `php artisan migrate`
+- `php artisan migrate`
 
 3. Si aparece un error de clave de cifrado en la ventana que se ha creado mediante el comando `php artisan serve` anterior, genera una nueva:
-  - `php artisan key:generate`
+- `php artisan key:generate`
 
-4. Población de datos iniciales:
-  - `php artisan db:seed`
+4. Si aparece un error de clave de implementación de JWT (secret) en la ventana que se ha creado mediante el comando `php artisan serve` anterior, hay que ejecutar:
+- `php artisan jwt:secret`
+
+5. Población de datos iniciales:
+- `php artisan db:seed`
 
 Con esto, la aplicación estará lista para usarse. Si tienes algún problema, revisa las configuraciones o consulta la documentación adicional.
 
