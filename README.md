@@ -145,7 +145,10 @@ Sigue los pasos detallados a continuación para configurar y ejecutar nuestra ap
 3. Si aparece un error de clave de cifrado en la ventana que se ha creado mediante el comando `php artisan serve` anterior, genera una nueva:
   - `php artisan key:generate`
 
-4. Población de datos iniciales:
+4. Si aparece un error de clave de implementación de JWT (secret) en la ventana que se ha creado mediante el comando `php artisan serve` anterior, hay que ejecutar:
+- `php artisan jwt:secret`
+
+5. Población de datos iniciales:
   - `php artisan db:seed`
 
 Con esto, la aplicación estará lista para usarse. Si tienes algún problema, revisa las configuraciones o consulta la documentación adicional.
