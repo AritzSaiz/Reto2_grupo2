@@ -117,7 +117,7 @@
                 </select>
             </div>
 
-            <form class="ver">
+            <div class="ver">
                 <p class="cantIncidencias mb-0">
                     Se ha{{ (incidencias.length === 0 || incidencias.length > 1) ? 'n' : '' }} encontrado
                     <span class="badge estiloBadge">{{ incidencias.length }}</span>
@@ -138,16 +138,7 @@
                         <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
                     </div>
                 </div>
-
-                <!--
-                <div class="listaIncidencias">
-                    <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
-                        <p class="mb-0">{{ incidencia.descripcion }}</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
-                    </div>
-                </div>
-                -->
-            </form>
+            </div>
         </div>
     </div>
 </template>

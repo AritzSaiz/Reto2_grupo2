@@ -1,37 +1,35 @@
 <script setup>
     import Header from '@/components/Header.vue';
     import { useRouter } from 'vue-router';
-    import {onMounted, ref, computed} from 'vue';
-
+    import {onMounted, ref, computed, watch} from 'vue';
     import api from '@/plugins/axios';
 
     const incidencias = ref([]);
 
     const router = useRouter();
 
-    function volver(){
-        const operarioId = localStorage.getItem('operarioId');
-        if (operarioId) {
-            router.push(`/operario/${operarioId}`);
-        } else {
-            console.error("No se encontró el ID del operario.");
-        }
-    }
+    const filtroFecha = ref('1');
+
+    const filteredIncidencias = computed(() => {
+      const sortedIncidencias = sortByFecha(incidencias.value);
+      return sortedIncidencias
+    });
 
     // Paginación
+
     const currentPage = ref(1);
     const itemsPerPage = 4;
 
     const paginatedIncidencias = computed(() => {
-      if (incidencias.value.length === 0) return [];
+      if (!filteredIncidencias.value || filteredIncidencias.value.length === 0) return [];
       const start = (currentPage.value - 1) * itemsPerPage;
       const end = start + itemsPerPage;
-      return incidencias.value.slice(start, end);
+      return filteredIncidencias.value.slice(start, end);
     });
 
     const totalPages = computed(() => {
-      if (incidencias.value.length === 0) return 1;
-      return Math.ceil(incidencias.value.length / itemsPerPage);
+      if (!filteredIncidencias.value || filteredIncidencias.value.length === 0) return 1;
+      return Math.ceil(filteredIncidencias.value.length / itemsPerPage);
     });
 
     const previousPage = () => {
@@ -45,6 +43,27 @@
         currentPage.value++;
       }
     };
+
+    // Filtrar por fecha
+    const sortByFecha = (incidencias) => {
+      if (filtroFecha.value === '2') {
+        // Más antiguas primero
+        return [...incidencias].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      }
+      else {
+        // Más recientes primero
+        return [...incidencias].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      }
+    };
+
+    function volver(){
+      const operarioId = localStorage.getItem('operarioId');
+      if (operarioId) {
+        router.push(`/operario/${operarioId}`);
+      } else {
+        console.error("No se encontró el ID del operario.");
+      }
+    }
 
     function detalle(incidenciaId) {
       try {
@@ -71,31 +90,34 @@
       fetchIncidencias();
     });
 
+    watch(filtroFecha, () => {
+      currentPage.value = 1
+    });
+
 </script>
 
 <template>
     <Header />
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="crear-form p-4">
-            <h1 class="titulo text-center mb-4">Incidencias resueltas</h1>
+            <h1 class="titulo text-center mb-4">Incidencias que he resuelto</h1>
 
             <div class="mb-4">
                 <button @click="volver" type="button" class="btn btn-warning">Volver</button>
             </div>
 
             <div class="mb-4">
-                <select name="filtroFecha" class="form-select d-inline-block w-auto">
-                    <option value="1">Elegir orden</option>
+                <select name="filtroFecha" class="form-select d-inline-block w-auto" v-model="filtroFecha">
+                    <option value="1">Más recientes</option>
                     <option value="2">Más antiguas</option>
-                    <option value="3">Más recientes</option>
                 </select>
             </div>
 
-            <form class="ver">
+            <div class="ver">
                 <p class="cantIncidencias mb-0">
-                    Se ha{{ (incidencias.length === 0 || incidencias.length > 1) ? 'n' : '' }} encontrado
-                    <span class="badge estiloBadge">{{ incidencias.length }}</span>
-                    incidencia{{ (incidencias.length === 0 || incidencias.length > 1) ? 's' : '' }} con los filtros especificados.
+                    Se ha{{ (filteredIncidencias.length === 0 || filteredIncidencias.length > 1) ? 'n' : '' }} encontrado
+                    <span class="badge estiloBadge">{{ filteredIncidencias.length }}</span>
+                    incidencia{{ (filteredIncidencias.length === 0 || filteredIncidencias.length > 1) ? 's' : '' }} con los filtros especificados.
                 </p>
 
                 <div class="listaIncidencias">
@@ -112,15 +134,7 @@
                         <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-next">Siguiente</button>
                     </div>
                 </div>
-                <!--
-                <div class="listaIncidencias">
-                    <div v-for="(incidencia, index) in incidencias" :key="index" class="incidencia mb-3">
-                        <p class="mb-0">{{ incidencia.descripcion }}</p>
-                        <button @click="detalle" type="button" class="btn btn-detalle btn-sm">Detalle</button>
-                    </div>
-                </div>
-                -->
-            </form>
+            </div>
         </div>
     </div>
 </template>

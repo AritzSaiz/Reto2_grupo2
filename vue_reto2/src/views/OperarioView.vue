@@ -412,7 +412,7 @@
             <button :class="{ active: !mostrarCrear }" @click="mostrarCrear = false" class="btn btn-warning">Crear</button>
           </div>
 
-          <form class="ver" v-show="mostrarCrear">
+          <div class="ver" v-show="mostrarCrear">
 
             <h2 class="mt-5">Filtros</h2>
 
@@ -511,7 +511,7 @@
               </div>
             </div>
 
-          </form>
+          </div>
 
           <form @submit.prevent="crearIncidencia" class="crear" v-show="!mostrarCrear">
             <!-- Icono de un tick que inicialmente estará invisible y solo aparecerá temporalmente al crear exitosamente una incidencia.-->
