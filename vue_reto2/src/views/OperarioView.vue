@@ -207,6 +207,14 @@
       return secciones.value.filter(seccion => seccion.campus_id === parseInt(campusCrear.value, 10));
     });
 
+    // Filtrar las máquinas de la parte de crear incidencia por la sección seleccionada
+    const filteredMaquinasCrear = computed(() => {
+      if (!seccionCrear.value) {
+        return maquinas.value; // Si no hay sección, mostrar todas las máquinas
+      }
+      return maquinas.value.filter(maquina => maquina.seccion_id === parseInt(seccionCrear.value, 10));
+    });
+
     // Función que aplica todos los filtros seleccionados al array de incidencias.
     function aplicarFiltros() {
       // Empezar con todas las incidencias originales
@@ -555,7 +563,7 @@
                   <label for="maquinaCrear" class="form-label">Máquina</label>
                   <select name="maquinaCrear" class="form-select" v-model="maquinaCrear">
                     <option value="" disabled selected>-- Elige una máquina --</option>
-                    <option v-for="(maqui, index) in maquinas" :key="index" :value="maqui.id">
+                    <option v-for="(maqui, index) in filteredMaquinasCrear" :key="index" :value="maqui.id">
                       {{ maqui.codigo }}
                     </option>
                   </select>
