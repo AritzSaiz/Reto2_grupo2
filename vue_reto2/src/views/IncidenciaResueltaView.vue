@@ -135,11 +135,6 @@
                             <input id="fechaSalida" name="fechaSalida" readonly v-model="fechaSalida">
                         </div>
                     </div>
-
-                    <div class="mt-4">
-                        <label for="tecnicos" class="form-label">Lista de técnicos que han participado en esta incidencia</label>
-                        <textarea id="tecnicos" name="tecnicos" class="form-control" readonly v-model="listaTecnicos"></textarea>
-                    </div>
                 </div>
             </form>
         </div>
